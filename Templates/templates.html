@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Create | ReSume - Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/templateSlider.js' %}"></script>
+    <style>
+        footer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="templates-page">
+
+        <article class="template-section">
+
+            <section class="template-slider">
+
+                <a class="template-previous disabled">&#10094;</a>
+
+                <div class="template-1 position0">
+                    <img src="{% static 'Assets/Images/temp_slider_01.jpg' %}">
+                </div>
+
+                <div class="template-2 position1">
+                    <img src="{% static 'Assets/Images/temp_slider_02.jpg' %}">
+                </div>
+
+                <div class="template-3 position2">
+                    <img src="{% static 'Assets/Images/temp_slider_03.jpg' %}">
+                </div>
+
+                <div class="template-4 positionright">
+                    <img src="{% static 'Assets/Images/temp_slider_04.jpg' %}">
+                </div>
+
+                <div class="template-5 positionright">
+                    <img src="{% static 'Assets/Images/temp_slider_05.jpg' %}">
+                </div>
+
+                <div class="template-6 positionright">
+                    <img src="{% static 'Assets/Images/temp_slider_06.jpg' %}">
+                </div>
+
+                <div class="template-7 positionright">
+                    <img src="{% static 'Assets/Images/temp_slider_07.jpg' %}">
+                </div>
+
+                <div class="template-8 positionright">
+                    <img src="{% static 'Assets/Images/temp_slider_08.jpg' %}">
+                </div>
+
+                <a class="template-next">&#10095;</a>
+
+            </section>
+
+            <form method="POST">
+                {% csrf_token %}
+                <input class="selected_template" name="selectedtemplate" type="text" value="" hidden="true">
+            </form>
+
+            <section class="template-toolbar">
+                <a class="edit-button" href="/resume-builder/career-objective">
+                    <img src="{% static 'Assets/Images/trash_edit.png' %}">
+                    <span>&ensp;Edit Resume</span>
+                </a>
+                <a class="download-button">
+                    <img src="{% static 'Assets/Images/download.png' %}">
+                    <span>&ensp;Save & Download</span>
+                </a>
+            </section>
+
+        </article>
+
+    </main>
+</body>
+
+</html>
+
+{% endblock %}

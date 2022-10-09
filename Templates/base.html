@@ -1,0 +1,218 @@
+{% load static %}
+
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<body>
+    <main>
+        <!-- Menu Bar -->
+        <header>
+
+            <div class="fixed-menubar">
+
+                <!-- Menu Bar Logo -->
+                <div class="menubar title-logo">
+
+                    <a href="/">
+                        <img src="{% static 'Assets/Images/logo.png' %}">
+                        <div class="menubar title">
+
+                            <h2>Re-Sume</h2>
+                            <p>Online Resume-Builder</p>
+
+                        </div>
+                    </a>
+
+                </div>
+
+                <!-- Menu Bar Options -->
+                <div class="menubar options">
+
+                    <h3><a href="/">Home</a></h3>
+                    <h3><a href="/about">About</a></h3>
+                    <h3><a href="/resume-builder/getting-started">Build</a></h3>
+                    <h3><a href="/contact">Contact</a></h3>
+
+                    {% if user.is_authenticated %}
+
+                    <h3><a class="logged">.</a></h3>
+                    <div class="logged-options hide">
+                        <a href="/logout">logout</a>
+                    </div>
+
+                    {% else %}
+
+                    <h3><a class="log">Sign Up</a></h3>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </header>
+
+        <!-- SignUp Menu -->
+        <section class="sign-up">
+            <div class="signup-popup">
+
+                <div class="form-container">
+
+                    <!-- close-button -->
+                    <a class="signup-close">&times;</a>
+
+                    <h2><span>CREATE</span> ACCOUNT</h2>
+                    <h5 class="error-message">#</h5>
+
+                    <form class="userAuthentication_form" method="POST" autocomplete="off">
+
+                        {% csrf_token %}
+
+                        <p>&ensp;User Name</p>
+                        <input class="user_name" type="text" name="username" placeholder="eg: SteveRogers">
+
+                        <p>&ensp;Email Id</p>
+                        <input class="email_id" type="email" name="email" placeholder="captain@mcu.com">
+
+                        <p>&ensp;Password</p>
+                        <input class="pass_word" type="password" name="password">
+
+                        <p>&ensp;Confirm-Password</p>
+                        <input class="pass_word2" type="password" name="password2">
+
+                        <div class="send-button">
+
+                            <input type="submit" class="email-confirm" value="Continue">
+
+                        </div>
+
+                        <div class="log-in">
+                            <p>Already a member? &ensp;<a>LogIn</a></p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LogIn Menu -->
+        <section class="login-menu">
+            <div class="login-popup">
+
+                <div class="form-container">
+
+                    <!-- <div> -->
+                    <a class="login-close">&times;</a>
+                    <!-- </div> -->
+
+                    <h2><span>Log In</span> ACCOUNT</h2>
+                    <h5 class="error-message">#</h5>
+
+                    <form class="userAuthentication_form" method="POST" autocomplete="off">
+
+                        {% csrf_token %}
+
+                        <p>&ensp;User Name</p>
+                        <input class="user_2name" type="text" name="user2name" placeholder="eg: FrankCastle">
+
+                        <p>&ensp;Password</p>
+                        <input class="pass_2word" type="password" name="pass2word">
+
+                        <div class="send-button">
+
+                            <input type="submit" class="email-confirm" value="Log In">
+
+                        </div>
+
+                        <div class="log-in">
+                            <p>Don't have an account? &ensp;<a>Sign Up</a></p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+        {% block content %}
+
+        {% endblock %}
+
+        <!-- Contant - Info -->
+        <footer>
+
+            <div class="bottom-info logo">
+
+                <a href="/">
+                    <figure>
+                        <img src="{% static 'Assets/Images/logo.png' %}">
+                    </figure>
+
+                    <div class="bottom-info title">
+
+                        <h2>Re-Sume</h2>
+                        <p>Online Resume-Builder</p>
+
+                    </div>
+                </a>
+
+            </div>
+
+            <h3 class="first-para">Contact Us</h3>
+
+            <!-- Contact - Info Images -->
+            <figure class="bottom-info images">
+
+                <figure>
+
+                    <img src="{% static 'Assets/Images/contact_01.png' %}">
+                    <p>Varanasi</p>
+                    <p>Uttar Pradhash,<br>India</p>
+
+                </figure>
+
+                <figure>
+
+                    <img src="{% static 'Assets/Images/contact_02.png' %}">
+                    <p>info@resume.com</p>
+                    <p>support@resume.com</p>
+
+                </figure>
+
+                <figure>
+
+                    <img src="{% static 'Assets/Images/contact_03.png' %}">
+                    <p>+919876543201</p>
+
+                </figure>
+
+            </figure>
+
+            <!-- Contact - SocialMedia Images -->
+            <figure class="bottom-info social-images">
+
+                <a href=""><img src="{% static 'Assets/Images/social_01.png' %}"></a>
+                <a href=""><img src="{% static 'Assets/Images/social_02.png' %}"></a>
+                <a href=""><img src="{% static 'Assets/Images/social_03.png' %}"></a>
+                <a href=""><img src="{% static 'Assets/Images/social_04.png' %}"></a>
+
+            </figure>
+
+            <!-- Contact - CopyRights -->
+            <div class="bottom-info copyrights">
+
+                <p>&copy; 2022 RES resume . All Rights Reserved</p>
+                <div class="links">
+
+                    <a href="/about">About Us</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="">Terms of Service</a>
+                    <a href="">Privacy</a>
+
+                </div>
+
+            </div>
+
+        </footer>
+    </main>
+</body>
+
+</html>

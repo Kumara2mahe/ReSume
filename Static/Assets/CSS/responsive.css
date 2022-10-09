@@ -1,0 +1,696 @@
+/* Stylesheet for Responsive Web Page
+--------------------------------------------*/
+
+@media screen and (max-width: 1024px) {
+
+    body {
+        font-size: 12px;
+    }
+
+    /* ----------- Header Styles ----------- */
+
+    header {
+        height: 70px;
+    }
+
+    .fixed-menubar {
+        height: 70px;
+    }
+
+    .floating-menubar {
+        animation: slide-in 0.8s both;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+
+    @keyframes slide-in {
+        0% {
+            transform: translateY(-70px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .menubar {
+        height: 70px;
+    }
+
+    .menubar.title-logo img {
+        width: 60px;
+        margin-left: 14px;
+    }
+
+    .menubar.title p {
+        margin-top: -18px;
+        color: #FFA500;
+        font-stretch: condensed;
+    }
+
+    .menubar.options {
+        padding-right: 20px;
+        border-left: 4px solid #FFA500;
+        border-top-left-radius: 300px;
+        border-bottom-left-radius: 30px;
+    }
+
+    .menubar.options h3 {
+        margin: 23px 13px;
+        height: 23px;
+    }
+
+    .menubar.options a {
+        padding: 15px;
+    }
+
+    .menubar.options .log {
+        border-radius: 13px;
+    }
+
+    .menubar.options .logged {
+        padding: 10px 15px;
+        border-radius: 90px;
+    }
+
+    /* ----------- Article Styles ----------- */
+
+    .content-slider {
+        height: 500px;
+    }
+
+    .slider-content {
+        height: 310px;
+        margin: 50px 35px;
+        padding: 35px;
+        border-radius: 28px;
+        border: 4px solid rgba(234, 234, 234, 0.2);
+    }
+
+    .slider-content h2 {
+        margin-top: 15px;
+        font-size: 35px;
+    }
+
+    .slider-content .first-para {
+        font-size: 20px;
+    }
+
+    .slider-content .second-para {
+        font-size: 12px;
+    }
+
+    .slider-content a {
+        font-size: 15px;
+        margin: 18px;
+        padding: 13px 23px;
+    }
+
+    .content-image .slider-buttons {
+        margin-top: -40px;
+        margin-bottom: 30px;
+    }
+
+    .content.middle-1 img,
+    .content.middle-2 img {
+        width: 560px;
+        height: 90px;
+    }
+
+    .content.middle-1 h2,
+    .content.middle-2 h2 {
+        font-size: 23px;
+    }
+
+    .content.middle-1 p,
+    .content.middle-2 p {
+        font-size: 12px;
+    }
+
+    .content.details-1,
+    .content.details-2 {
+        padding: 40px 60px;
+    }
+
+    .content.details-1 img,
+    .content.details-2 img {
+        width: 350px;
+        height: 160px;
+    }
+
+    .detailed-content-1,
+    .detailed-content-2 {
+        padding: 0 13px;
+        font-size: 13px;
+    }
+
+    .detailed-content-1 h2,
+    .detailed-content-2 h2 {
+        font-size: 20px;
+    }
+
+    .detailed-content-1 a,
+    .detailed-content-2 a {
+        font-size: 13px;
+        margin: 5px;
+        padding: 10px 18px;
+        border-radius: 10px;
+    }
+
+    .content.slider-2 {
+        margin: 0 100px;
+        margin-bottom: 30px;
+    }
+
+    .content.slider-2 .images img {
+        width: 10rem;
+        height: 210px;
+        margin: 0 10px;
+    }
+
+    .previous,
+    .next {
+        top: 55px;
+        padding: 35px 8px;
+        font-size: 15px;
+    }
+
+    .previous {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .slider-content-2 p {
+        font-size: 12px;
+        margin-top: 30px;
+    }
+
+    .slider-content-2 a {
+        font-size: 12px;
+        margin: 5px;
+        padding: 10px 18px;
+        border-radius: 10px;
+    }
+
+    .content.slider-3 {
+        margin: 50px 100px;
+    }
+
+    .content.slider-3 .images {
+        font-size: 14px;
+    }
+
+    .content.slider-3 .images img {
+        width: 65px;
+    }
+
+    .slider-content-3 {
+        margin-top: 30px;
+    }
+
+    .slider-content-3 p {
+        font-size: 12px;
+        margin-top: 0;
+    }
+
+    .bottom-info.logo {
+        margin-top: 8px;
+    }
+
+    .bottom-info.logo a {
+        width: 250px;
+    }
+
+    .bottom-info.logo img {
+        width: 55px;
+        margin: 0 10px;
+    }
+
+    .bottom-info.title {
+        margin-left: -10px;
+    }
+
+    .bottom-info.title h2 {
+        font-size: 15px;
+    }
+
+    .bottom-info.title p {
+        margin-top: -12px;
+        font-size: 10px;
+    }
+
+    footer .first-para {
+        font-size: 13px;
+    }
+
+    .bottom-info.images {
+        padding: 10px 180px;
+    }
+
+    .bottom-info.images figure {
+        font-size: 11px;
+    }
+
+    .bottom-info.images figure img {
+        width: 15px;
+    }
+
+    .bottom-info.images p:first-of-type {
+        margin-bottom: 3px;
+    }
+
+    .bottom-info.social-images {
+        padding: 13px;
+    }
+
+    .bottom-info.social-images img {
+        width: 25px;
+        border-radius: 10px;
+        margin: 0 10px;
+    }
+
+    .bottom-info.copyrights {
+        padding: 5px 20px;
+        font-size: 9px;
+    }
+
+    /* Responsive Styles for blur.css */
+
+    .signup-popup.active,
+    .login-popup.active {
+        width: 350px;
+        border-radius: 15px;
+    }
+
+    .signup-popup.active .form-container,
+    .login-popup.active .form-container {
+        padding: 1rem;
+        border-radius: 15px;
+        font-size: 11px;
+    }
+
+    .form-container .signup-close,
+    .form-container .login-close {
+        margin: -10px -55px 0 0;
+        font-size: 23px;
+        height: 12px;
+        border-radius: 20px;
+    }
+
+    .form-container h2 {
+        margin-top: 8px;
+    }
+
+    .form-container .error-message.show {
+        font-size: 11px;
+        border-radius: 13px;
+    }
+
+    .form-container p {
+        margin: 10px 3px;
+        font-size: 11px;
+    }
+
+    .form-container input {
+        width: 220px;
+        font-size: 10px;
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .send-button {
+        margin: 20px 0 10px;
+    }
+
+    .form-container .email-confirm {
+        width: 80px;
+        font-size: 11px;
+        padding: 6px 5px;
+        border-radius: 12px;
+    }
+
+    .form-container .log-in p {
+        margin: 10px 10px 0 0;
+    }
+
+    .form-container .log-in a {
+        font-size: 14px;
+    }
+
+    /* Responsive Styles for template.css */
+    .getting-started {
+        height: 700px;
+    }
+
+    .forms-navbar .navbar-names a {
+        font-size: 15px;
+        font-weight: 500;
+        padding: 7px 11px;
+    }
+
+    .forms-navbar .navbar-names img {
+        width: 18px;
+        height: 16px;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+
+    body {
+        font-size: 11px;
+    }
+
+    /* ----------- Header Styles ----------- */
+
+    header {
+        height: 60px;
+    }
+
+    .fixed-menubar {
+        height: 60px;
+    }
+
+    .floating-menubar {
+        animation: slide-in 0.8s both;
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+
+    @keyframes slide-in {
+        0% {
+            transform: translateY(-60px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .menubar {
+        height: 60px;
+    }
+
+    .menubar.title-logo img {
+        width: 54px;
+        margin-left: 10px;
+    }
+
+    .menubar.title p {
+        margin-top: -16px;
+        color: #FFA500;
+        font-stretch: condensed;
+    }
+
+    .menubar.options {
+        padding-right: 15px;
+        border-left: 3px solid #FFA500;
+        border-top-left-radius: 300px;
+        border-bottom-left-radius: 30px;
+    }
+
+    .menubar.options h3 {
+        margin: 20px 8px;
+        height: 20px;
+    }
+
+    .menubar.options a {
+        padding: 12px;
+    }
+
+    .menubar.options a:hover {
+        border-bottom: 1px solid #FFA500;
+    }
+
+    .menubar.options .log {
+        border-radius: 11px;
+    }
+
+    .menubar.options .logged {
+        padding: 8px 13px;
+        border-radius: 90px;
+    }
+
+    /* ----------- Article Styles ----------- */
+
+    .content-slider {
+        height: 400px;
+    }
+
+    .slider-content {
+        height: 250px;
+        margin: 40px 25px;
+        padding: 25px;
+        border-radius: 26px;
+        border: 3px solid rgba(234, 234, 234, 0.2);
+    }
+
+    .slider-content h2 {
+        margin-top: 10px;
+        font-size: 25px;
+    }
+
+    .slider-content .first-para {
+        font-size: 17px;
+    }
+
+    .slider-content .second-para {
+        font-size: 11px;
+    }
+
+    .slider-content a {
+        font-size: 13px;
+        margin: 14px;
+        padding: 10px 18px;
+    }
+
+    .content-image .slider-buttons {
+        margin-top: -40px;
+        margin-bottom: 30px;
+    }
+
+    .content.middle-1 img,
+    .content.middle-2 img {
+        width: 480px;
+        height: 80px;
+    }
+
+    .content.middle-1 h2,
+    .content.middle-2 h2 {
+        font-size: 19px;
+    }
+
+    .content.middle-1 p,
+    .content.middle-2 p {
+        font-size: 9px;
+    }
+
+    .content.details-1,
+    .content.details-2 {
+        padding: 25px 50px;
+    }
+
+    .content.details-1 img,
+    .content.details-2 img {
+        width: 280px;
+        height: 140px;
+    }
+
+    .detailed-content-1,
+    .detailed-content-2 {
+        padding: 0 10px;
+        font-size: 11px;
+    }
+
+    .detailed-content-1 h2,
+    .detailed-content-2 h2 {
+        font-size: 15px;
+    }
+
+    .detailed-content-1 a,
+    .detailed-content-2 a {
+        font-size: 10px;
+        margin: 4px;
+        padding: 9px 15px;
+        border-radius: 8px;
+    }
+
+    .content.slider-2 {
+        margin: 0 65px;
+        margin-bottom: 20px;
+    }
+
+    .content.slider-2 .images img {
+        width: 9rem;
+        height: 180px;
+        margin: 0 6px;
+    }
+
+    .previous,
+    .next {
+        top: 45px;
+        padding: 30px 7px;
+        font-size: 14px;
+    }
+
+    .previous {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .slider-content-2 p {
+        font-size: 9px;
+        margin-top: 25px;
+    }
+
+    .slider-content-2 a {
+        font-size: 10px;
+        margin: 4px;
+        padding: 8px 14px;
+        border-radius: 8px;
+    }
+
+    .content.slider-3 {
+        margin: 40px 80px;
+    }
+
+    .content.slider-3 .images {
+        font-size: 11px;
+    }
+
+    .content.slider-3 .images img {
+        width: 50px;
+    }
+
+    .slider-content-3 {
+        margin-top: 25px;
+    }
+
+    .slider-content-3 p {
+        font-size: 9px;
+    }
+
+    .bottom-info.logo {
+        margin-top: 7px;
+    }
+
+    .bottom-info.logo a {
+        width: 220px;
+    }
+
+    .bottom-info.logo img {
+        width: 48px;
+        margin: 0 9px;
+    }
+
+    .bottom-info.title {
+        margin-left: -9px;
+    }
+
+    .bottom-info.title h2 {
+        font-size: 13px;
+    }
+
+    .bottom-info.title p {
+        margin-top: -11px;
+        font-size: 9px;
+    }
+
+    footer .first-para {
+        font-size: 10px;
+    }
+
+    .bottom-info.images {
+        padding: 8px 120px;
+    }
+
+    .bottom-info.images figure {
+        font-size: 9px;
+    }
+
+    .bottom-info.images figure img {
+        width: 14px;
+    }
+
+    .bottom-info.images p:first-of-type {
+        margin-bottom: 2px;
+    }
+
+    .bottom-info.social-images {
+        padding: 11px;
+    }
+
+    .bottom-info.social-images img {
+        width: 22px;
+        border-radius: 9px;
+        margin: 0 9px;
+    }
+
+    .bottom-info.copyrights {
+        padding: 4px 13px;
+        font-size: 8px;
+    }
+
+    /* Responsive Styles for blur.css */
+
+    .signup-popup.active,
+    .login-popup.active {
+        width: 330px;
+        border-radius: 13px;
+    }
+
+    .signup-popup.active .form-container,
+    .login-popup.active .form-container {
+        padding: 1rem;
+        border-radius: 13px;
+        font-size: 10px;
+    }
+
+    .form-container .signup-close,
+    .form-container .login-close {
+        margin: -9px -53px 0 0;
+        font-size: 22px;
+        height: 12px;
+        border-radius: 19px;
+    }
+
+    .form-container h2 {
+        margin-top: 7px;
+    }
+
+    .form-container .error-message.show {
+        font-size: 10px;
+        border-radius: 12px;
+    }
+
+    .form-container p {
+        margin: 9px 2px;
+        font-size: 10px;
+    }
+
+    .form-container input {
+        width: 210px;
+        font-size: 9px;
+        padding: 7px;
+        border-radius: 7px;
+    }
+
+    .send-button {
+        margin: 15px 0 6px;
+    }
+
+    .form-container .email-confirm {
+        width: 60px;
+        font-size: 10px;
+        padding: 5px 4px;
+        border-radius: 11px;
+    }
+
+    .form-container .log-in p {
+        margin: 9px 9px 0 0;
+    }
+
+    .form-container .log-in a {
+        font-size: 13px;
+    }
+}

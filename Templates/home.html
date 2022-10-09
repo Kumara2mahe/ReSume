@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>ReSume - Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/script.js' %}"></script>
+</head>
+
+<body>
+    <main>
+
+        <!-- Page Main Contents -->
+        <article>
+
+            <!-- Top Image Slider -->
+            <section class="content-image">
+
+                <!-- Slider-Content -->
+                <div class="content-slider">
+
+                    <div class="slider-content">
+
+                        <h2><span>EASY</span> to CREATE</h2>
+                        <p class="first-para">CV and Professional RESUME <br>in minutes</p>
+                        <p class="second-para">Showcase Your Profile to the World using Online Resume-Builder and get
+                            hired faster</p>
+                        <a href="/resume-builder/getting-started">Create</a>
+
+                    </div>
+
+                </div>
+
+                <!-- Slider-Button -->
+                <div class="slider-buttons">
+                    <a class="button-1 highlight"></a>
+                    <a class="button-2"></a>
+                </div>
+
+            </section>
+
+            <!-- Middle Content-1 -->
+            <section class="content middle-1">
+
+                <img src="{% static 'Assets/Images/line_9.jpg' %}">
+                <h2><span>WE CAN</span> HELP YOUR CAREER GROW</h2>
+                <p class="first-para">Get your CV Resume in 3 simple steps</p>
+                <img src="{% static 'Assets/Images/line_6.jpg' %}">
+
+            </section>
+
+            <!-- Middle Content Details-1 -->
+            <section class="content details-1">
+
+                <img src="{% static 'Assets/Images/resume_01.png' %}">
+                <div class="detailed-content-1">
+
+                    <h2>EVERYTHING YOU NEED IN ONE SOLUTION</h2>
+                    <p class="first-para">Help Your Next CAREER Move More Smoother and More Efficient</p>
+                    <p class="second-para">To help give your recruiter a better sense of who you are, Re-Sume’s resume
+                        templates are completely customizable. Change the font, colors, layout and images with our easy,
+                        drag-and-drop tool. Created for the non-designer, Re-Sume’s resume creator is built to make
+                        designing your resume fast and easy.</p>
+                    <a href="/resume-builder/getting-started">Get Started</a>
+
+                </div>
+
+            </section>
+
+            <!-- Middle Content-2 -->
+            <section class="content middle-2">
+
+                <img src="{% static 'Assets/Images/line_9.jpg' %}">
+                <h2><span>CHOOSE A</span> PROFESSIONAL DESIGN</h2>
+                <p class="first-para">Resume Templates</p>
+                <img src="{% static 'Assets/Images/line_6.jpg' %}">
+
+            </section>
+
+            <!-- Middle Image Slider -->
+            <section class="content slider-2">
+
+                <figure class="slider-2 images">
+
+                    <a class="previous">&#10094;</a>
+                    <img src="{% static 'Assets/Images/temp_slider_03.jpg' %}">
+                    <img src="{% static 'Assets/Images/temp_slider_04.jpg' %}">
+                    <img src="{% static 'Assets/Images/temp_slider_05.jpg' %}">
+                    <img src="{% static 'Assets/Images/temp_slider_06.jpg' %}">
+                    <a class="next">&#10095;</a>
+
+                </figure>
+
+
+                <div class="slider-content-2">
+
+                    <p class="first-para">Whether you’re applying for a role as a creative director, an accountant or
+                        your first internship, Re-Sume’s free resume maker has taken the heavy-lifting out of resume
+                        design—so you can focus on getting hired. Simply choose from hundreds of designer-made
+                        templates, highlight your skills and previous experience, then send it to employers with
+                        confidence</p>
+                    <a href="/resume-builder/getting-started">See More..</a>
+
+                </div>
+
+            </section>
+
+            <!-- Middle Content Details-2 -->
+            <section class="content details-2">
+
+                <div class="detailed-content-2">
+
+                    <h2>CREATE PERSONALIZED RESUME</h2>
+                    <p class="first-para">Get Resume Templates For Speed Up Your Progress</p>
+                    <p class="second-para">Re-Sume’s resume builder allows you to make as many changes to your design as
+                        needed. You can tweak your experience for any job within minutes. Our resume maker also allows
+                        you to make copies of your original design and save as many versions as you need.</p>
+                    <a href="/resume-builder/getting-started">Get Started</a>
+
+                </div>
+
+                <figure>
+
+                    <img src="{% static 'Assets/Images/resume_02.png' %}">
+
+                </figure>
+
+            </section>
+
+            <!-- Middle Content-3 -->
+            <section class="content slider-3">
+
+                <!-- Middle Content-3 Images -->
+                <figure class="slider-3 images">
+
+                    <figure>
+
+                        <img src="{% static 'Assets/Images/resume_icon_01.png' %}">
+                        <figcaption>Responsive Templates</figcaption>
+
+                    </figure>
+
+                    <figure>
+
+                        <img src="{% static 'Assets/Images/resume_icon_02.png' %}">
+                        <figcaption>Designed for Professionals</figcaption>
+
+                    </figure>
+
+                    <figure>
+
+                        <img src="{% static 'Assets/Images/resume_icon_03.png' %}">
+                        <figcaption>Faster Interview Calls</figcaption>
+
+                    </figure>
+
+                </figure>
+
+                <!-- Middle Content-3 Text -->
+                <div class="slider-content-3">
+
+                    <p class="first-para">Need help building your resume? By analyzing thousands of winning resumes, we
+                        were able to build guides to help you build the perfect resume for the job you want.</p>
+
+                </div>
+
+            </section>
+
+        </article>
+
+    </main>
+</body>
+
+</html>
+
+{% endblock %}

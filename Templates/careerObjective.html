@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Create | ReSume - Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
+    <style>
+        footer {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="career-objective">
+
+        <article class="forms-navbar">
+
+            <section class="navbar-names">
+
+                <a class="first-link">
+                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
+                    <span>&ensp;Contact</span>
+                </a>
+
+                <a class="second-link">
+                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
+                    <span>&ensp;Experience</span>
+                </a>
+
+                <a class="third-link">
+                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
+                    <span>&ensp;Education</span>
+                </a>
+
+                <a class="fourth-link">
+                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
+                    <span>&ensp;Certifications</span>
+                </a>
+
+                <a class="fifth-link">
+                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
+                    <span>&ensp;Additional Skills</span>
+                </a>
+
+                <a class="sixth-link nav-bar-active {{link}}">
+                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
+                    <span>&ensp;Career Objective</span>
+                </a>
+
+            </section>
+
+            <section class="form-progress">
+
+                <div class="form-progress-title">
+                    <p>Progress</p>
+                </div>
+
+                <div class="form-progress-container">
+                    <div class="form-progress-bar"></div>
+                </div>
+
+                <div class="form-progress-percentage">0</div>
+
+            </section>
+
+        </article>
+
+        <article class="forms-content-section">
+
+            <section class="forms-entry">
+
+                <div class="selection">
+                    <h1>Would you like to add a Career <span class="mid-blue">Objective</span> section?</h1>
+
+                    <div class="is-objective">
+                        <a class="yes-button">Yes</a>
+                        <a class="no-button">No</a>
+                    </div>
+                </div>
+
+                <div class="selected">
+                    <h1>Career <span class="mid-blue">Objective</span></h1>
+
+                    <form class="career-objective-form" method="POST" autocomplete="off">
+
+                        {% csrf_token %}
+
+                        <div class="objective-section">
+
+                            <textarea class="career_objective" type="text" name="careerobjective"
+                                placeholder="Add your Career Objective">{{objectives}}</textarea>
+
+                        </div>
+
+                        <div class="career-objective-checkbox">
+
+                            <label><input class="want_career" type="checkbox" name="wantcareer" checked>I want to
+                                include
+                                a Career Objective on my
+                                resume</label>
+
+                        </div>
+
+                        <div class="career-objective-buttons">
+
+                            <input type="button" class="career-objective-back-button" value="Back">
+
+                            <input type="submit" class="career-objective-continue-button" value="Continue">
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+            <section class="forms-tips-preview">
+                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
+
+                <div class="tips-advice show">
+                    <h3>Tips & Advice</h3>
+
+                    <ul class="selection-tip">
+                        <li>Your Career Objective will be the first thing the hiring manager reads, after your name.
+                        </li>
+                        <li>This section, similar to a Qualifications Summary, tells the hiring manager, "Here's who I
+                            am, and here's what I can do for your company to help you achieve your goals."</li>
+                        <li>That's why we're going to help you display the broad professional skills your're capable
+                            ofperformng for their company..</li>
+
+                    </ul>
+                    <ul class="objective-tip hide">
+                        <li>To write a good resume objective, first think about how your personal background
+                            (experience, skills, education, and interests) makes you the best fit for the role. Why
+                            should the specific company hire you for that job opening? What makes you better than other
+                            applicants?</li>
+                        <li>The objective for your resume shouldn’t simply be about why you want the job either.
+                            Instead, your objective should align your skills, knowledge, and experience with the
+                            company’s goals.</li>
+                    </ul>
+                </div>
+
+            </section>
+
+        </article>
+
+    </main>
+</body>
+
+</html>
+
+{% endblock %}

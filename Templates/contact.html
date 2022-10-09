@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>Contact | ReSume - Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/script_contact.js' %}"></script>
+    <style>
+        .heading-wrapper {
+            margin: 50px 0;
+        }
+
+        .contact-box {
+            background: rgba(234, 234, 234, 0.6);
+            width: 600px;
+            margin: 30px auto;
+            padding: 10px;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .contact-box form {
+            background: rgba(0, 18, 25, 0.1);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .contact-box p {
+            text-align: left;
+            margin: 0;
+            font-size: larger;
+        }
+
+        .contact-box input,
+        .contact-box textarea {
+            width: 400px;
+            font-size: large;
+            background: white;
+            padding: 5px;
+            margin: 20px 10px 20px 10px;
+            border-radius: 12px;
+            border-style: none;
+            resize: none;
+        }
+
+        .contact-box input:focus,
+        .contact-box textarea:focus {
+            outline: none;
+        }
+
+        .contact-box .send-button {
+            text-align: right;
+            margin-top: 0;
+            margin-right: 40px;
+        }
+
+        .contact-box .email-confirm {
+            transition: 350ms;
+            width: 120px;
+            font-family: "Playball", cursive;
+            font-size: 18px;
+            padding: 6px 15px;
+            border-radius: 12px;
+            border: none;
+            background: #210124;
+            color: #F0F8FF;
+        }
+
+        .contact-box .email-confirm:hover {
+            transition: 350ms;
+            background: rgba(255, 22, 100, 0.8);
+        }
+
+        .contact-box .text {
+            padding: 20px;
+        }
+
+        .call-button.text1 {
+            margin-top: 30px;
+        }
+
+        .call-button.text2 {
+            font-size: 25px;
+            font-weight: normal;
+            margin-top: 15px;
+            padding-top: 20px;
+            text-align: right;
+        }
+
+        .call-button.text2 a {
+            text-decoration: none;
+            color: rgba(255, 22, 100, 0.5);
+        }
+
+        .call-button.text2 a:hover {
+            text-decoration: none;
+            color: rgba(255, 22, 100, 0.9);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <article class="contact-page">
+
+            <section class="content middle-2">
+
+                <div class="heading-wrapper">
+                    <h2>Contact <span>US</span></h2>
+                    <p class="first-para">- for any query or complaints</p>
+                </div>
+
+                <div class="contact-box">
+
+                    <form class="customer_complaint_form" method="POST" autocomplete="off">
+
+                        {% csrf_token %}
+                        <p>&ensp;Your Email Address</p>
+                        <input type="email" name="customer_email" class="customer_email"
+                            placeholder="something@example.com">
+
+                        <p>&ensp;How can we help?</p>
+                        <textarea name="customer_query" class="customer_query" rows="10" cols="30"
+                            placeholder="For any query contact us by filling this form."
+                            style="font-weight: bold;"></textarea><br>
+
+                        <div class="send-button">
+                            <input type="submit" class="email-confirm" value="Send">
+                        </div>
+
+                    </form>
+
+                    <div class="text">
+                        <p class="call-button text1">&ensp;For more Support :</p>
+                        <p class="call-button text2">&emsp;&emsp;Call Us on :&ensp;<a
+                                href="tel:987654321">9876543201</a>
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </article>
+
+    </main>
+</body>
+
+</html>
+
+{% endblock %}

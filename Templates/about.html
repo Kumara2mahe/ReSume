@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <title>About | ReSume - Builder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+</head>
+
+<body>
+    <main>
+
+        <article>
+            <section class="content middle-2">
+
+                <img src="{% static 'Assets/Images/line_9.jpg' %}">
+                <h2>About <span>US</span></h2>
+                <p class="first-para">We can help you build your resume with our awesome templates</p>
+                <img src="{% static 'Assets/Images/line_6.jpg' %}">
+
+            </section>
+
+            <!-- Middle Image Slider -->
+            <section class="content slider-2">
+
+                <div class="slider-content-2">
+
+                    <p>Re-Sume’s resume builder allows you to make as many changes to your design as needed. You can
+                        tweak your experience for any job within minutes. Our resume maker also allows you to make
+                        copies of your original design and save as many versions as you need.</p>
+
+                    <p class="first-para">Whether you’re applying for a role as a creative director, an accountant or
+                        your first internship, Re-Sume’s free resume maker has taken the heavy-lifting out of resume
+                        design—so you can focus on getting hired. Simply choose from hundreds of designer-made
+                        templates, highlight your skills and previous experience, then send it to employers with
+                        confidence.</p>
+
+                    <p>To help give your recruiter a better sense of who you are, Re-Sume’s resume templates are
+                        completely customizable. Change the font, colors, layout and images with our easy, drag-and-drop
+                        tool. Created for the non-designer, Re-Sume’s resume creator is built to make designing your
+                        resume fast and easy.</p>
+
+                    <a href="/resume-builder/getting-started" style="margin-top: 50px;margin-bottom:50px;">Let's
+                        Build</a>
+
+                </div>
+
+            </section>
+        </article>
+
+    </main>
+</body>
+
+</html>
+
+{% endblock %}

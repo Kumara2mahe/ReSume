@@ -1,0 +1,9 @@
+# Temporary & cache files
+temp/
+__pycache__/
+
+# Django Db
+db.sqlite3
+
+# Environments
+.env

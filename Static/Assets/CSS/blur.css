@@ -1,0 +1,172 @@
+/* Stylesheet for blurout the whole page */
+
+
+
+/* -------------------------------------------
+                Sign-Up Styles
+----------------------------------------------*/
+
+.sign-up {
+    display: none;
+}
+
+/* -------------------------------------------
+                Log-In Styles
+----------------------------------------------*/
+
+.login-menu {
+    display: none;
+}
+
+/* ------------ Positoning Sign-Up ------------ */
+
+.sign-up.active,
+.login-menu.active {
+    position: fixed;
+    inset: 0;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 120;
+    background: rgba(0, 18, 25, 0.6);
+}
+
+/* ------------ Sign-Up Window - Styles ------------ */
+
+.signup-popup.active,
+.login-popup.active {
+    position: absolute;
+    width: 500px;
+    background: url(../Images/signup_background.jpg) no-repeat top/cover;
+    text-align: center;
+    border-radius: 20px;
+}
+
+
+.signup-popup.active .form-container,
+.login-popup.active .form-container {
+    background: rgba(234, 234, 234, 0.4);
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+/* -- SignUp Window Close-Button - Styles -- */
+.form-container .signup-close,
+.form-container .login-close {
+    display: inline-flex;
+    float: right;
+    position: relative;
+    margin: -10px -60px 0 0;
+    background-color: rgba(0, 18, 25, 0.9);
+    color: #F0F8FF;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    height: 20px;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.form-container .signup-close:hover,
+.form-container .login-close:hover {
+    transition: 350ms;
+    background: rgba(234, 234, 234, 0.9);
+    color: brown;
+    cursor: pointer;
+}
+
+/* -- SignUp Window Contents - Styles -- */
+.form-container h2 {
+    margin-top: 15px;
+}
+
+.form-container h2 span {
+    color: #007BFF;
+}
+
+.form-container .error-message {
+    display: none;
+    width: auto;
+    position: fixed;
+}
+
+.form-container .error-message.show {
+    display: block;
+    right: 10px;
+    bottom: auto;
+    background: rgba(0, 18, 25, 1);
+    color: rgba(252, 25, 25, 0.8);
+    font-weight: 400;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: 0.8s;
+}
+
+.form-container p {
+    text-align: left;
+    font-weight: bold;
+    margin: 15px 5px;
+    font-size: 15px;
+}
+
+/* -- SignUp Window Input - Styles -- */
+
+.form-container input {
+    width: 300px;
+    font-family: "Consolas", monospace;
+    font-size: 13px;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    border-style: none;
+    resize: none;
+}
+
+
+.form-container input:focus {
+    outline: none;
+}
+
+
+.send-button {
+    margin: 40px 0 20px;
+}
+
+/* -- SignUp Window Button - Styles -- */
+
+.form-container .email-confirm {
+    transition: 350ms;
+    width: 120px;
+    font-family: "Playball", cursive;
+    font-size: 18px;
+    padding: 6px 15px;
+    border-radius: 12px;
+    border: none;
+    background: #210124;
+    color: #F0F8FF;
+}
+
+.form-container .email-confirm:hover {
+    transition: 350ms;
+    background: rgba(255, 22, 100, 0.8);
+}
+
+/* -- SignUp Window LogIn-link - Styles -- */
+.form-container .log-in p {
+    text-align: right;
+    font-weight: 400;
+    font-style: italic;
+    margin: 15px 20px 0 0;
+}
+
+.form-container .log-in a {
+    font-size: 17px;
+    font-weight: bolder;
+    font-style: normal;
+    text-decoration: underline;
+    color: #023E8A;
+    cursor: pointer;
+}

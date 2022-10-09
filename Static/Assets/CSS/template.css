@@ -1,0 +1,1029 @@
+/* Stylesheet for resume-builder and templates */
+
+.bottom-info.logo,
+.first-para,
+.bottom-info.images,
+.bottom-info.social-images {
+    display: none;
+}
+
+
+/*  Getting Started Page - Styles
+------------------------------------------------ */
+
+.getting-started {
+    height: 510px;
+    background: #EAEAEA;
+    margin: 10px 20px;
+}
+
+/* Heading -Styles */
+
+.getting-started .heading {
+    text-align: center;
+    font-size: 22px;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+}
+
+.getting-started .heading h1 {
+    margin-top: 0;
+    padding-top: 30px;
+}
+
+/* Content -Styles */
+
+.getting-started .content {
+    width: 850px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.getting-started .images {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.getting-started .images img {
+    width: 220px;
+    height: 230px;
+}
+
+.getting-started .image-captions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.getting-started .image-captions p {
+    width: 180px;
+    background: white;
+    text-align: left;
+    margin: 0;
+    padding: 20px 35px;
+    border-radius: 10px;
+    margin-top: -30px;
+}
+
+.getting-started .image-captions p span {
+    display: inline-flex;
+    float: right;
+    position: relative;
+    margin: -42px -35px 0 0;
+    background: #FFA500;
+    padding: 7px 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Button -Styles */
+.getting-started .continue-button.hide {
+    display: none;
+}
+
+.getting-started .continue-button {
+    text-align: center;
+}
+
+.getting-started .continue-button a {
+    transition: 400ms;
+    background: #320236;
+    color: #F0F8FF;
+    font-size: 18px;
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+.getting-started .continue-button a:hover {
+    transition: 500ms;
+    background: rgba(255, 22, 100, 0.8);
+    cursor: pointer;
+}
+
+/* Progress Bar -Styles */
+
+.getting-started .progress-bar.run {
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.getting-started .bar-container.run {
+    width: 100%;
+    background: #EAEAEA;
+    border: 1px solid #FFA500;
+    border-radius: 20px;
+}
+
+.getting-started .bar.run {
+    width: 4%;
+    height: 15px;
+    background-color: #FFA500;
+    border-radius: 80px;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+}
+
+/*  Personal Details Page - Styles
+------------------------------------------------ */
+.personal-details,
+.years-of-experience,
+.higher-education,
+.license-certifications,
+.additional-skills,
+.career-objective {
+    height: 510px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 5px 0;
+}
+
+.fixed-menubar {
+    animation: none;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+/* ============= Side NavBar -Styles ============= */
+
+.forms-navbar .navbar-names {
+    position: sticky;
+    top: 100px;
+    margin: 10px 20px;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("../Fonts/Poppins/Poppins-Medium.ttf") format("truetype");
+}
+
+.forms-navbar .navbar-names a {
+    display: block;
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 25px;
+    color: #918C89;
+    cursor: not-allowed;
+}
+
+.forms-navbar .navbar-names .nav-bar-activated {
+    color: black;
+    cursor: pointer;
+}
+
+.forms-navbar .navbar-names .nav-bar-active {
+    background: #FFA500;
+    cursor: not-allowed;
+}
+
+.forms-navbar .navbar-names img {
+    width: 20px;
+    height: 18px;
+}
+
+/* ============= Side NavBar Progress -Styles ============= */
+
+.forms-navbar .form-progress {
+    position: sticky;
+    top: 500px;
+    width: 200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.forms-navbar .form-progress-title {
+    text-align: left;
+    color: #464342;
+}
+
+.forms-navbar .form-progress-container {
+    width: 85%;
+    background: #EAEAEA;
+    border: 1px solid #FFA500;
+    border-radius: 20px;
+}
+
+.forms-navbar .form-progress-bar {
+    height: 10px;
+    background-color: #FFA500;
+    border-radius: 80px;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+}
+
+.forms-navbar .form-progress-percentage {
+    position: relative;
+    margin: -18px -200px 0 0;
+}
+
+/* ============= Form -Styles ============= */
+
+.forms-content-section {
+    background: rgba(234, 234, 234, 0.5);
+    display: grid;
+    grid-template-columns: 6fr 1.5fr;
+}
+
+.forms-content-section .forms-entry {
+    text-align: center;
+    /* padding: 30px; */
+    margin: 30px;
+}
+
+.forms-content-section .forms-entry .mid-blue {
+    color: #007BFF;
+}
+
+.forms-content-section .forms-entry h1 {
+    font-size: 40px;
+    margin: 0;
+    margin-bottom: 25px;
+}
+
+/* ------------ Personal Details Form -Styles ------------ */
+
+.forms-content-section .forms-entry .personal-details-form {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1.5fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 540px;
+}
+
+.forms-content-section .forms-entry .personal-details-form input,
+.forms-content-section .forms-entry .personal-details-form textarea,
+.forms-content-section .forms-entry .years-of-experience-form input,
+.forms-content-section .forms-entry .years-of-experience-form textarea,
+.forms-content-section .forms-entry .higher-education-highschool-form input,
+.forms-content-section .forms-entry .higher-education-highschool-form textarea,
+.forms-content-section .forms-entry .higher-education-college-form input,
+.forms-content-section .forms-entry .higher-education-college-form textarea,
+.forms-content-section .forms-entry .license-certifications-form input,
+.forms-content-section .forms-entry .additional-skills-form input,
+.forms-content-section .forms-entry .career-objective-form textarea,
+.forms-content-section .forms-entry .career-objective-form input {
+    width: 300px;
+    font-family: "Inconsolata", monospace;
+    font-size: 18px;
+    font-weight: 300;
+    background: white;
+    border-color: rgb(227, 227, 227);
+    padding: 10px;
+    border-style: solid;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+}
+
+.forms-content-section .forms-entry .personal-details-form input:focus,
+.forms-content-section .forms-entry .personal-details-form select:focus,
+.forms-content-section .forms-entry .personal-details-form textarea:focus,
+.forms-content-section .forms-entry .years-of-experience-form input:focus,
+.forms-content-section .forms-entry .years-of-experience-form select:focus,
+.forms-content-section .forms-entry .years-of-experience-form textarea:focus,
+.forms-content-section .forms-entry .higher-education-highschool-form input:focus,
+.forms-content-section .forms-entry .higher-education-highschool-form select:focus,
+.forms-content-section .forms-entry .higher-education-highschool-form textarea:focus,
+.forms-content-section .forms-entry .higher-education-college-form input:focus,
+.forms-content-section .forms-entry .higher-education-college-form select:focus,
+.forms-content-section .forms-entry .higher-education-college-form textarea:focus,
+.forms-content-section .forms-entry .license-certifications-form input:focus,
+.forms-content-section .forms-entry .additional-skills-form input:focus,
+.forms-content-section .forms-entry .career-objective-form textarea:focus,
+.forms-content-section .forms-entry .career-objective-form textarea:focus {
+
+    border-bottom: 2px solid #FFA500;
+}
+
+.personal-details-form .firstname-lastname input,
+.personal-details-form .email-phone input,
+.personal-details-form .country-city input,
+.personal-details-form .state-pincode input,
+.years-of-experience-form .experience-job-title input,
+.years-of-experience-form .experience-company-name input,
+.years-of-experience-form .experience-country-city input,
+.higher-education-highschool-form .education-school-name input,
+.higher-education-highschool-form .education-school-country-city input,
+.higher-education-highschool-form .education-school-grade-endyear input,
+.higher-education-college-form .education-college-name input,
+.higher-education-college-form .education-college-country-city input,
+.higher-education-college-form .education-college-grade-endyear input {
+    margin: 0 20px;
+}
+
+.personal-details-form .physical-address {
+    text-align: left;
+}
+
+.forms-content-section .forms-entry .personal-details-form .physical-address .current_address,
+.forms-content-section .forms-entry .career-objective-form .objective-section .career_objective {
+    margin: 0 20px;
+    padding: 8px;
+    width: 680px;
+    line-height: 2;
+}
+
+
+.forms-content-section .forms-entry .personal-details-form select,
+.forms-content-section .forms-entry .years-of-experience-form select,
+.forms-content-section .forms-entry .higher-education-highschool-form select,
+.forms-content-section .forms-entry .higher-education-college-form select {
+    width: 320px;
+    font-family: "Inconsolata", monospace;
+    font-size: 18px;
+    font-weight: 300;
+    background: white;
+    border-color: rgb(227, 227, 227);
+    padding: 10px;
+    border-style: solid;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+    margin: 0 20px;
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons input,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons input,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons input,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons input,
+.forms-content-section .edit-section .edit-container .edit-buttons a,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons input,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons input,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons input {
+    width: 200px;
+    margin: 0 80px;
+    border: 1px outset white;
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons input:active,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons input:active,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons input:active,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons input:active,
+.forms-content-section .edit-section .edit-container .edit-buttons a:active,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons input:active,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons input:active,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons input:active {
+    border: 1px inset white;
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons .personal-details-back-button,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons .years-of-experience-back-button,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons .education-school-back-button,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons .education-college-back-button,
+.forms-content-section .edit-section .edit-container .edit-buttons .edit-back-button,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons .license-certifications-back-button,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons .additional-skills-back-button,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons .career-objective-back-button {
+    transition: 150ms;
+    background: #001219;
+    color: #F0F8FF;
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons .personal-details-back-button:hover,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons .years-of-experience-back-button:hover,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons .education-school-back-button:hover,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons .education-college-back-button:hover,
+.forms-content-section .edit-section .edit-container .edit-buttons .edit-back-button:hover,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons .license-certifications-back-button:hover,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons .additional-skills-back-button:hover,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons .career-objective-back-button:hover {
+    transition: 300ms;
+    background: rgba(252, 25, 25, 0.7);
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons .personal-details-continue-button,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons .years-of-experience-continue-button,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons .education-school-continue-button,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons .education-college-continue-button,
+.forms-content-section .edit-section .edit-container .edit-buttons .edit-continue-button,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons .license-certifications-continue-button,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons .additional-skills-continue-button,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons .career-objective-continue-button {
+    transition: 150ms;
+    background: #064761;
+    color: #F0F8FF;
+}
+
+.forms-content-section .forms-entry .personal-details-form .personal-details-buttons .personal-details-continue-button:hover,
+.forms-content-section .forms-entry .years-of-experience-form .years-of-experience-buttons .years-of-experience-continue-button:hover,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-buttons .education-school-continue-button:hover,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-buttons .education-college-continue-button:hover,
+.forms-content-section .edit-section .edit-container .edit-buttons .edit-continue-button:hover,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons .license-certifications-continue-button:hover,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons .additional-skills-continue-button:hover,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons .career-objective-continue-button:hover {
+    transition: 300ms;
+    background: #007BFF;
+}
+
+/* ------------ Personal Details Exit Dialog -Styles ------------ */
+
+.confirmation-box {
+    display: none;
+}
+
+.confirmation-box.show {
+    position: fixed;
+    inset: 0;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 120;
+    background: rgba(0, 18, 25, 0.6);
+}
+
+.confirmation-box .confirmation.show {
+    position: absolute;
+    width: 500px;
+    background: rgba(234, 234, 234, 1);
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.confirmation-box .confirm-option {
+    margin: 40px 10px;
+}
+
+.confirmation-box .confirm-option a {
+    transition: 150ms;
+    width: 110px;
+    font-size: 15px;
+    background: #064761;
+    color: #F0F8FF;
+    margin: 0 30px;
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.confirmation-box .confirm-option .confirm-no {
+    transition: 150ms;
+    background: #007BFF;
+}
+
+
+.confirmation-box .confirm-option .confirm-yes:hover {
+    transition: 300ms;
+    background: rgba(252, 25, 25, 0.7);
+}
+
+.confirmation-box .confirm-option .confirm-no:hover {
+    transition: 300ms;
+    background: rgba(14, 121, 0, 0.5);
+}
+
+/* ============ Tips and Advice -Styles ============ */
+
+.forms-tips-preview {
+    text-align: right;
+}
+
+.forms-tips-preview a {
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.forms-tips-preview a img {
+    width: 15px;
+}
+
+.forms-tips-preview a span {
+    color: #007BFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.forms-tips-preview .tips-button span {
+    color: #FFA500;
+}
+
+.forms-tips-preview .tips-advice {
+    display: none;
+}
+
+.forms-tips-preview .tips-advice.show {
+    display: block;
+    background: white;
+    text-align: center;
+    margin: 35px 20px 0 -20px;
+    padding: 15px;
+    border: 2px solid rgba(0, 18, 25, 0.1);
+    width: 190px;
+}
+
+.forms-tips-preview .tips-advice.show h3 {
+    background: #320236;
+    color: #F0F8FF;
+    position: relative;
+    top: -30px;
+    margin: 0 25px;
+    border-radius: 20px;
+}
+
+.forms-tips-preview .tips-advice.show ul {
+    font-size: 13px;
+    padding: 10px 0 10px 15px;
+    text-align: left;
+    position: relative;
+    top: -20px;
+}
+
+
+.forms-tips-preview .tips-advice.show li {
+    margin: 10px 0;
+}
+
+/* ------------ Years-of_Experience Form Selection -Styles ------------ */
+
+.forms-content-section .forms-entry .selection.hide,
+.forms-content-section .forms-entry .selected {
+    display: none;
+}
+
+.forms-content-section .forms-entry .is-experience,
+.forms-content-section .forms-entry .is-objective {
+    padding: 70px;
+}
+
+.forms-content-section .forms-entry .is-experience a,
+.forms-content-section .forms-entry .is-objective a {
+    transition: 150ms;
+    background: white;
+    color: #FFA500;
+    width: 150px;
+    font-size: 18px;
+    margin: 10px 30px;
+    padding: 30px 60px;
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    border-radius: 80px;
+    cursor: pointer;
+}
+
+.forms-content-section .forms-entry .is-experience .yes-button:hover,
+.forms-content-section .forms-entry .is-objective .yes-button:hover {
+    transition: 300ms;
+    color: rgb(14, 121, 0);
+    border: 1px solid rgba(14, 121, 0, 0.5);
+}
+
+.forms-content-section .forms-entry .is-experience .no-button:hover,
+.forms-content-section .forms-entry .is-objective .no-button:hover {
+    transition: 300ms;
+    color: rgb(252, 25, 25);
+    border: 1px solid rgba(252, 25, 25, 0.5);
+}
+
+.forms-content-section .forms-entry .selected.show {
+    display: block;
+}
+
+/* ------------ Years-of_Experience Form -Styles ------------ */
+
+.forms-content-section .forms-entry .years-of-experience-form {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 540px;
+}
+
+.forms-content-section .forms-entry .years-of-experience-form .experience-job-title .job_title,
+.forms-content-section .forms-entry .years-of-experience-form .experience-company-name .company_name,
+.forms-content-section .forms-entry .higher-education-highschool-form .education-school-name .school_name,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-name .college_name,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-degree .college_degree,
+.forms-content-section .forms-entry .higher-education-college-form .education-college-branch .college_branch,
+.forms-content-section .forms-entry .license-certifications-form input,
+.forms-content-section .forms-entry .additional-skills-form input {
+    width: 670px;
+}
+
+/* ------------ Years-of_Experience Tips and Advice -Styles ------------ */
+
+.years-of-experience .forms-tips-preview .tips-advice.show p {
+    font-size: 13px;
+    text-align: left;
+}
+
+.years-of-experience .forms-tips-preview .tips-advice.show .p-heading {
+    font-weight: bold;
+    margin: -15px 0 0;
+}
+
+.years-of-experience .forms-tips-preview .tips-advice.show .p-last-para {
+    margin: -35px 0 0;
+}
+
+/* ------------ Higher-Education Form Selection -Styles ------------ */
+
+.forms-content-section .forms-entry .selection-section.hide,
+.forms-content-section .forms-entry .entrysection-1,
+.forms-content-section .forms-entry .entrysection-2,
+.forms-content-section .forms-entry .edit-section {
+    display: none;
+}
+
+.forms-content-section .forms-entry .entrysection-1.show,
+.forms-content-section .forms-entry .entrysection-2.show,
+.forms-content-section .forms-entry .edit-section.show {
+    display: block;
+}
+
+.forms-content-section .forms-entry .school-or-college {
+    padding: 60px 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.forms-content-section .forms-entry .school-or-college a {
+    background: white;
+    color: #FFA500;
+    width: 200px;
+    font-size: 18px;
+    padding: 30px 20px;
+    border: 1px solid rgba(255, 165, 0, 0.5);
+    border-radius: 40px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.forms-content-section .forms-entry .school-or-college a div {
+    display: flex;
+    justify-content: center;
+}
+
+.forms-content-section .forms-entry .school-or-college a .college-img img {
+    width: 60px;
+    margin: 20px 0;
+}
+
+.forms-content-section .forms-entry .school-or-college a .school-img img {
+    width: 100px;
+}
+
+/* ------------ Higher-Education HighSchool Form -Styles ------------ */
+
+.forms-content-section .forms-entry .higher-education-highschool-form {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 360px;
+}
+
+/* ------------ Higher-Education College Form -Styles ------------ */
+
+.forms-content-section .forms-entry .higher-education-college-form {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 500px;
+}
+
+/* ------------ Higher-Education Tips and Advice -Styles ------------ */
+
+.higher-education .forms-tips-preview .tips-advice.show .college-tip {
+    display: none;
+}
+
+.higher-education .forms-tips-preview .tips-advice.show .college-tip.show {
+    display: block;
+}
+
+/* ------------ Higher-Education Edit Section -Styles ------------ */
+
+.forms-content-section .edit-section .edit-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 460px;
+}
+
+.forms-content-section .edit-section .edit-container .first-school-college,
+.forms-content-section .edit-section .edit-container .second-school-college {
+    display: none;
+}
+
+.forms-content-section .edit-section .edit-container .first-school-college.show,
+.forms-content-section .edit-section .edit-container .second-school-college.show {
+    background: white;
+    width: 600px;
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    border: 1px solid #FFA500;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.forms-content-section .edit-section .edit-container .first-school-college.show h2,
+.forms-content-section .edit-section .edit-container .second-school-college.show h2 {
+    text-align: left;
+}
+
+.forms-content-section .edit-section .edit-container .edit-option {
+    text-align: right;
+}
+
+.forms-content-section .edit-section .edit-container .edit-option img {
+    transition: 150ms;
+    width: 20px;
+    padding: 5px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.forms-content-section .edit-section .edit-container .edit-option img:hover {
+    transition: 300ms;
+    background: #EAEAEA;
+}
+
+.forms-content-section .edit-section .edit-container .add-school-college,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add {
+    text-align: left;
+}
+
+.forms-content-section .edit-section .edit-container .add-school-college.hide {
+    display: none;
+}
+
+.forms-content-section .edit-section .edit-container .add-school-college a,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add a,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add a {
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.forms-content-section .edit-section .edit-container .add-school-college a img,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add a img,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add a img {
+    width: 18px;
+}
+
+.forms-content-section .edit-section .edit-container .add-school-college span,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add span,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add span {
+    color: #007BFF;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.forms-content-section .edit-section .edit-container .edit-buttons {
+    margin: 40px 0;
+}
+
+.forms-content-section .edit-section .edit-container .edit-buttons a {
+    font-family: "Inconsolata", monospace;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 10px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.forms-content-section .edit-section .edit-container .edit-buttons .edit-back-button {
+    padding: 10px 60px;
+}
+
+/* ------------ Certifications Form -Styles ------------ */
+
+.forms-content-section .forms-entry .license-certifications-form,
+.forms-content-section .forms-entry .additional-skills-form,
+.forms-content-section .forms-entry .career-objective-form {
+    display: grid;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.forms-content-section .forms-entry .license-certifications-form input,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-buttons,
+.forms-content-section .forms-entry .additional-skills-form input,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-buttons,
+.forms-content-section .forms-entry .career-objective-form input,
+.forms-content-section .forms-entry .career-objective-form .career-objective-checkbox,
+.forms-content-section .forms-entry .career-objective-form .career-objective-buttons {
+    margin: 20px 0;
+}
+
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add .warning,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add .warning {
+    margin: 0 15px;
+    color: rgba(252, 25, 25, 0.7);
+}
+
+.forms-content-section .forms-entry .license-certifications-form .certification_2.hide,
+.forms-content-section .forms-entry .license-certifications-form .certification_3.hide,
+.forms-content-section .forms-entry .license-certifications-form .certification_4.hide,
+.forms-content-section .forms-entry .license-certifications-form .certification_5.hide,
+.forms-content-section .forms-entry .license-certifications-form .certification_6.hide,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add a.hide,
+.forms-content-section .forms-entry .license-certifications-form .license-certifications-add .warning.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_4.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_5.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_6.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_7.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_8.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_9.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_10.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_11.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_12.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_13.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_14.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_15.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_16.hide,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add a.hide,
+.forms-content-section .forms-entry .additional-skills-form .additional-skills-add .warning.hide {
+    display: none;
+}
+
+/* ------------ Career-Objective Form -Styles ------------ */
+.forms-content-section .forms-entry .career-objective-form .objective-section .career_objective {
+    line-height: 1.2;
+    height: 200px;
+}
+
+.career-objective .forms-content-section .forms-entry .career-objective-form .career-objective-checkbox {
+    text-align: left;
+}
+
+.career-objective .forms-content-section .forms-entry .career-objective-form .career-objective-checkbox input {
+    width: fit-content;
+    margin-right: 15px;
+    margin-left: 30px;
+    text-align: left;
+}
+
+/* ------------ Career-Objective Tips and Advice -Styles ------------ */
+.career-objective .forms-tips-preview .tips-advice.show .selection-tip.hide,
+.career-objective .forms-tips-preview .tips-advice.show .objective-tip.hide {
+    display: none;
+}
+
+
+/*  Templates Page - Styles
+------------------------------------------------ */
+.templates-page {
+    background: rgba(234, 234, 234, 0.5);
+    height: 510px;
+    margin: 5px 0;
+}
+
+/* Bottom Toolbar styles */
+.templates-page .template-section .template-toolbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+.templates-page .template-section .template-toolbar img {
+    width: 20px;
+    height: 18px;
+}
+
+.templates-page .template-section .template-toolbar a {
+    transition: 150ms;
+    display: inline-block;
+    width: 210px;
+    padding: 10px 40px;
+    border: 1px solid #FFA500;
+    border-radius: 40px;
+    margin: 10px 20px;
+    cursor: pointer;
+}
+
+.templates-page .template-section .template-toolbar .edit-button:hover {
+    transition: 300ms;
+    background: rgba(255, 165, 0, 0.3)
+}
+
+.templates-page .template-section .template-toolbar .download-button {
+    background: rgb(6, 70, 96);
+    color: #F0F8FF;
+    border: 1px solid #007BFF;
+}
+
+.templates-page .template-section .template-toolbar .download-button:hover {
+    transition: 300ms;
+    background: #007BFF;
+}
+
+/* Templates Page Image Slider -Styles */
+.templates-page .template-section .template-slider {
+    text-align: center;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.templates-page .template-section .template-slider img {
+    width: 100%;
+}
+
+.templates-page .template-section .template-slider .position-2 {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-left: -1360px;
+    z-index: 40;
+}
+
+.templates-page .template-section .template-slider .position-1 {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-left: -680px;
+    z-index: 60;
+}
+
+.templates-page .template-section .template-slider .position0 {
+    transition: 600ms;
+    position: fixed;
+    width: 320px;
+    border: 1px solid #FFA500;
+    z-index: 80;
+}
+
+.templates-page .template-section .template-slider .position1 {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-right: -680px;
+    z-index: 60;
+}
+
+.templates-page .template-section .template-slider .position2 {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-right: -1360px;
+    z-index: 40;
+}
+
+.templates-page .template-section .template-slider .positionright {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-right: -3360px;
+    z-index: 10;
+}
+
+.templates-page .template-section .template-slider .positionleft {
+    transition: 600ms;
+    position: fixed;
+    width: 290px;
+    margin-left: -3360px;
+    z-index: 10;
+}
+
+/* Templates Page Image Slider left-Right Button -Styles */
+.templates-page .template-section .template-slider .template-previous,
+.templates-page .template-section .template-slider .template-next {
+    transition: 150ms;
+    background: rgba(255, 165, 0, 0.6);
+    font-size: 20px;
+    padding: 12px 21px;
+    border-radius: 80px;
+    z-index: 90;
+}
+
+.templates-page .template-section .template-slider .template-previous {
+    position: fixed;
+    left: 10px;
+}
+
+.templates-page .template-section .template-slider .template-next {
+    position: fixed;
+    right: 10px;
+}
+
+.templates-page .template-section .template-slider .template-previous:hover,
+.templates-page .template-section .template-slider .template-next:hover {
+    transition: 300ms;
+    cursor: pointer;
+    background: rgba(255, 165, 0, 0.9);
+}
+
+.templates-page .template-section .template-slider .template-previous:hover.disabled,
+.templates-page .template-section .template-slider .template-next:hover.disabled {
+    transition: 300ms;
+    cursor: not-allowed;
+    background: rgba(255, 165, 0, 0.6);
+}
