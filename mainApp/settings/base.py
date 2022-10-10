@@ -10,25 +10,17 @@ from dotenv import load_dotenv
 import os
 
 # ReSume project's BASE DIR
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Loading the Environment Values
 load_dotenv()
 
+
 # Secret Key & Debug Mode
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "dev"
 
-# Allowed Hosts
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(" ")
-
-
-# Securing COOKIES & SESSIONS
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = False
 
 # Application definition
 
@@ -44,7 +36,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -118,5 +109,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = "static/"
-STATIC_ROOT = (os.path.join(BASE_DIR, "staticfiles"))
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "Static"),)
