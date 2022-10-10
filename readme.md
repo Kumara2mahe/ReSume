@@ -7,7 +7,6 @@ Re-Sume is a resume builder web application created on Django (a high-level Pyth
 
 ## Getting Started
 <p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</p>
-<br>
 
 ### Prerequisites (Requirements)
 
@@ -22,9 +21,16 @@ First clone this repository from Github to your local machine and switch to the 
     $ cd ReSume
 
     
-Install project dependencies using the 'requirements' file in the project directory:
+Install project dependencies using the 'requirements/local' file in the project directory:
 
-    $ pip install -r requirements.txt
+    $ pip install -r requirements/local.txt
+
+
+Rename the '.env.example' to '.env' and change the environment values with your own like below
+
+    SECRET_KEY="your-secret-key-here-and-must-be-greater-than-50character"
+    DEBUG="True"
+    ..
     
     
 Then simply apply the migrations:
@@ -35,6 +41,13 @@ Then simply apply the migrations:
 You can now run the development server:
 
     $ python manage.py runserver
+
+
+## Features
+
+- Separate developer and production settings as well as requirements files
+
+- Included own CSS and JavaScript files to make it more responsive and interactive
 
 <br>
 
