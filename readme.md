@@ -10,14 +10,14 @@ Re-Sume is a resume builder web application created on Django (a high-level Pyth
 
 ### Prerequisites (Requirements)
 
-- `python==3.10+`
+- `python>=3.10`
 - `pip/pip3`
 
 <br>
 
-First clone this repository from Github to your local machine and switch to the project (ReSume) directory:
+First clone/download this repository from Github to your local machine and switch to the project (ReSume) directory where 'manage.py' lives:
 
-    $ https://github.com/Kumara2mahe/ReSume.git
+    $ git clone https://github.com/Kumara2mahe/ReSume.git
     $ cd ReSume
 
     
