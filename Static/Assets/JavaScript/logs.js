@@ -1,279 +1,388 @@
-/* ------ Script for Resume Builder's SignUp and LogIn ------ */
+/* ------ Script for Resume Builder's (SignUp and LogIn) Windows ------ */
 
 
-// Function for disabling scrollbar
-function disableScrollBars() {
+// Script for disabling scrollbar
+const disableScrollBars = () => {
+
+    // Hiding and disabling the scroll functionality
     document.documentElement.style.overflow = "hidden"
     document.body.scroll = "no"
 
     // Disabling TAB key from transfering focus to 'a' tags
-    $("a").attr("tabindex", "-1");
+    document.querySelectorAll("a").forEach((element) => {
+        element.tabIndex = "-1"
+    })
 }
 
-// Function for enabling scrollbar
-function enableScrollBars() {
+// Script for enabling scrollbar
+const enableScrollBars = () => {
+
+    // Showing and enabling the scroll functionality back
     document.documentElement.style.overflow = "auto"
     document.body.scroll = "yes"
 
     // Enabling back TAB key from transfering focus to 'a' tags
-    $("a").attr("tabindex", "1");
+    document.querySelectorAll("a").forEach((element) => {
+        element.tabIndex = "1"
+    })
 }
 
-// ----- Script for showing signup window with blured background ------------------------------------------------ //
-const popSignUp = () => {
+// ----- Script for showing SignUp window with blured background ------------------------------------------------ //
+const popSignUp = (event, emailID = null, redirectUrl = null) => {
 
-    // Showing the Signup window on screen with css stylesheet
-    let signupParent = document.querySelector(".sign-up")
-    signupParent.classList.toggle("active")
+    // ----- Script for hiding SignUp window and blured background ----------------------------- //
+    const removeSignUp = () => {
 
-    let signupContents = document.querySelector(".signup-popup")
-    signupContents.classList.toggle("active")
+        // Hiding the SignUp window and its contents
+        signUpParent.classList.toggle("active")
+        signUpContents.classList.toggle("active")
+
+        // Enabling scrollbar
+        enableScrollBars()
+
+        // Removing the click functionality from the links
+        signUpCloseButton.removeEventListener("click", removeSignUp)
+        logInLink.removeEventListener("click", popLogIn)
+        signUpForm.removeEventListener("submit", authenticate_or_Create_User)
+
+        // Removing the 'Esc' key to close functionality from SignUp window
+        window.removeEventListener("keydown", closeSignUp)
+
+        if (redirectUrl != null) {
+            window.location.pathname = redirectUrl
+        }
+    }
+
+    // ----- Script to trigger the close SignUp window script when 'Esc' key is pressed ---- //
+    const closeSignUp = (event) => {
+        if (event.key == "Escape") {
+            event.preventDefault()
+            removeSignUp()
+        }
+    }
+
+    // ----- Script for removing signUp window and popup logIn window ------------------------- //
+    const popLogIn = () => {
+
+        // ----- Script for removing logIn window and blured background ----- //
+        const removeLogIn = () => {
+
+            // Hiding the LogIn window
+            logInParent.classList.toggle("active")
+            logInContents.classList.toggle("active")
+
+            // Enabling scrollbar
+            enableScrollBars()
+
+            // Removing the click functionality from the links
+            signUpCloseButton.removeEventListener("click", removeSignUp)
+            logInCloseButton.removeEventListener("click", removeLogIn)
+            logInLink.removeEventListener("click", popLogIn)
+            signUpLink.removeEventListener("click", popSignUpAgain)
+            signUpForm.removeEventListener("submit", authenticate_or_Create_User)
+            logInForm.removeEventListener("submit", authenticate_or_Create_User)
+
+            // Removing the 'Esc' key to close functionality from LogIn window
+            window.removeEventListener("keydown", closeLogIn)
+
+            if (redirectUrl != null) {
+                window.location.pathname = redirectUrl
+            }
+        }
+
+        // ----- Script to trigger the close LogIn window script when 'Esc' key is pressed ---- //
+        const closeLogIn = (event) => {
+            if (event.key == "Escape") {
+                event.preventDefault()
+                removeLogIn()
+            }
+        }
+
+        // ----- Script for removing logIn window and popup signUp window ---- //
+        const popSignUpAgain = () => {
+            removeLogIn()
+            popSignUp()
+        }
+
+        // Removing the SignUp window from screen with the CSS stylesheet
+        signUpParent.classList.toggle("active")
+        signUpContents.classList.toggle("active")
+
+        // Showing the LogIn window on screen with the CSS stylesheet
+        let logInParent = document.querySelector(".login-container")
+        logInParent.classList.toggle("active")
+
+        let logInContents = logInParent.querySelector(".login-menu")
+        logInContents.classList.toggle("active")
+
+        // Getting the Close button's element from the LogIn window
+        let logInCloseButton = logInContents.querySelector(".login-close")
+        //
+        logInCloseButton.addEventListener("click", removeLogIn)
+
+        // Removing the 'Esc' key to close functionality from SignUp window and assigning it to LogIn window
+        window.removeEventListener("keydown", closeSignUp)
+        window.addEventListener("keydown", closeLogIn)
+
+        // Getting the signUp link's element from the LogIn window
+        let signUpLink = logInContents.querySelector(".form-container .signup-wrapper a")
+        //
+        signUpLink.addEventListener("click", popSignUpAgain)
+
+        // Getting the form element from the LogIn window
+        let logInForm = logInContents.querySelector(".form-container .userAuthentication_form")
+        //
+        logInForm.addEventListener("submit", authenticate_or_Create_User)
+
+        // Focusing the input in the LogIn window
+        logInForm.querySelector(".user_2name").focus()
+    }
+
+    // ----- Script for sending a request to authenticate or create new user using the data collected from the submitted form ----- //
+    const authenticate_or_Create_User = (e) => {
+
+        // Preventing the page from reloading
+        e.preventDefault()
+
+        // Getting the element of the submitted form
+        let form = e.target
+
+        // Getting a element to show the current status as some message
+        let autoHidMsg = form.previousElementSibling
+
+        // Disabling the submit button after clicked
+        let button = form.querySelector(".submit-button")
+        button.disabled = true
+        button.classList.add("disabled")
+
+        // Confirming the submitted form is from SignUp window
+        if (button.value == "Continue") {
+
+            $.ajax({
+                type: "POST",
+                url: "/signup",
+                data: {
+                    username: $(".user_name").val(),
+                    email: $(".email_id").val(),
+                    password: $(".pass_word").val(),
+                    password2: $(".pass_word2").val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success: (data) => {
+
+                    if (data.message[0] == "Success") {
+
+                        // Showing the success message
+                        autoHidMsg.innerHTML = "Thanks for signing up. Welcome to our community"
+                        autoHidMsg.style.color = "rgb(41, 191, 18)"
+                        autoHidMsg.classList.toggle("show")
+
+                        // Calling the function to close SignUp & open LogIn window
+                        setTimeout(popLogIn, 1500)
+                    }
+                    else {
+
+                        // Showing the error message
+                        autoHidMsg.innerHTML = `${data.message[0]}`
+                        autoHidMsg.style.color = "rgb(247, 90, 90)"
+                        if (autoHidMsg.classList[1] != "show") {
+                            autoHidMsg.classList.add("show")
+                        }
+
+                        // Clearing all the input box in SignUp window
+                        form.querySelector(".user_name").value = ""
+                        form.querySelector(".email_id").value = ""
+                        form.querySelector(".pass_word").value = ""
+                        form.querySelector(".pass_word2").value = ""
+                    }
+                },
+                error: () => {
+                    window.location.reload()
+                }
+            })
+        }
+
+        // Confirming the submitted form is from LogIn window
+        else if (button.value == "Log In") {
+
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: {
+                    user2name: $(".user_2name").val(),
+                    pass2word: $(".pass_2word").val(),
+                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                },
+                success: (data) => {
+
+                    if (data.message[0] == "Success") {
+
+                        // Redirecting to the URL return through JSONresponse
+                        window.location.pathname = data.message[1]
+                    }
+                    else {
+
+                        // Showing the error message
+                        autoHidMsg.innerHTML = `${data.message[0]}`
+                        if (autoHidMsg.classList[1] != "show") {
+                            autoHidMsg.classList.add("show")
+                        }
+
+                        // Clearing all the input box in LogIn window
+                        form.querySelector(".user_2name").value = ""
+                        form.querySelector(".pass_2word").value = ""
+                    }
+                },
+                error: () => {
+                    window.location.reload()
+                }
+            })
+        }
+
+        // Hiding the element which displays some kind of message
+        setTimeout(() => {
+            if (autoHidMsg.classList[1] == "show") {
+                autoHidMsg.classList.remove("show")
+            }
+            button.disabled = false
+            button.classList.remove("disabled")
+        }, 2000)
+    }
+
+    // Showing the SignUp window and its contents on screen with the CSS stylesheet
+    let signUpParent = document.querySelector(".signup-container")
+    signUpParent.classList.toggle("active")
+
+    let signUpContents = signUpParent.querySelector(".signup-menu")
+    signUpContents.classList.toggle("active")
 
     // Disabling scrollbar
     disableScrollBars()
 
-}
-
-// Getting the signup button's element
-let signupButton = document.querySelector(".menubar.options .log")
-
-if (signupButton != null) {
-    signupButton.addEventListener("click", popSignUp)
-}
-
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-// ----- Script for removing signup window and blured background ------------------------------------------------ //
-const removeSignUp = () => {
-
-    // Hiding the Signup window
-    let signupParent = document.querySelector(".sign-up")
-    signupParent.classList.toggle("active")
-
-    let signupContents = document.querySelector(".signup-popup")
-    signupContents.classList.toggle("active")
-
-    // Enabling scrollbar
-    enableScrollBars()
-}
-
-
-// Getting the signup window's close button
-let signupCloseButton = document.querySelector(".sign-up .signup-close")
-signupCloseButton.addEventListener("click", removeSignUp)
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-// ----- Script for removing signup window and popup login window ------------------------------------------------ //
-const popLogIn = () => {
-
-    // Removing the Signup window from screen with css stylesheet
-    let signupParent = document.querySelector(".sign-up")
-    signupParent.classList.toggle("active")
-
-    let signupContents = document.querySelector(".signup-popup")
-    signupContents.classList.toggle("active")
-
-    // Showing the Login window on screen with css stylesheet
-    let loginParent = document.querySelector(".login-menu")
-    loginParent.classList.toggle("active")
-
-    let loginContents = document.querySelector(".login-popup")
-    loginContents.classList.toggle("active")
-}
-
-// Getting the logIn button's element
-const logInButton = document.querySelector(".sign-up .form-container .log-in")
-logInButton.addEventListener("click", popLogIn)
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-// ----- Script for removing login window and blured background ------------------------------------------------ //
-const removeLogIn = () => {
-
-    // Hiding the LogIn window
-    let loginParent = document.querySelector(".login-menu")
-    loginParent.classList.toggle("active")
-
-    let loginContents = document.querySelector(".login-popup")
-    loginContents.classList.toggle("active")
-
-    // Enabling scrollbar
-    enableScrollBars()
-}
-
-
-// Getting the login window's close button
-let loginCloseButton = document.querySelector(".login-menu .login-close")
-loginCloseButton.addEventListener("click", removeLogIn)
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-// ----- Script for removing login window and popup signup window ------------------------------------------------ //
-const popSignUpAgain = () => {
-
-    // Showing the Signup window on screen with css stylesheet
-    let loginParent = document.querySelector(".login-menu")
-    loginParent.classList.toggle("active")
-
-    let loginContents = document.querySelector(".login-popup")
-    loginContents.classList.toggle("active")
-
-    // Removing the Login window from screen with css stylesheet
-    let signupParent = document.querySelector(".sign-up")
-    signupParent.classList.toggle("active")
-
-    let signupContents = document.querySelector(".signup-popup")
-    signupContents.classList.toggle("active")
-}
-
-// Getting the logIn button's element
-const signUPButton = document.querySelector(".login-menu .form-container .log-in")
-signUPButton.addEventListener("click", popSignUpAgain)
-
-// ------------------------------------------------------------------------------------------------------------ //
-
-
-/*-------------------- Click Function for 'Continue' button from Signup window --------------------- */
-
-const signUpForm = document.querySelector(".sign-up .userAuthentication_form")
-
-// Calling a callback function adding the user entered email and complaints to records
-signUpForm.addEventListener("submit", (e) => {
-
-    // Preventing the page from reloading
-    e.preventDefault()
-
-    // Getting a element to show some message
-    let autoHidMsg = document.querySelector(".sign-up .error-message")
-
-    // Disabling the submit button after clicked
-    let button = signUpForm.querySelector(".email-confirm")
-    button.disabled = true
-
-    // Checking if it is login or sigup page
-    if (button.value == "Continue") {
-
-        $.ajax({
-            type: "POST",
-            url: "/signup",
-            data: {
-                username: $(".user_name").val(),
-                email: $(".email_id").val(),
-                password: $(".pass_word").val(),
-                password2: $(".pass_word2").val(),
-                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-            },
-            success: function (data) {
-
-                if (data.message[0] == "Success") {
-                    popLogIn()
-                }
-                else {
-                    autoHidMsg.innerHTML = `${data.message[0]}`
-                    autoHidMsg.classList.toggle("show")
-
-                    // Clearing the input box
-                    signUpForm.querySelector(".user_name").value = ""
-                    signUpForm.querySelector(".email_id").value = ""
-                    signUpForm.querySelector(".pass_word").value = ""
-                    signUpForm.querySelector(".pass_word2").value = ""
-                }
-            }
-        })
-    }
-
-    // Deleting the 'p' tag after 2 seconds
-    setTimeout(() => {
-        autoHidMsg.classList.toggle("show")
-        button.disabled = false
-    }, 2000)
-})
-
-
-/*-------------------- Click Function for 'Log-In' button from Login window --------------------- */
-
-const logInForm = document.querySelector(".login-menu .userAuthentication_form")
-
-// Calling a callback function adding the user entered email and complaints to records
-logInForm.addEventListener("submit", (e) => {
-
-    // Preventing the page from reloading
-    e.preventDefault()
-
-    // Getting a element to show some message
-    let autoHidMsg = document.querySelector(".login-menu .error-message")
-
-    // Disabling the submit button after clicked
-    let button = logInForm.querySelector(".email-confirm")
-    button.disabled = true
-
-    // Checking if it is login or sigup page
-    if (button.value == "Log In") {
-
-        $.ajax({
-            type: "POST",
-            url: "/login",
-            data: {
-                user2name: $(".user_2name").val(),
-                pass2word: $(".pass_2word").val(),
-                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-            },
-            success: function (data) {
-
-                if (data.message[0] == "Success") {
-                    removeLogIn()
-                    window.location.pathname = data.message[1]
-                }
-                else {
-                    autoHidMsg.innerHTML = `${data.message[0]}`
-                    autoHidMsg.classList.toggle("show")
-
-                    // Clearing the input box
-                    logInForm.querySelector(".user_name2").value = ""
-                    logInForm.querySelector(".pass_word2").value = ""
-                }
-
-            }
-        })
-    }
-
-    // Deleting the 'p' tag after 2 seconds
-    setTimeout(() => {
-        autoHidMsg.classList.toggle("show")
-        button.disabled = false
-    }, 2000)
-})
-
-
-// ----- Script for showing signup window with blured background ------------------------------------------------ //
-const loggedOptionsMenu = () => {
-
-    if (loggedIn.parentElement.nextElementSibling.classList[1] == "hide") {
-
-        // Showing the dropdown options on screen
-        loggedIn.parentElement.nextElementSibling.classList.remove("hide")
-    }
-    else {
-        // Hiding the dropdown options from screen
-        loggedIn.parentElement.nextElementSibling.classList.add("hide")
+    // Assigning the 'Esc' key to close functionality in SignUp window
+    window.addEventListener("keydown", closeSignUp)
+
+    // Getting the Close button's element from the SignUp window
+    let signUpCloseButton = signUpContents.querySelector(".signup-close")
+    //
+    signUpCloseButton.addEventListener("click", removeSignUp)
+
+    // Getting the logIn link's element from the SignUp window
+    let logInLink = signUpContents.querySelector(".form-container .login-wrapper a")
+    //
+    logInLink.addEventListener("click", popLogIn)
+
+    // Getting the form element from the SignUp window
+    let signUpForm = signUpContents.querySelector(".form-container .userAuthentication_form")
+    //
+    signUpForm.addEventListener("submit", authenticate_or_Create_User)
+
+    // Focusing the input in the SignUp window
+    signUpForm.querySelector(".user_name").focus()
+
+    if (emailID != null) {
+        signUpForm.querySelector(".email_id").value = emailID
+        signUpForm.querySelector(".email_id").focus()
     }
 }
 
+// Getting the signUp button's element from the Menubar
+const signUpButton = document.querySelector(".menubar.nav-links .sign-up")
 
-// Getting the logged in button
-const loggedIn = document.querySelector(".menubar.options .logged")
+// Getting the signUp button's element from the Menubar
+const signUpButton2 = document.querySelector(".navigation-menu .pages-container .signup-link")
+//
+if (signUpButton != null && signUpButton2 != null) {
+    signUpButton.addEventListener("click", popSignUp)
 
-if (loggedIn != null) {
+    // Assigning a click function to SignUp-Link from the Navigation Menu
+    signUpButton2.addEventListener("click", () => {
 
-    loggedIn.addEventListener("mouseenter", loggedOptionsMenu)
-    loggedIn.parentElement.nextElementSibling.addEventListener("mouseleave", loggedOptionsMenu)
+        // Hiding the Hamburger Menu
+        let navigationMenu = document.querySelector(".navigation-menu")
+        navigationMenu.classList.add("hide")
+        navigationMenu.querySelector(".pages-container").classList.add("hide")
+
+        // Enabling the hamIcon
+        document.querySelector(".menubar.nav-links .ham-menu .ham-button").disabled = false
+
+        // Removing hiding effect from the main scroll bar
+        document.documentElement.style.overflowY = "visible"
+
+        // Calling the function to open SignUp window
+        popSignUp()
+    })
 }
 // ------------------------------------------------------------------------------------------------------------ //
 
 
-export default (popSignUp, removeSignUp)
+// ----- Script for showing logged-in user's dropdown window while entering their profile-picture ------------------------------------------------ //
+const userDropdownMenu = (event, status = null) => {
+
+    // ----- Script for tracking the mouse movement to hide the dropdown menu when not in focus ----- //
+    const mouseTracker = (event) => {
+
+        let element = event.target
+
+        // Checking if the mouse pointer is inside the relative elements of dropdown
+        let isPointerIn = element.nodeName == "H3" && element.classList[0] == "user-profile"
+            || element.nodeName == "IMG" && element.parentElement.classList[0] == "user-profile" || element.nodeName == "SPAN" && element.parentElement.classList[0] == "user-profile"
+            || element.nodeName == "DIV" && element.classList[0] == "profile-options" || element.nodeName == "A" && element.parentElement.classList[0] == "profile-options"
+
+        if (!isPointerIn) {
+
+            // Removing the mouse track function and adding back the function to user's profile
+            window.removeEventListener("mousemove", mouseTracker)
+            userProfile.addEventListener("mouseenter", userDropdownMenu)
+
+            // Calling the function to hide the dropdown menu
+            userDropdownMenu(event, status = "closed")
+        }
+    }
+
+    // Checking the user's dropdown window is already visible or not
+    if (userProfile.nextElementSibling.classList[1] == "hide") {
+
+        if (userProfile.classList[1] == undefined) {
+
+            // Show a animation in the user's profile
+            userProfile.classList.add("spin")
+        }
+        else if (userProfile.classList[1] == "re-spin") {
+
+            // Changing the animation in the user's profile
+            userProfile.classList.replace("re-spin", "spin")
+        }
+
+        // Showing the dropdown window on the screen
+        userProfile.nextElementSibling.classList.remove("hide")
+    }
+
+    else if (userProfile.classList[1] == "spin") {
+
+        // Changing the animation in the user's profile
+        userProfile.classList.replace("spin", "re-spin")
+
+        // Hiding the dropdown window from the screen
+        userProfile.nextElementSibling.classList.add("hide")
+    }
+
+    if (status == null) {
+        // Adding a function with the window to track the mouse movement over the elements
+        window.addEventListener("mousemove", mouseTracker)
+
+        // Removing the function assigned with the user's profile
+        userProfile.removeEventListener("mouseenter", userDropdownMenu)
+    }
+}
+
+// Getting the logged-in user's profile from the Menubar
+const userProfile = document.querySelector(".menubar.nav-links .user-profile")
+//
+if (userProfile != null) {
+    userProfile.addEventListener("mouseenter", userDropdownMenu)
+}
+// ------------------------------------------------------------------------------------------------------------ //
+
+
+export default (popSignUp)

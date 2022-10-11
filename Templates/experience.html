@@ -1,270 +1,172 @@
-{% extends "base.html" %}
+{% extends "builderTemplate.html" %}
 {% load static %}
 
-{% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+{% block formcontent %}
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
-    <style>
-        footer {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Forms -Section -->
+<section class="forms-entry">
 
-<body>
-    <main class="years-of-experience">
+    <!-- Form Selection -Section -->
+    <div class="form-selection hide">
+        <h1>Would you like to add a work <span class="mid-blue">Experience</span> section?</h1>
 
-        <article class="forms-navbar">
+        <div class="show-options">
+            <a class="yes-button">Yes</a>
+            <a class="no-button">No</a>
+        </div>
+    </div>
 
-            <section class="navbar-names">
+    <div class="selected-form">
 
-                <a class="first-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
-                    <span>&ensp;Contact</span>
-                </a>
+        <!-- Forms Title -->
+        <h1>Add your recent work <span class="mid-blue">Experience</span> first!</h1>
 
-                <a class="second-link nav-bar-active {{link}}">
-                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
-                    <span>&ensp;Experience</span>
-                </a>
+        <!-- Years-Of-Experience-Form -->
+        <form class="years-of-experience-form" method="POST" autocomplete="on">
 
-                <a class="third-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
-                    <span>&ensp;Education</span>
-                </a>
+            {% csrf_token %}
 
-                <a class="fourth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
-                    <span>&ensp;Certifications</span>
-                </a>
+            <!-- Job Title -Section -->
+            <div class="jobtitle-section">
 
-                <a class="fifth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
-                    <span>&ensp;Additional Skills</span>
-                </a>
+                <input class="job_title" type="text" name="jobtitle" value="{{ experience.job_title }}"
+                    placeholder="Job Title*">
 
-                <a class="sixth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
-                    <span>&ensp;Career Objective</span>
-                </a>
+            </div>
 
-            </section>
+            <!-- Company Name -Section -->
+            <div class="companyname-section">
 
-            <section class="form-progress">
+                <input class="company_name" type="text" name="companyname" value="{{ experience.company_name }}"
+                    placeholder="Company Name*">
 
-                <div class="form-progress-title">
-                    <p>Progress</p>
+            </div>
+
+            <!-- Country & City -Section -->
+            <div class="country-city">
+
+                <!-- Country -Dropdown -->
+                <select class="country_name" type="text" name="countryname">
+
+                    <!-- Default Option -->
+                    <option value="{{ experience.country_name }}" selected hidden>{{ experience.country_name }}</option>
+
+                    {% for country in countries %}
+                    <option value="{{ country.name }}">{{ country.name }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <input class="city_name" type="text" name="cityname" value="{{ experience.city_name }}" placeholder="City">
+
+            </div>
+
+            <!-- Start Month & Year -Section -->
+            <div class="start-month-year">
+
+                <!-- Start Month -Dropdown -->
+                <select class="start_month" type="text" name="startmonth">
+
+                    <!-- Default Option -->
+                    <option value="{{ experience.start_month }}" selected hidden>{{ experience.start_month }}</option>
+
+                    {% for month in months %}
+                    <option value="{{ month }}">{{ month }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <!-- Start Year -Dropdown -->
+                <select class="start_year" type="text" name="startyear">
+
+                    <!-- Default Option -->
+                    <option value="{{ experience.start_year }}" selected hidden>{{ experience.start_year }}</option>
+
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- End Month & Year -Section -->
+            <div class="end-month-year">
+
+                <!-- End Month -Dropdown -->
+                <select class="end_month" type="text" name="endmonth">
+
+                    <!-- Default Option -->
+                    <option value="{{ experience.end_month }}" selected hidden>{{ experience.end_month }}</option>
+
+                    {% for month in months %}
+                    <option value="{{ month }}">{{ month }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <!-- End Year -Dropdown -->
+                <select class="end_year" type="text" name="endyear">
+
+                    <!-- Default Option -->
+                    <option value="{{ experience.end_year }}" selected hidden>{{ experience.end_year }}</option>
+
+                    {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <!-- Button -Section -->
+            <div class="form-buttons">
+
+                <input type="button" class="back-button" value="Back">
+
+                <input type="submit" class="continue-button" value="Continue">
+
+            </div>
+
+        </form>
+
+        <!-- Confirmation-Dialog -->
+        <div class="confirmation-wrapper">
+            <div class="confirmation-dialog">
+                <h2 class="confirm-question">Looks like you haven't entered any past work experience. We
+                    recommend entering at least your last position and company.</h2>
+                <div class="confirm-option">
+                    <a class="confirm-yes">Yes</a>
+                    <a class="confirm-no">No</a>
                 </div>
+            </div>
+        </div>
 
-                <div class="form-progress-container">
-                    <div class="form-progress-bar"></div>
-                </div>
+    </div>
 
-                <div class="form-progress-percentage">0</div>
+</section>
 
-            </section>
+{% endblock %}
 
-        </article>
 
-        <article class="forms-content-section">
+{% block tipscontent %}
 
-            <section class="forms-entry">
+<!-- Tips -Content -->
+<p class="p-heading">You have more work experience than you think..</p>
+<p>Even if you have never worked in a company before, it's likely that you still have relevant
+    experience like:</p>
 
-                <div class="selection">
-                    <h1>Would you like to add a work <span class="mid-blue">Experience</span> section?</h1>
+<ul>
+    <li>Part-time jobs</li>
+    <li>Paid/unpaid internships</li>
+    <li>Seasonal jobs</li>
+    <li>Work study jobs</li>
+</ul>
 
-                    <div class="is-experience">
-                        <a class="yes-button">Yes</a>
-                        <a class="no-button">No</a>
-                    </div>
-                </div>
-
-                <div class="selected">
-                    <h1>Add your recent work <span class="mid-blue">Experience</span> first!</h1>
-
-                    <form class="years-of-experience-form" method="POST" autocomplete="off">
-
-                        {% csrf_token %}
-
-                        <div class="experience-job-title">
-
-                            <input class="job_title" type="text" name="jobtitle" value="{{experience.job_title}}"
-                                placeholder="Job Title*">
-
-                        </div>
-
-                        <div class="experience-company-name">
-
-                            <input class="company_name" type="text" name="companyname"
-                                value="{{experience.company_name}}" placeholder="Company Name*">
-
-                        </div>
-
-                        <div class="experience-country-city">
-
-                            <select class="country_name" type="text" name="countryname">
-
-                                {% if experience.country_name == "Country" %}
-                                <option value="Country" selected hidden style="color: #918C89;">Country</option>
-                                {% else %}
-                                <option value="{{experience.country_name}}" selected hidden>{{experience.country_name}}
-                                </option>
-                                {% endif %}
-
-                                {% for country in countries %}
-                                <option value="{{country.name}}">{{country.name}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                            <input class="city_name" type="text" name="cityname" value="{{experience.city_name}}"
-                                placeholder="City">
-
-                        </div>
-
-                        <div class="experience-start-month-year">
-
-                            <select class="start_month" type="text" name="startmonth">
-
-                                {% if experience.start_month == "Start Month" %}
-                                <option value="Start Month" selected hidden style="color: #918C89;">Start Month</option>
-                                {% else %}
-                                <option value="{{experience.start_month}}" selected hidden>{{experience.start_month}}
-                                </option>
-                                {% endif %}
-
-                                {% for month in months %}
-                                <option value="{{month}}">{{month}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                            <select class="start_year" type="text" name="startyear">
-
-                                {% if experience.start_year == "Start Year" %}
-                                <option value="Start Year" selected hidden style="color: #918C89;">Start Year</option>
-                                {% else %}
-                                <option value="{{experience.start_year}}" selected hidden>{{experience.start_year}}
-                                </option>
-                                {% endif %}
-
-                                {% for year in years %}
-                                <option value="{{year}}">{{year}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                        </div>
-
-                        <div class="experience-end-month-year">
-
-                            <select class="end_month" type="text" name="endmonth">
-
-                                {% if experience.end_month == "End Month" %}
-                                <option value="End Month" selected hidden style="color: #918C89;">End Month</option>
-                                {% else %}
-                                <option value="{{experience.end_month}}" selected hidden>{{experience.end_month}}
-                                </option>
-                                {% endif %}
-
-                                {% for month in months %}
-                                <option value="{{month}}">{{month}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                            <select class="end_year" type="text" name="endyear">
-
-                                {% if experience.end_year == "End Year" %}
-                                <option value="End Year" selected hidden style="color: #918C89;">End Year</option>
-                                {% else %}
-                                <option value="{{experience.end_year}}" selected hidden>{{experience.end_year}}
-                                </option>
-                                {% endif %}
-
-                                {% for year in years %}
-                                <option value="{{year}}">{{year}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                        </div>
-
-                        <div class="years-of-experience-buttons">
-
-                            <input type="button" class="years-of-experience-back-button" value="Back">
-
-                            <input type="submit" class="years-of-experience-continue-button" value="Continue">
-
-                        </div>
-
-                    </form>
-
-                    <div class="confirmation-box">
-                        <div class="confirmation show">
-
-                            <h2 class="confirm-question">Looks like you haven't entered any past work experience. We
-                                recommend entering at least your last position and company.</h2>
-                            <div class="confirm-option">
-                                <a class="confirm-yes">Continue</a>
-                                <a class="confirm-no">Back</a>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <section class="forms-tips-preview">
-                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
-
-                <div class="tips-advice show">
-                    <h3>Tips & Advice</h3>
-
-                    <p class="p-heading">You have more work experience than you think..</p>
-                    <p>Even if you have never worked in a company before, it's likely that you still have relevant
-                        experience like:</p>
-
-                    <ul>
-                        <li>Part-time jobs</li>
-                        <li>Paid/unpaid internships</li>
-                        <li>Seasonal jobs</li>
-                        <li>Work study jobs</li>
-                    </ul>
-
-                    <p class="p-last-para">Eventhough you're an entry-level candidate, hiring managers aren't looking
-                        for established work
-                        experience. They just want to know that you're an active and engaged person with a solid
-                        background.</p>
-
-                </div>
-
-            </section>
-
-        </article>
-
-    </main>
-</body>
-
-</html>
+<p class="p-last-para">Eventhough you're an entry-level candidate, hiring managers aren't looking
+    for established work
+    experience. They just want to know that you're an active and engaged person with a solid
+    background.</p>
 
 {% endblock %}

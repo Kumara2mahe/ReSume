@@ -1,70 +1,61 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Create | ReSume - Builder{% endblock %}
+{% block meta_description %}ReSume - Create your Resume as easy as saying 1, 2, 3 from our templates{% endblock %}
+
 {% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+<article class="builder">
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/progressbar.js' %}"></script>
-</head>
+    <!-- BuilderPage Title -->
+    <section class="main-title">
+        <h1><span class="blue">Create</span>&nbsp;your&nbsp;<b class="orange">ReSume</b> as&nbsp;easy&nbsp;as
+            saying&nbsp;<span class="orange">1</span>,&nbsp;<span class="orange">2</span>,&nbsp;<span
+                class="orange">3</span>
+        </h1>
+    </section>
 
-<body>
-    <main>
 
-        <article class="getting-started">
+    <!-- BuilderPage Images -->
+    <section class="graphics-container">
 
-            <section class="heading">
-                <h1>Create your Resume as easy as saying 1, 2, 3</h1>
-            </section>
+        <figure class="image-wrapper">
+            <img src="{% static 'Assets/Images/step_01.png' %}">
+            <figcaption>Build your Resume with our step-by-step process.<span>1</span></figcaption>
+        </figure>
 
-            <section class="content">
-                <figure class="images">
+        <figure class="image-wrapper middle">
+            <img src="{% static 'Assets/Images/step_02.png' %}">
+            <figcaption>Select a Professional Resume Design<span>2</span></figcaption>
+        </figure>
 
-                    <img src="{% static 'Assets/Images/started_011.png' %}">
-                    <img src="{% static 'Assets/Images/started_012.png' %}">
-                    <img src="{% static 'Assets/Images/started_013.png' %}">
+        <figure class="image-wrapper">
+            <img src="{% static 'Assets/Images/step_03.png' %}">
+            <figcaption>Download or Print your new Resume<span>3</span></figcaption>
+        </figure>
 
-                </figure>
+    </section>
 
-                <div class="image-captions">
-                    <p>Build your Resume with our step-by-step process.<span>1</span></p>
-                    <p>Select a Professional Resume Design<span>2</span></p>
-                    <p>Download or Print your new Resume<span>3</span></p>
-                </div>
 
-            </section>
+    <!-- BuilderPage (Begin) Button -->
+    <section class="continue-button">
 
-            <section class="continue-button">
-                <a>Let's Begin</a>
-            </section>
+        <form method="GET" action="{% url 'personal-details' %}">
+            <input type="submit" value="Let's Begin">
+        </form>
 
-            <section class="progress-bar">
+        <!-- BuilderPage (Progress) Bar -->
+        <section class="progress-bar">
 
-                <div class="bar-container">
-                    <div class="bar"></div>
-                </div>
+            <div class="bar-container">
+                <div class="bar"></div>
+            </div>
 
-            </section>
+        </section>
 
-        </article>
+    </section>
 
-    </main>
-</body>
-
-</html>
+</article>
 
 {% endblock %}

@@ -1,164 +1,72 @@
-{% extends "base.html" %}
+{% extends "builderTemplate.html" %}
 {% load static %}
 
-{% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+{% block formcontent %}
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
-    <style>
-        footer {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Forms -Section -->
+<section class="forms-entry">
 
-<body>
-    <main class="license-certifications">
+    <!-- Forms Title -->
+    <h1>Add your <span class="mid-blue">Certifications</span> if Needed</h1>
 
-        <article class="forms-navbar">
+    <!-- Certifications-Form -->
+    <form class="certifications-form" method="POST" autocomplete="on">
 
-            <section class="navbar-names">
+        {% csrf_token %}
 
-                <a class="first-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
-                    <span>&ensp;Contact</span>
-                </a>
+        <!-- Certifications -Inputs -->
+        <div class="skills-container">
 
-                <a class="second-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
-                    <span>&ensp;Experience</span>
-                </a>
+            <input class="certification_1" type="text" name="certification1" value="{{certifications.certification_1}}"
+                placeholder="License / Certification #1">
 
-                <a class="third-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
-                    <span>&ensp;Education</span>
-                </a>
+            <input class="certification_2 hide" type="text" name="certification2"
+                value="{{certifications.certification_2}}" placeholder="License / Certification #2">
 
-                <a class="fourth-link nav-bar-active {{link}}">
-                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
-                    <span>&ensp;Certifications</span>
-                </a>
+            <input class="certification_3 hide" type="text" name="certification3"
+                value="{{certifications.certification_3}}" placeholder="License / Certification #3">
 
-                <a class="fifth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
-                    <span>&ensp;Additional Skills</span>
-                </a>
+            <input class="certification_4 hide" type="text" name="certification4"
+                value="{{certifications.certification_4}}" placeholder="License / Certification #4">
 
-                <a class="sixth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
-                    <span>&ensp;Career Objective</span>
-                </a>
+            <input class="certification_5 hide" type="text" name="certification5"
+                value="{{certifications.certification_5}}" placeholder="License / Certification #5">
 
-            </section>
+            <input class="certification_6 hide" type="text" name="certification6"
+                value="{{certifications.certification_6}}" placeholder="License / Certification #6">
 
-            <section class="form-progress">
+        </div>
 
-                <div class="form-progress-title">
-                    <p>Progress</p>
-                </div>
+        <!-- Add Certification -Button -->
+        <div class="add-more">
+            <a><img src="{% static 'Assets/Images/add.png' %}"> <span>Add &nbsp;Licence / Certification</span></a>
+            <p class="warning hide">Only 6 certifications can be added</p>
+        </div>
 
-                <div class="form-progress-container">
-                    <div class="form-progress-bar"></div>
-                </div>
+        <!-- Button -Section -->
+        <div class="form-buttons">
+            <input type="button" class="back-button" value="Back">
+            <input type="submit" class="continue-button" value="Continue">
+        </div>
 
-                <div class="form-progress-percentage">0</div>
+    </form>
 
-            </section>
+</section>
 
-        </article>
-
-        <article class="forms-content-section">
-
-            <section class="forms-entry">
-                <h1>Add your <span class="mid-blue">Certifications</span> if Needed</h1>
-
-                <form class="license-certifications-form" method="POST" autocomplete="off">
-
-                    {% csrf_token %}
-
-                    <div class="license-certifications-input-section">
-
-                        <input class="certification_1" type="text" name="certification1"
-                            value="{{certifications.certification_1}}" placeholder="License / Certification #1">
-
-                        <input class="certification_2 hide" type="text" name="certification2"
-                            value="{{certifications.certification_2}}" placeholder="License / Certification #2">
-
-                        <input class="certification_3 hide" type="text" name="certification3"
-                            value="{{certifications.certification_3}}" placeholder="License / Certification #3">
-
-                        <input class="certification_4 hide" type="text" name="certification4"
-                            value="{{certifications.certification_4}}" placeholder="License / Certification #4">
-
-                        <input class="certification_5 hide" type="text" name="certification5"
-                            value="{{certifications.certification_5}}" placeholder="License / Certification #5">
-
-                        <input class="certification_6 hide" type="text" name="certification6"
-                            value="{{certifications.certification_6}}" placeholder="License / Certification #6">
+{% endblock %}
 
 
-                    </div>
+{% block tipscontent %}
 
-                    <div class="license-certifications-add">
-
-                        <a><img src="{% static 'Assets/Images/plus.png' %}"> <span>Add &nbsp;Licence / Certification
-                            </span></a>
-
-                        <p class="warning hide">Only 6 certifications can be added</p>
-
-                    </div>
-
-
-                    <div class="license-certifications-buttons">
-
-                        <input type="button" class="license-certifications-back-button" value="Back">
-
-                        <input type="submit" class="license-certifications-continue-button" value="Continue">
-
-                    </div>
-
-                </form>
-
-            </section>
-
-            <section class="forms-tips-preview">
-                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
-
-                <div class="tips-advice show">
-                    <h3>Tips & Advice</h3>
-
-                    <ul>
-                        <li>If your job requires you to have a certain license or certification, this is where you
-                            should list it.</li>
-                        <li>Include only the certificates relevant to the job(s) you are appling for.</li>
-                        <li>Format your licenses and certifications this way:&ensp;Name of the licence or
-                            certification,
-                            Issued by, Year acquired.</li>
-                    </ul>
-                </div>
-
-            </section>
-
-        </article>
-
-    </main>
-</body>
-
-</html>
+<!-- Tips -Content -->
+<ul>
+    <li>If your job requires you to have a certain license or certification, this is where you
+        should list it.</li>
+    <li>Include only the certificates relevant to the job(s) you are appling for.</li>
+    <li>Format your licenses and certifications this way:&ensp;Name of the licence or
+        certification,
+        Issued by, Year acquired.</li>
+</ul>
 
 {% endblock %}

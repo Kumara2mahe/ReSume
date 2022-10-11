@@ -1,350 +1,222 @@
-{% extends "base.html" %}
+{% extends 'builderTemplate.html' %}
 {% load static %}
 
-{% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+{% block formcontent %}
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
-    <style>
-        footer {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Forms -Section -->
+<section class="forms-entry">
 
-<body>
-    <main class="higher-education">
+    <!-- Form Selection -Section -->
+    <div class="form-selection hide">
+        <h1>Choose your Higher level of <span class="mid-blue">Education</span></h1>
 
-        <article class="forms-navbar">
+        <div class="show-options school-or-college">
 
-            <section class="navbar-names">
-
-                <a class="first-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
-                    <span>&ensp;Contact</span>
-                </a>
-
-                <a class="second-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
-                    <span>&ensp;Experience</span>
-                </a>
-
-                <a class="third-link nav-bar-active {{link}}">
-                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
-                    <span>&ensp;Education</span>
-                </a>
-
-                <a class="fourth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
-                    <span>&ensp;Certifications</span>
-                </a>
-
-                <a class="fifth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
-                    <span>&ensp;Additional Skills</span>
-                </a>
-
-                <a class="sixth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
-                    <span>&ensp;Career Objective</span>
-                </a>
-
-            </section>
-
-
-            <section class="form-progress">
-
-                <div class="form-progress-title">
-                    <p>Progress</p>
+            <a class="high-school">
+                <div class="school-img">
+                    <img src="{% static 'Assets/Images/school_01.png' %}">
                 </div>
+                <span>High School</span>
+            </a>
 
-                <div class="form-progress-container">
-                    <div class="form-progress-bar"></div>
+            <a class="college-university">
+                <div class="college-img">
+                    <img src="{% static 'Assets/Images/university_01.png' %}">
                 </div>
+                <span>College /&nbsp;University</span>
+            </a>
 
-                <div class="form-progress-percentage">0</div>
+        </div>
+    </div>
 
-            </section>
+    <div class="selected-form">
 
-        </article>
+        <form class="higher-education-form" method="POST" autocomplete="on">
 
-        <article class="forms-content-section">
+            <!-- High-School -Form -->
+            <div class="school_form">
 
-            <section class="forms-entry">
+                {% csrf_token %}
 
-                <div class="selection-section">
-                    <h1>Choose your Higher level of <span class="mid-blue">Education</span></h1>
+                <!-- School Name -Section -->
+                <div class="name-section">
 
-                    <div class="school-or-college">
-
-                        <a class="high-school">
-                            <div class="school-img">
-                                <img src="{% static 'Assets/Images/school_01.png' %}">
-                            </div>
-                            <span>High School</span>
-                        </a>
-
-                        <a class="college-university">
-                            <div class="college-img">
-                                <img src="{% static 'Assets/Images/university_01.png' %}">
-                            </div>
-                            <span>College / University</span>
-                        </a>
-
-                    </div>
+                    <input class="school_name" type="text" name="schoolname" value="{{ highschool.school_name }}"
+                        placeholder="High School Name*">
 
                 </div>
 
-                <div class="entrysection-1">
-                    <h1>Add your <span class="mid-blue">High School</span></h1>
+                <!-- Percentage & PassedYear -Section -->
+                <div class="grade-passedyear">
 
-                    <form class="higher-education-highschool-form" method="POST" autocomplete="off">
+                    <input class="percent_grade" type="text" name="percentgrade" value="{{ highschool.school_grade }}"
+                        placeholder="CGPA / Percentage">
 
-                        {% csrf_token %}
+                    <!-- PassedYear -Dropdown -->
+                    <select class="passed_year" type="text" name="passedyear">
 
-                        <input class="school_form" name="schoolform" value="school" hidden>
+                        <!-- Default Option -->
+                        <option value="{{ highschool.school_passedyear }}" selected hidden>
+                            {{ highschool.school_passedyear }}</option>
 
-                        <div class="education-school-name">
+                        {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
 
-                            <input class="school_name" type="text" name="schoolname" value="{{highschool.school_name}}"
-                                placeholder="High School Name*">
-
-                        </div>
-
-                        <div class="education-school-grade-endyear">
-
-                            <input class="school_percentage" type="text" name="schoolpercentage"
-                                value="{{highschool.school_percentage}}" placeholder="CGPA / Percentage">
-
-                            <select class="school_passedyear" type="text" name="schoolpassedyear">
-
-                                {% if highschool.school_passedyear == "Passed Out Year*" %}
-                                <option value="Passed Out Year*" selected hidden style="color: #918C89;">Passed Out
-                                    Year*
-                                </option>
-                                {% else %}
-                                <option value="{{highschool.school_passedyear}}" selected hidden>
-                                    {{highschool.school_passedyear}}
-                                </option>
-                                {% endif %}
-
-                                {% for year in years %}
-                                <option value="{{year}}">{{year}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                        </div>
-
-                        <div class="education-school-country-city">
-
-                            <select class="school_country" type="text" name="schoolcountry">
-
-                                {% if highschool.school_country == "Country" %}
-                                <option value="Country" selected hidden style="color: #918C89;">Country</option>
-                                {% else %}
-                                <option value="{{highschool.school_country}}" selected hidden>
-                                    {{highschool.school_country}}
-                                </option>
-                                {% endif %}
-
-                                {% for country in countries %}
-                                <option value="{{country.name}}">{{country.name}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                            <input class="school_city" type="text" name="schoolcity" value="{{highschool.school_city}}"
-                                placeholder="City">
-
-                        </div>
-
-                        <div class="education-school-buttons">
-
-                            <input type="button" class="education-school-back-button" value="Back">
-
-                            <input type="submit" class="education-school-continue-button" value="Continue">
-
-                        </div>
-
-                    </form>
+                    </select>
 
                 </div>
 
-                <div class="entrysection-2">
-                    <h1>Add your <span class="mid-blue">College</span> or <span class="mid-blue">University</span></h1>
+                <!-- Country & City -Section -->
+                <div class="country-city">
 
-                    <form class="higher-education-college-form" method="POST" autocomplete="off">
+                    <!-- Country -Dropdown -->
+                    <select class="country_name" type="text" name="countryname">
 
-                        {% csrf_token %}
+                        <!-- Default Option -->
+                        <option value="{{ highschool.school_country }}" selected hidden>{{ highschool.school_country }}
+                        </option>
 
-                        <input class="college_form" name="collegeform" value="college" hidden>
+                        {% for country in countries %}
+                        <option value="{{ country.name }}">{{ country.name }}</option>
+                        {% endfor %}
 
-                        <div class="education-college-name">
+                    </select>
 
-                            <input class="college_name" type="text" name="collegename" value="{{college.college_name}}"
-                                placeholder="College or University Name*">
-
-                        </div>
-
-                        <div class="education-college-grade-endyear">
-
-                            <input class="college_percentage" type="text" name="collegepercentage"
-                                value="{{college.college_percentage}}" placeholder="CGPA / Percentage">
-
-                            <select class="college_passedyear" type="text" name="collegepassedyear">
-
-                                {% if college.college_passedyear == "Passed Out Year*" %}
-                                <option value="Passed Out Year*" selected hidden style="color: #918C89;">Passed Out
-                                    Year*
-                                </option>
-                                {% else %}
-                                <option value="{{college.college_passedyear}}" selected hidden>
-                                    {{college.college_passedyear}}
-                                </option>
-                                {% endif %}
-
-                                {% for year in years %}
-                                <option value="{{year}}">{{year}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                        </div>
-
-                        <div class="education-college-degree">
-
-                            <input class="college_degree" type="text" name="collegedegree"
-                                value="{{college.college_degree}}" placeholder="Degree or Program*">
-
-                        </div>
-
-                        <div class="education-college-branch">
-
-                            <input class="college_branch" type="text" name="collegebranch"
-                                value="{{college.college_branch}}" placeholder="Field of Study*">
-
-                        </div>
-
-                        <div class="education-college-country-city">
-
-                            <select class="college_country" type="text" name="collegecountry">
-
-                                {% if college.college_country == "Country" %}
-                                <option value="Country" selected hidden style="color: #918C89;">Country</option>
-                                {% else %}
-                                <option value="{{college.college_country}}" selected hidden>
-                                    {{college.college_country}}
-                                </option>
-                                {% endif %}
-
-                                {% for country in countries %}
-                                <option value="{{country.name}}">{{country.name}}</option>
-                                {% endfor %}
-
-                            </select>
-
-                            <input class="college_city" type="text" name="collegecity" value="{{college.college_city}}"
-                                placeholder="City">
-
-                        </div>
-
-                        <div class="education-college-buttons">
-
-                            <input type="button" class="education-college-back-button" value="Back">
-
-                            <input type="submit" class="education-college-continue-button" value="Continue">
-
-                        </div>
-
-                    </form>
+                    <input class="city_name" type="text" name="cityname" value="{{ highschool.school_city }}"
+                        placeholder="City">
 
                 </div>
 
-                <div class="edit-section">
-                    <h1>Add your <span class="mid-blue">Education</span></h1>
+                <!-- Button -Section -->
+                <div class="form-buttons">
 
-                    <div class="edit-container">
+                    <input type="button" class="back-button" value="Back">
 
-                        <div class="first-school-college">
-
-                            <div class="edit-content">
-                                <h2>FirstName</h2>
-                                <p>School</p>
-                            </div>
-
-                            <div class="edit-option">
-                                <a><img src="{% static 'Assets/Images/trash_edit.png' %}"></a>
-                            </div>
-
-                        </div>
-
-                        <div class="second-school-college">
-
-                            <div class="edit-content">
-                                <h2>SecondName</h2>
-                                <p>School</p>
-                            </div>
-
-                            <div class="edit-option">
-                                <a><img src="{% static 'Assets/Images/trash_edit.png' %}"></a>
-                            </div>
-
-                        </div>
-
-                        <div class="add-school-college">
-                            <a><img src="{% static 'Assets/Images/plus.png' %}"> <span>Add</span></a>
-                        </div>
-
-                        <div class="edit-buttons">
-                            <a class="edit-back-button">Back</a>
-                            <a class="edit-continue-button">Continue</a>
-                        </div>
-
-                    </div>
+                    <input type="submit" class="continue-button" value="Continue">
 
                 </div>
 
-            </section>
+            </div>
 
-            <section class="forms-tips-preview">
-                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
 
-                <div class="tips-advice show">
-                    <h3>Tips & Advice</h3>
+            <!-- College / University -Form -->
+            <div class="college_form">
 
-                    <ul>
-                        <li>List all your relevant education.</li>
-                        <li>Don't include high school if you have completed higher education or have relevant work
-                            experiece.</li>
-                        <li class="college-tip">If you haven't graduated yet, OR left college before graduating, select
-                            the degree type you
-                            earned credit towards.</li>
-                    </ul>
+                {% csrf_token %}
+
+                <!-- College / University Name -Section -->
+                <div class="name-section">
+
+                    <input class="college_name" type="text" name="collegename" value="{{ college.college_name }}"
+                        placeholder="College or University Name*">
+
                 </div>
 
-            </section>
+                <!-- Percentage & PassedYear -Section -->
+                <div class="grade-passedyear">
 
-        </article>
+                    <input class="percent_grade" type="text" name="percentgrade" value="{{ college.college_grade }}"
+                        placeholder="CGPA / Percentage">
 
-    </main>
-</body>
+                    <!-- PassedYear -Dropdown -->
+                    <select class="passed_year" type="text" name="passedyear">
 
-</html>
+                        <!-- Default Option -->
+                        <option value="{{ college.college_passedyear }}" selected hidden>
+                            {{ college.college_passedyear }}</option>
+
+                        {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <!-- Degree / Program -Section -->
+                <div class="college-degree">
+
+                    <input class="college_degree" type="text" name="collegedegree" value="{{ college.college_degree }}"
+                        placeholder="Degree or Program*">
+
+                </div>
+
+                <!-- Field of Study -Section -->
+                <div class="college-branch">
+
+                    <input class="college_branch" type="text" name="collegebranch" value="{{ college.college_branch }}"
+                        placeholder="Field of Study*">
+
+                </div>
+
+                <!-- Country & City -Section -->
+                <div class="country-city">
+
+                    <!-- Country -Dropdown -->
+                    <select class="country_name" type="text" name="countryname">
+
+                        <!-- Default Option -->
+                        <option value="{{ college.college_country }}" selected hidden>{{ college.college_country }}
+                        </option>
+
+                        {% for country in countries %}
+                        <option value="{{ country.name }}">{{ country.name }}</option>
+                        {% endfor %}
+
+                    </select>
+
+                    <input class="city_name" type="text" name="cityname" value="{{ college.college_city }}"
+                        placeholder="City">
+
+                </div>
+
+                <!-- Button -Section -->
+                <div class="form-buttons">
+
+                    <input type="button" class="back-button" value="Back">
+
+                    <input type="submit" class="continue-button" value="Continue">
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <!-- Edit Education -Section -->
+        <div class="edit-container">
+
+            <!-- Add Education -Button -->
+            <div class="add-education">
+                <a><img src="{% static 'Assets/Images/add.png' %}"> <span>Add</span></a>
+            </div>
+
+            <!-- Button -Section -->
+            <div class="form-buttons">
+                <a class="back-button" href="{% url 'years-of-experience' %}">Back</a>
+                <a class="continue-button" href="{% url 'certifications' %}">Continue</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block tipscontent %}
+
+<!-- Tips -Content -->
+<ul>
+    <li>List all your relevant education.</li>
+    <li>Don't include high school if you have completed higher education or have relevant work
+        experiece.</li>
+    <li class="college-tip">If you haven't graduated yet, OR left college before graduating, select
+        the degree type you earned credit towards.</li>
+</ul>
 
 {% endblock %}

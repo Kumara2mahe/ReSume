@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Step 1 : Fill your Details | ReSume - Builder{% endblock %}
+{% block meta_description %}ReSume - Step one fill the details you what to show on your Resume{% endblock %}
+
+{% block content %}
+
+<main class="builder-template">
+
+    <!-- Left Panel -->
+    <article class="forms-navbar">
+
+        <input class="active_link" type="text" value="{{ link }}" hidden>
+
+        <!-- Side-Navbar -->
+        <section class="navbar-names">
+
+            <a class="first-link">
+                <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
+                <span>Contact</span>
+            </a>
+
+            <a class="second-link">
+                <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
+                <span>Experience</span>
+            </a>
+
+            <a class="third-link">
+                <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
+                <span>Education</span>
+            </a>
+
+            <a class="fourth-link">
+                <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
+                <span>Certifications</span>
+            </a>
+
+            <a class="fifth-link">
+                <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
+                <span>Additional Skills</span>
+            </a>
+
+            <a class="sixth-link">
+                <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
+                <span>Career Objective</span>
+            </a>
+
+        </section>
+
+
+        <!-- Side-Progressbar -->
+        <section class="form-progress">
+
+            <div class="form-progress-title">
+                <p>Progress</p>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+
+                <div class="progress-percentage">0%</div>
+            </div>
+
+        </section>
+
+    </article>
+
+
+    <!-- Right Panel -->
+    <article class="forms-content-section">
+
+        {% block formcontent %}
+
+        {% endblock %}
+
+        <!-- Tip & Advice -Section -->
+        <section class="forms-tips-preview">
+
+            <!-- Tips -Button -->
+            <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
+
+            <div class="tips-advice">
+                <h3>Tips & Advice</h3>
+
+                {% block tipscontent %}
+
+                {% endblock %}
+            </div>
+
+        </section>
+
+    </article>
+
+</main>
+
+{% endblock %}

@@ -4,149 +4,56 @@
 <!doctype html>
 <html lang="en-US" dir="ltr">
 
+<head>
+    <title>{% block title %}ReSume - Builder{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="{% block meta_description %}ReSume - a online resume builder application to create your resume from our default templates{% endblock %}">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/authenticate.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
+
+    {% if request.path == "/contact" %}
+    <link rel="stylesheet" href="{% static 'Assets/CSS/contact.css' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/feedback.js' %}"></script>
+    {% elif request.path == "/resume-builder/getting-started" %}
+    <link rel="stylesheet" href="{% static 'Assets/CSS/builder.css' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/progressbar.js' %}"></script>
+    {% elif request.path != "/" and request.path != "/about" and request.path != "/resume-builder/templates" %}
+    <link rel="stylesheet" href="{% static 'Assets/CSS/builderTemplate.css' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/tips_advice.js' %}"></script>
+    {% elif request.path != "/" and request.path != "/about" %}
+    <link rel="stylesheet" href="{% static 'Assets/CSS/templates.css' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/templateSlider.js' %}"></script>
+    {% endif %}
+
+    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
+    <script type="module" src="{% static 'Assets/JavaScript/menubar.js' %}"></script>
+    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
+
+    {% if request.path == "/" or request.path == "/about" %}
+    <script type="module" src="{% static 'Assets/JavaScript/script.js' %}"></script>
+    {% endif %}
+</head>
+
 <body>
-    <main>
-        <!-- Menu Bar -->
-        <header>
 
-            <div class="fixed-menubar">
+    <header>
 
-                <!-- Menu Bar Logo -->
-                <div class="menubar title-logo">
+        <!-- MenuBar -->
+        <nav class="fixed-menubar">
 
-                    <a href="/">
-                        <img src="{% static 'Assets/Images/logo.png' %}">
-                        <div class="menubar title">
+            <!-- MenuBar Title-Logo -->
+            <div class="menubar title-logo">
 
-                            <h2>Re-Sume</h2>
-                            <p>Online Resume-Builder</p>
-
-                        </div>
-                    </a>
-
-                </div>
-
-                <!-- Menu Bar Options -->
-                <div class="menubar options">
-
-                    <h3><a href="/">Home</a></h3>
-                    <h3><a href="/about">About</a></h3>
-                    <h3><a href="/resume-builder/getting-started">Build</a></h3>
-                    <h3><a href="/contact">Contact</a></h3>
-
-                    {% if user.is_authenticated %}
-
-                    <h3><a class="logged">.</a></h3>
-                    <div class="logged-options hide">
-                        <a href="/logout">logout</a>
-                    </div>
-
-                    {% else %}
-
-                    <h3><a class="log">Sign Up</a></h3>
-                    {% endif %}
-                </div>
-
-            </div>
-
-        </header>
-
-        <!-- SignUp Menu -->
-        <section class="sign-up">
-            <div class="signup-popup">
-
-                <div class="form-container">
-
-                    <!-- close-button -->
-                    <a class="signup-close">&times;</a>
-
-                    <h2><span>CREATE</span> ACCOUNT</h2>
-                    <h5 class="error-message">#</h5>
-
-                    <form class="userAuthentication_form" method="POST" autocomplete="off">
-
-                        {% csrf_token %}
-
-                        <p>&ensp;User Name</p>
-                        <input class="user_name" type="text" name="username" placeholder="eg: SteveRogers">
-
-                        <p>&ensp;Email Id</p>
-                        <input class="email_id" type="email" name="email" placeholder="captain@mcu.com">
-
-                        <p>&ensp;Password</p>
-                        <input class="pass_word" type="password" name="password">
-
-                        <p>&ensp;Confirm-Password</p>
-                        <input class="pass_word2" type="password" name="password2">
-
-                        <div class="send-button">
-
-                            <input type="submit" class="email-confirm" value="Continue">
-
-                        </div>
-
-                        <div class="log-in">
-                            <p>Already a member? &ensp;<a>LogIn</a></p>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- LogIn Menu -->
-        <section class="login-menu">
-            <div class="login-popup">
-
-                <div class="form-container">
-
-                    <!-- <div> -->
-                    <a class="login-close">&times;</a>
-                    <!-- </div> -->
-
-                    <h2><span>Log In</span> ACCOUNT</h2>
-                    <h5 class="error-message">#</h5>
-
-                    <form class="userAuthentication_form" method="POST" autocomplete="off">
-
-                        {% csrf_token %}
-
-                        <p>&ensp;User Name</p>
-                        <input class="user_2name" type="text" name="user2name" placeholder="eg: FrankCastle">
-
-                        <p>&ensp;Password</p>
-                        <input class="pass_2word" type="password" name="pass2word">
-
-                        <div class="send-button">
-
-                            <input type="submit" class="email-confirm" value="Log In">
-
-                        </div>
-
-                        <div class="log-in">
-                            <p>Don't have an account? &ensp;<a>Sign Up</a></p>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </section>
-
-        {% block content %}
-
-        {% endblock %}
-
-        <!-- Contant - Info -->
-        <footer>
-
-            <div class="bottom-info logo">
-
-                <a href="/">
-                    <figure>
-                        <img src="{% static 'Assets/Images/logo.png' %}">
-                    </figure>
-
-                    <div class="bottom-info title">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'Assets/Images/logo.png' %}"
+                        alt="Webpage's main logo represents the first three letters of resume as 'Res'">
+                    <div class="menubar title">
 
                         <h2>Re-Sume</h2>
                         <p>Online Resume-Builder</p>
@@ -156,63 +63,271 @@
 
             </div>
 
-            <h3 class="first-para">Contact Us</h3>
+            <!-- MenuBar Links -->
+            <div class="menubar nav-links">
 
-            <!-- Contact - Info Images -->
-            <figure class="bottom-info images">
+                <h3><a href="{% url 'home' %}">Home</a></h3>
+                <h3><a href="{% url 'about' %}">About</a></h3>
+                <h3><a href="{% url 'getting-started' %}">Build</a></h3>
+                <h3><a href="{% url 'contact' %}">Contact</a></h3>
 
-                <figure>
+                {% if user.is_authenticated %}
 
-                    <img src="{% static 'Assets/Images/contact_01.png' %}">
-                    <p>Varanasi</p>
-                    <p>Uttar Pradhash,<br>India</p>
-
-                </figure>
-
-                <figure>
-
-                    <img src="{% static 'Assets/Images/contact_02.png' %}">
-                    <p>info@resume.com</p>
-                    <p>support@resume.com</p>
-
-                </figure>
-
-                <figure>
-
-                    <img src="{% static 'Assets/Images/contact_03.png' %}">
-                    <p>+919876543201</p>
-
-                </figure>
-
-            </figure>
-
-            <!-- Contact - SocialMedia Images -->
-            <figure class="bottom-info social-images">
-
-                <a href=""><img src="{% static 'Assets/Images/social_01.png' %}"></a>
-                <a href=""><img src="{% static 'Assets/Images/social_02.png' %}"></a>
-                <a href=""><img src="{% static 'Assets/Images/social_03.png' %}"></a>
-                <a href=""><img src="{% static 'Assets/Images/social_04.png' %}"></a>
-
-            </figure>
-
-            <!-- Contact - CopyRights -->
-            <div class="bottom-info copyrights">
-
-                <p>&copy; 2022 RES resume . All Rights Reserved</p>
-                <div class="links">
-
-                    <a href="/about">About Us</a>
-                    <a href="/contact">Contact Us</a>
-                    <a href="">Terms of Service</a>
-                    <a href="">Privacy</a>
-
+                <h3 class="user-profile">
+                    <img src="{% static 'Assets/Images/profile.png' %}"
+                        alt="showing image of a default profile picture for larger screens representing a person">&nbsp;<span>^</span>
+                </h3>
+                <div class="profile-options hide">
+                    <a href="{% url 'logout' %}">logout</a>
                 </div>
+
+                {% else %}
+
+                <h3><a class="sign-up">Sign Up</a></h3>
+
+                {% endif %}
+
+                <!-- Hamburger Menu Icon -->
+                <h3 class="ham-menu">
+                    <a class="ham-button">
+                        <img src="{% static 'Assets/Images/Svg/hamburger_menu.svg' %}"
+                            alt="hamburger menu icon for opening the navigation menu in small screens">
+                    </a>
+                </h3>
 
             </div>
 
-        </footer>
-    </main>
+        </nav>
+
+    </header>
+
+    {% if not user.is_authenticated %}
+
+    <!-- SignUp Menu -->
+    <section class="signup-container">
+        <div class="signup-menu">
+
+            <div class="form-container">
+
+                <!-- Close Button -->
+                <a class="signup-close">&times;</a>
+
+                <!-- Title -->
+                <h2><span>CREATE</span> ACCOUNT</h2>
+
+                <!-- Message Container -->
+                <h5 class="error-message">404 : Try Again</h5>
+
+                <!-- SignUp Form -->
+                <form class="userAuthentication_form" method="POST" autocomplete="on">
+
+                    {% csrf_token %}
+
+                    <p>&ensp;User Name</p>
+                    <input class="user_name" type="text" name="username" placeholder="eg: SteveRogers"
+                        autocomplete="username">
+
+                    <p>&ensp;Email Id</p>
+                    <input class="email_id" type="email" name="email" placeholder="captain@mcu.com"
+                        autocomplete="email">
+
+                    <p>&ensp;Password</p>
+                    <input class="pass_word" type="password" name="password" autocomplete="new-password">
+
+                    <p>&ensp;Confirm-Password</p>
+                    <input class="pass_word2" type="password" name="password2" autocomplete="new-password">
+
+                    <div class="submit-wrapper">
+                        <input type="submit" class="submit-button" value="Continue">
+                    </div>
+
+                    <div class="login-wrapper">
+                        <p>Already a member? &ensp;<a>LogIn</a></p>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LogIn Menu -->
+    <section class="login-container">
+        <div class="login-menu">
+
+            <div class="form-container">
+
+                <!-- Close Button -->
+                <a class="login-close">&times;</a>
+
+                <!-- Title -->
+                <h2><span>Log In</span> ACCOUNT</h2>
+
+                <!-- Message Container -->
+                <h5 class="error-message">error: 404</h5>
+
+                <!-- LogIn Form -->
+                <form class="userAuthentication_form" method="POST" autocomplete="on">
+
+                    {% csrf_token %}
+
+                    <p>&ensp;User Name</p>
+                    <input class="user_2name" type="text" name="user2name" placeholder="eg: FrankCastle"
+                        autocomplete="username">
+
+                    <p>&ensp;Password</p>
+                    <input class="pass_2word" type="password" name="pass2word" autocomplete="current-password">
+
+                    <div class="submit-wrapper">
+                        <input type="submit" class="submit-button" value="Log In">
+                    </div>
+
+                    <div class="signup-wrapper">
+                        <p>Don't have an account? &ensp;<a>Sign&nbsp;Up</a></p>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    {% endif %}
+
+    <!-- Navigation Menu -->
+    <section class="navigation-menu hide">
+        <div class="navigation-menu-container">
+
+            <!-- Close button & Profile -->
+            <div class="top-container">
+                <a class="close-menu">&#88;</a>
+                <a class="user-profile">
+                    <img src="{% static 'Assets/Images/profile.png' %}"
+                        alt="showing image of a default profile picture for smaller screens representing a person">
+                </a>
+            </div>
+
+            <!-- Page links -->
+            <div class="pages-container hide">
+
+                <a class="home-link inactive" href="{% url 'home' %}">Home</a>
+                <a class="about-link inactive" href="{% url 'about' %}">About</a>
+                <a class="builder-link inactive" href="{% url 'getting-started' %}">Build</a>
+                <a class="contact-link inactive" href="{% url 'contact' %}">Contact</a>
+
+                {% if user.is_authenticated %}
+
+                <a class="logout-link inactive" href="{% url 'logout' %}">logout</a>
+
+                {% else %}
+
+                <a class="signup-link inactive">Sign Up</a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </section>
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% if request.path == "/" or request.path == "/about" or request.path == "/contact" or request.path == "/resume-builder/getting-started" %}
+
+    <footer>
+
+        {% if request.path != "/resume-builder/getting-started" %}
+
+        <!-- Bottom-Info | Title-Logo -->
+        <div class="bottom-info logo">
+
+            <a href="{% url 'home' %}">
+                <figure>
+                    <img src="{% static 'Assets/Images/logo.png' %}"
+                        alt="Webpage's footer logo represents the first three letters of resume as 'Res'">
+                </figure>
+
+                <div class="bottom-logo-title">
+
+                    <h2>Re-Sume</h2>
+                    <p>Online Resume-Builder</p>
+
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Bottom-Info | Contacts -->
+        <h3 class="contacts-heading">Contact Us</h3>
+        <figure class="bottom-info contacts">
+
+            <figure>
+                <img src="{% static 'Assets/Images/contact_01.png' %}" alt="location pointer icon">
+                <a href="https://goo.gl/maps/HiLQau6EXUC3ACHAA" target="_blank">
+                    Tuticorin<br>Tamil Nadu, India
+                </a>
+            </figure>
+
+            <figure>
+                <img src="{% static 'Assets/Images/contact_02.png' %}" alt="mail icon">
+                <a href="mailto:info@resume.com">info@resume.com</a>
+                <a href="mailto:support@resume.com">support@resume.com</a>
+            </figure>
+
+            <figure>
+                <img src="{% static 'Assets/Images/contact_03.png' %}" alt="telphone or mobile icon">
+                <a href="tel:+919876543201">+919876543201</a>
+            </figure>
+
+        </figure>
+
+        <!-- Bottom-Info | Social Links -->
+        <figure class="bottom-info social-links">
+
+            <a href="https://www.facebook.com/facebook/" target="_blank">
+                <img src="{% static 'Assets/Images/social_01.png' %}" alt="facebook icon">
+            </a>
+            <a href="https://twitter.com/explore/" target="_blank">
+                <img src="{% static 'Assets/Images/social_02.png' %}" alt="twitter icon">
+            </a>
+            <a href="https://www.linkedin.com/pulse/topics/home/" target="_blank">
+                <img src="{% static 'Assets/Images/social_03.png' %}" alt="linkedin icon">
+            </a>
+            <a href="https://www.instagram.com/" target="_blank">
+                <img src="{% static 'Assets/Images/social_04.png' %}" alt="instagram icon">
+            </a>
+
+        </figure>
+
+        {% endif %}
+
+        <!-- Bottom-Info | CopyRights -->
+        <div class="bottom-info copyrights">
+
+            <p>&copy; |year| RES resume . All Rights Reserved</p>
+            <div class="links">
+
+                <a href="{% url 'about' %}">About Us</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+                <a href="">Terms of Service</a>
+                <a href="">Privacy</a>
+
+            </div>
+
+            <script>
+                // Script for automatically changing the year in copyrights
+                let copyrights = document.querySelector("footer .bottom-info.copyrights p")
+                let currentYear = new Date().getFullYear()
+                copyrights.innerHTML = copyrights.innerHTML.replace("|year|", currentYear)
+            </script>
+
+        </div>
+
+    </footer>
+    {% endif %}
+
 </body>
 
 </html>

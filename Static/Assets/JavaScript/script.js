@@ -1,19 +1,22 @@
-/* ------ Script for Resume Builder's home.html ------ */
+/* ------ Script for Resume Builder's (Home & About -Page) ------ */
 
 
 
 // Taking the background image's element
 const backgroundImage = document.querySelector(".content-slider")
+const aboutTitleSection = document.querySelector(".aboutpage .main-title")
 
 // ------ Function for Changing the Slider Image with respect to time ---------------------------------------------- //
-
 const imageChangerFunction = () => {
 
     let sliderButtons = document.querySelector(".slider-buttons")
 
-    // Getting the background color of 'sliderButton's' buttons
+    // Getting the background color of 'sliderButtons's' buttons
     let sliderButton1 = window.getComputedStyle(sliderButtons.childNodes[1]).backgroundColor
     let sliderButton2 = window.getComputedStyle(sliderButtons.childNodes[3]).backgroundColor
+
+    // Setting the previous image as background for the ImageSlider
+    backgroundImage.parentElement.style.background = `${window.getComputedStyle(backgroundImage).backgroundImage} no-repeat top/cover`
 
     if (sliderButton1 == "rgb(0, 18, 25)") {
 
@@ -22,7 +25,7 @@ const imageChangerFunction = () => {
         sliderButtons.childNodes[3].classList.toggle("highlight")
 
         // Changing the background image
-        backgroundImage.classList.replace("content-image-2", "content-image-1")
+        backgroundImage.classList.replace("slider-2", "slider-1")
     }
 
     if (sliderButton2 == "rgb(0, 18, 25)") {
@@ -32,17 +35,39 @@ const imageChangerFunction = () => {
         sliderButtons.childNodes[1].classList.toggle("highlight")
 
         // Changing the background image
-        if (backgroundImage.classList[1] == "content-image-1") {
-            backgroundImage.classList.replace("content-image-1", "content-image-2")
+        if (backgroundImage.classList[1] == "slider-1") {
+            backgroundImage.classList.replace("slider-1", "slider-2")
         }
         else {
-            backgroundImage.classList.toggle("content-image-2")
+            backgroundImage.classList.toggle("slider-2")
         }
     }
+
 }
 
-// Function for repeating the imageChangerFunction
-var imageChangeTimer = setInterval(imageChangerFunction, 5500)
+let imageChangeTimer
+if (backgroundImage != null) {
+
+    // Assigning a function for automatically Changing the Slider Image after 5 seconds
+    imageChangeTimer = setInterval(imageChangerFunction, 5500)
+}
+else if (aboutTitleSection != null) {
+
+    // Automatically changing the About page title's background image
+    setInterval(() => {
+
+        // Getting the previous image path
+        let previousImagePath = window.getComputedStyle(aboutTitleSection).backgroundImage
+        let imageName = previousImagePath.split("_")[1].split(".jpg")[0]
+
+        if (imageName == "01") {
+            aboutTitleSection.style.backgroundImage = previousImagePath.replace("slider_01", "slider_02")
+        }
+        else {
+            aboutTitleSection.style.backgroundImage = previousImagePath.replace("slider_02", "slider_01")
+        }
+    }, 8000)
+}
 // ----------------------------------------------------------------------------------------------------------------- //
 
 
@@ -51,6 +76,13 @@ const sliderImageButton = (event) => {
 
     // Taking the specific element which is clicked 
     let sliderButton = event.target
+
+    // Re-setting the timer on the automatic ImageSlider
+    clearInterval(imageChangeTimer)
+    imageChangeTimer = setInterval(imageChangerFunction, 5500)
+
+    // Setting the previous image as background for the ImageSlider
+    backgroundImage.parentElement.style.background = `${window.getComputedStyle(backgroundImage).backgroundImage} no-repeat top/cover`
 
     // Checking for the clicked button is 'button-1'
     if (sliderButton.className == "button-1") {
@@ -61,18 +93,16 @@ const sliderImageButton = (event) => {
 
         // Changing the background image
         if (backgroundImage.classList[1] != "") {
-
-            backgroundImage.classList.toggle("content-image-1")
+            backgroundImage.classList.toggle("slider-1")
         }
-        if (backgroundImage.classList[1] == "content-image-2") {
 
-            backgroundImage.classList.replace("content-image-2", "content-image-1")
+        if (backgroundImage.classList[1] == "slider-2") {
+            backgroundImage.classList.replace("slider-2", "slider-1")
         }
     }
 
-
     // Checking for the clicked button is 'button-2'
-    if (sliderButton.className == "button-2") {
+    else if (sliderButton.className == "button-2") {
 
         // Changing the background color according to the button click
         sliderButton.classList.toggle("highlight")
@@ -80,12 +110,11 @@ const sliderImageButton = (event) => {
 
         // Changing the background image
         if (backgroundImage.classList[1] != "") {
-
-            backgroundImage.classList.toggle("content-image-2")
+            backgroundImage.classList.toggle("slider-2")
         }
-        if (backgroundImage.classList[1] == "content-image-1") {
 
-            backgroundImage.classList.replace("content-image-1", "content-image-2")
+        if (backgroundImage.classList[1] == "slider-1") {
+            backgroundImage.classList.replace("slider-1", "slider-2")
         }
     }
 }
@@ -93,16 +122,20 @@ const sliderImageButton = (event) => {
 // Left Button
 const sliderButton1 = document.querySelector(".slider-buttons .button-1")
 //
-sliderButton1.addEventListener("click", sliderImageButton)
-
+if (sliderButton1 != null) {
+    sliderButton1.addEventListener("click", sliderImageButton)
+}
 // Right Button
 const sliderButton2 = document.querySelector(".slider-buttons .button-2")
 //
-sliderButton2.addEventListener("click", sliderImageButton)
+if (sliderButton2 != null) {
+    sliderButton2.addEventListener("click", sliderImageButton)
+}
+
 // -------------------------------------------------------------------------------------------------------------- //
 
 
-// ----- Script for changing the slider-2 images --------------------------------------------------------------- //
+// ----- Script for changing the Middle Slider images --------------------------------------------------------------- //
 
 // Function for changing the image
 const sliderChangeImage = (event) => {
@@ -114,16 +147,16 @@ const sliderChangeImage = (event) => {
     let sibilings = nextButton.parentElement.childNodes
 
     // Getting the initial src value of each 'img' element
-    let lastImage = sibilings[9].attributes[0].value
-    let thirdImage = sibilings[7].attributes[0].value
-    let secondImage = sibilings[5].attributes[0].value
-    let firstImage = sibilings[3].attributes[0].value
+    let lastImage = sibilings[9].attributes[0].value.split("_")
+    let thirdImage = sibilings[7].attributes[0].value.split("_")
+    let secondImage = sibilings[5].attributes[0].value.split("_")
+    let firstImage = sibilings[3].attributes[0].value.split("_")
 
     // Getting image number from src attribute
-    let image4Num = parseInt((lastImage.replace("/static/Assets/Images/temp_slider_", "")).replace(".jpg", ""))
-    let image3Num = parseInt((thirdImage.replace("/static/Assets/Images/temp_slider_", "")).replace(".jpg", ""))
-    let image2Num = parseInt((secondImage.replace("/static/Assets/Images/temp_slider_", "")).replace(".jpg", ""))
-    let image1Num = parseInt((firstImage.replace("/static/Assets/Images/temp_slider_", "")).replace(".jpg", ""))
+    let image4Num = parseInt(lastImage.pop().replace(".jpg", ""))
+    let image3Num = parseInt(thirdImage.pop().replace(".jpg", ""))
+    let image2Num = parseInt(secondImage.pop().replace(".jpg", ""))
+    let image1Num = parseInt(firstImage.pop().replace(".jpg", ""))
 
     // Checking for the clicked button is 'next'
     if (sliderArrow.className == "next") {
@@ -134,22 +167,21 @@ const sliderChangeImage = (event) => {
 
                 // First-Image
                 image1Num = image1Num + 1
-                sibilings[3].attributes[0].value = `/static/Assets/Images/temp_slider_0${image1Num}.jpg`
+                sibilings[3].attributes[0].value = `${firstImage.join("_")}_0${image1Num}.jpg`
 
                 // Second-Image
                 image2Num = image2Num + 1
-                sibilings[5].attributes[0].value = `/static/Assets/Images/temp_slider_0${image2Num}.jpg`
+                sibilings[5].attributes[0].value = `${secondImage.join("_")}_0${image2Num}.jpg`
 
                 // Third-Image
                 image3Num = image3Num + 1
-                sibilings[7].attributes[0].value = `/static/Assets/Images/temp_slider_0${image3Num}.jpg`
+                sibilings[7].attributes[0].value = `${thirdImage.join("_")}_0${image3Num}.jpg`
 
                 // Fourth-Image
                 image4Num = image4Num + 1
-                sibilings[9].attributes[0].value = `/static/Assets/Images/temp_slider_0${image4Num}.jpg`
+                sibilings[9].attributes[0].value = `${lastImage.join("_")}_0${image4Num}.jpg`
 
                 if (image4Num == 8) {
-
                     sliderArrow.disabled = true
                     sliderArrow.classList.toggle("disabled-arrow")
                 }
@@ -166,7 +198,7 @@ const sliderChangeImage = (event) => {
     }
 
     // Checking for the clicked button is 'previous'
-    if (sliderArrow.className == "previous") {
+    else if (sliderArrow.className == "previous") {
 
         setTimeout(() => {
 
@@ -174,19 +206,19 @@ const sliderChangeImage = (event) => {
 
                 // First-Image
                 image1Num = image1Num - 1
-                sibilings[3].attributes[0].value = `/static/Assets/Images/temp_slider_0${image1Num}.jpg`
+                sibilings[3].attributes[0].value = `${firstImage.join("_")}_0${image1Num}.jpg`
 
                 // Second-Image
                 image2Num = image2Num - 1
-                sibilings[5].attributes[0].value = `/static/Assets/Images/temp_slider_0${image2Num}.jpg`
+                sibilings[5].attributes[0].value = `${secondImage.join("_")}_0${image2Num}.jpg`
 
                 // Third-Image
                 image3Num = image3Num - 1
-                sibilings[7].attributes[0].value = `/static/Assets/Images/temp_slider_0${image3Num}.jpg`
+                sibilings[7].attributes[0].value = `${thirdImage.join("_")}_0${image3Num}.jpg`
 
                 // Fourth-Image
                 image4Num = image4Num - 1
-                sibilings[9].attributes[0].value = `/static/Assets/Images/temp_slider_0${image4Num}.jpg`
+                sibilings[9].attributes[0].value = `${lastImage.join("_")}_0${image4Num}.jpg`
 
                 if (image1Num == 1) {
 
@@ -200,18 +232,25 @@ const sliderChangeImage = (event) => {
                     }
                 }
             }
+
         }, 300)
+
     }
 }
 
 // Getting the element of previous button
-const previousButton = document.querySelector(".content.slider-2 .previous")
+const previousButton = document.querySelector(".middle-imageslider .previous")
 //
-previousButton.addEventListener("click", sliderChangeImage)
+if (previousButton != null) {
+    previousButton.addEventListener("click", sliderChangeImage)
+}
 
 // Getting the element of next button
-const nextButton = document.querySelector(".content.slider-2 .next")
+const nextButton = document.querySelector(".middle-imageslider .next")
 //
-nextButton.addEventListener("click", sliderChangeImage)
+if (nextButton != null) {
+    nextButton.addEventListener("click", sliderChangeImage)
+}
+
 // ------------------------------------------------------------------------------------------------------------ //
 

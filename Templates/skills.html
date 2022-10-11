@@ -1,195 +1,104 @@
-{% extends "base.html" %}
+{% extends "builderTemplate.html" %}
 {% load static %}
 
-{% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+{% block formcontent %}
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
-    <style>
-        footer {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Forms -Section -->
+<section class="forms-entry">
 
-<body>
-    <main class="additional-skills">
+    <!-- Forms Title -->
+    <h1>Add your <span class="mid-blue">Additional Skills</span> to display</h1>
 
-        <article class="forms-navbar">
+    <!-- Additional-Skills -Form -->
+    <form class="additional-skills-form" method="POST" autocomplete="on">
 
-            <section class="navbar-names">
+        {% csrf_token %}
 
-                <a class="first-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
-                    <span>&ensp;Contact</span>
-                </a>
+        <!-- AdditionalSkills  -Inputs -->
+        <div class="skills-container">
 
-                <a class="second-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
-                    <span>&ensp;Experience</span>
-                </a>
+            <input class="skill_1" type="text" name="skill1" value="{{skills.skill_1}}"
+                placeholder="Additional Skill #1">
 
-                <a class="third-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
-                    <span>&ensp;Education</span>
-                </a>
+            <input class="skill_2 hide" type="text" name="skill2" value="{{skills.skill_2}}"
+                placeholder="Additional Skill #2">
 
-                <a class="fourth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
-                    <span>&ensp;Certifications</span>
-                </a>
+            <input class="skill_3 hide" type="text" name="skill3" value="{{skills.skill_3}}"
+                placeholder="Additional Skill #3">
 
-                <a class="fifth-link nav-bar-active {{link}}">
-                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
-                    <span>&ensp;Additional Skills</span>
-                </a>
+            <input class="skill_4 hide" type="text" name="skill4" value="{{skills.skill_4}}"
+                placeholder="Additional Skill #4">
 
-                <a class="sixth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
-                    <span>&ensp;Career Objective</span>
-                </a>
+            <input class="skill_5 hide" type="text" name="skill5" value="{{skills.skill_5}}"
+                placeholder="Additional Skill #5">
 
-            </section>
+            <input class="skill_6 hide" type="text" name="skill6" value="{{skills.skill_6}}"
+                placeholder="Additional Skill #6">
 
-            <section class="form-progress">
+            <input class="skill_7 hide" type="text" name="skill7" value="{{skills.skill_7}}"
+                placeholder="Additional Skill #7">
 
-                <div class="form-progress-title">
-                    <p>Progress</p>
-                </div>
+            <input class="skill_7 hide" type="text" name="skill7" value="{{skills.skill_7}}"
+                placeholder="Additional Skill #7">
 
-                <div class="form-progress-container">
-                    <div class="form-progress-bar"></div>
-                </div>
+            <input class="skill_8 hide" type="text" name="skill8" value="{{skills.skill_8}}"
+                placeholder="Additional Skill #8">
 
-                <div class="form-progress-percentage">0</div>
+            <input class="skill_9 hide" type="text" name="skill9" value="{{skills.skill_9}}"
+                placeholder="Additional Skill #9">
 
-            </section>
+            <input class="skill_10 hide" type="text" name="skill10" value="{{skills.skill_10}}"
+                placeholder="Additional Skill #10">
 
-        </article>
+            <input class="skill_11 hide" type="text" name="skill11" value="{{skills.skill_11}}"
+                placeholder="Additional Skill #11">
 
-        <article class="forms-content-section">
+            <input class="skill_12 hide" type="text" name="skill12" value="{{skills.skill_12}}"
+                placeholder="Additional Skill #12">
 
-            <section class="forms-entry">
-                <h1>Add your <span class="mid-blue">Additional Skills</span> to display</h1>
+            <input class="skill_13 hide" type="text" name="skill13" value="{{skills.skill_13}}"
+                placeholder="Additional Skill #13">
 
-                <form class="additional-skills-form" method="POST" autocomplete="off">
+            <input class="skill_14 hide" type="text" name="skill14" value="{{skills.skill_14}}"
+                placeholder="Additional Skill #14">
 
-                    {% csrf_token %}
+            <input class="skill_15 hide" type="text" name="skill15" value="{{skills.skill_15}}"
+                placeholder="Additional Skill #15">
 
-                    <div class="additional-skills-input-section">
+            <input class="skill_16 hide" type="text" name="skill16" value="{{skills.skill_16}}"
+                placeholder="Additional Skill #16">
 
-                        <input class="skill_1" type="text" name="skill1" value="{{skills.skill_1}}"
-                            placeholder="Additional Skill #1">
+        </div>
 
-                        <input class="skill_2 hide" type="text" name="skill2" value="{{skills.skill_2}}"
-                            placeholder="Additional Skill #2">
+        <!-- Add Skill -Button -->
+        <div class="add-more">
+            <a><img src="{% static 'Assets/Images/add.png' %}"> <span>Add &nbsp;Skill</span></a>
+            <p class="warning hide">Add atleast 3 skills</p>
+        </div>
 
-                        <input class="skill_3 hide" type="text" name="skill3" value="{{skills.skill_3}}"
-                            placeholder="Additional Skill #3">
+        <!-- Button -Section -->
+        <div class="form-buttons">
+            <input type="button" class="back-button" value="Back">
+            <input type="submit" class="continue-button" value="Continue">
+        </div>
 
-                        <input class="skill_4 hide" type="text" name="skill4" value="{{skills.skill_4}}"
-                            placeholder="Additional Skill #4">
+    </form>
 
-                        <input class="skill_5 hide" type="text" name="skill5" value="{{skills.skill_5}}"
-                            placeholder="Additional Skill #5">
+</section>
 
-                        <input class="skill_6 hide" type="text" name="skill6" value="{{skills.skill_6}}"
-                            placeholder="Additional Skill #6">
-
-                        <input class="skill_7 hide" type="text" name="skill7" value="{{skills.skill_7}}"
-                            placeholder="Additional Skill #7">
-
-                        <input class="skill_7 hide" type="text" name="skill7" value="{{skills.skill_7}}"
-                            placeholder="Additional Skill #7">
-
-                        <input class="skill_8 hide" type="text" name="skill8" value="{{skills.skill_8}}"
-                            placeholder="Additional Skill #8">
-
-                        <input class="skill_9 hide" type="text" name="skill9" value="{{skills.skill_9}}"
-                            placeholder="Additional Skill #9">
-
-                        <input class="skill_10 hide" type="text" name="skill10" value="{{skills.skill_10}}"
-                            placeholder="Additional Skill #10">
-
-                        <input class="skill_11 hide" type="text" name="skill11" value="{{skills.skill_11}}"
-                            placeholder="Additional Skill #11">
-
-                        <input class="skill_12 hide" type="text" name="skill12" value="{{skills.skill_12}}"
-                            placeholder="Additional Skill #12">
-
-                        <input class="skill_13 hide" type="text" name="skill13" value="{{skills.skill_13}}"
-                            placeholder="Additional Skill #13">
-
-                        <input class="skill_14 hide" type="text" name="skill14" value="{{skills.skill_14}}"
-                            placeholder="Additional Skill #14">
-
-                        <input class="skill_15 hide" type="text" name="skill15" value="{{skills.skill_15}}"
-                            placeholder="Additional Skill #15">
-
-                        <input class="skill_16 hide" type="text" name="skill16" value="{{skills.skill_16}}"
-                            placeholder="Additional Skill #16">
+{% endblock %}
 
 
-                    </div>
+{% block tipscontent %}
 
-                    <div class="additional-skills-add">
-
-                        <a><img src="{% static 'Assets/Images/plus.png' %}"> <span>Add &nbsp;Additional Skill</span></a>
-
-                        <p class="warning hide">Add atleast 3 skills</p>
-
-                    </div>
-
-
-                    <div class="additional-skills-buttons">
-
-                        <input type="button" class="additional-skills-back-button" value="Back">
-
-                        <input type="submit" class="additional-skills-continue-button" value="Continue">
-
-                    </div>
-
-                </form>
-
-            </section>
-
-            <section class="forms-tips-preview">
-                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
-
-                <div class="tips-advice show">
-                    <h3>Tips & Advice</h3>
-
-                    <ul>
-                        <li>You should include specific skills including language, technology, equipment, software, and
-                            other quantifiable abilites you've learned through your studies or previous work
-                            experiences.</li>
-                        <li>Always choose skills that are relevant to the job(s) that you're appling for.</li>
-                        <li>We recommend adding 3-6 skills.</li>
-                    </ul>
-                </div>
-
-            </section>
-
-        </article>
-
-    </main>
-</body>
-
-</html>
+<!-- Tips -Content -->
+<ul>
+    <li>You should include specific skills including language, technology, equipment, software, and
+        other quantifiable abilites you've learned through your studies or previous work
+        experiences.</li>
+    <li>Always choose skills that are relevant to the job(s) that you're appling for.</li>
+    <li>We recommend adding 3-6 skills.</li>
+</ul>
 
 {% endblock %}

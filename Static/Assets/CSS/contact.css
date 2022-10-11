@@ -1,0 +1,562 @@
+/* ----------------------------------------- Contact Page | Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+.contactpage {
+    background: url("../Images/contact.jpg") no-repeat center/cover;
+    color: var(--aliceblue);
+    margin: 5px 0;
+}
+
+.contactpage .contents-inpage {
+    padding: 3rem 0 2rem;
+}
+
+/* --------------- Contact-Page Heading Section | Styles
+------------------------------------------------------------------- */
+
+.contactpage .heading-wrapper {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contactpage .heading-wrapper h2 {
+    font-size: 45px;
+    margin: 0;
+}
+
+.contactpage .heading-wrapper h2 span {
+    color: var(--azure);
+}
+
+.contactpage .heading-wrapper p {
+    font-size: 0.9rem;
+    margin: 0;
+    padding-left: 2rem;
+}
+
+/* --------------- Contact-Page Form Section | Styles
+------------------------------------------------------------------- */
+
+.contactpage .form-wrapper {
+    text-align: left;
+    background-color: rgba(234, 234, 234, 0.6);
+    width: 600px;
+    margin: 0 auto;
+    padding: 0.6rem;
+}
+
+.contactpage .form-wrapper p {
+    text-align: left;
+    font-size: 1rem;
+    color: var(--darkpurple);
+    margin: 0;
+}
+
+/* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+.contactpage .form-wrapper form {
+    text-align: center;
+    background-color: rgba(234, 234, 234, 0.3);
+    padding: 2rem;
+}
+
+.contactpage .form-wrapper form p {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.contactpage .form-wrapper form input,
+.contactpage .form-wrapper form textarea {
+    font-family: "Consolas", monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: white;
+    width: 80%;
+    margin: 1.4rem 0.6rem;
+    padding: 0.6rem;
+    border-radius: 0.8rem;
+    border-style: none;
+    resize: none;
+}
+
+.contactpage .form-wrapper form textarea {
+    height: 12rem;
+}
+
+.contactpage .form-wrapper form input:focus,
+.contactpage .form-wrapper form textarea:focus {
+    outline: none;
+}
+
+.contactpage .form-wrapper form input:disabled,
+.contactpage .form-wrapper form textarea:disabled {
+    cursor: not-allowed;
+}
+
+/* Contact-Page Feedback Form (Submit) | Styles */
+
+.contactpage .form-wrapper form .submit-wrapper {
+    text-align: right;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contactpage .form-wrapper form .submit-wrapper .send-button {
+    font-family: "Playball", cursive;
+    font-size: 1.1rem;
+    background-color: var(--darkpurple);
+    color: var(--aliceblue);
+    width: 7.5rem;
+    padding: 6px 15px;
+    box-shadow: 0 0.1em 0.4em var(--oxfordbluedark);
+    border-radius: 12px;
+    border: none;
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+.contactpage .form-wrapper form .submit-wrapper .send-button:not(:disabled):hover {
+    background-color: rgba(255, 22, 100, 0.8);
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+}
+
+.contactpage .form-wrapper form.processing {
+    cursor: wait;
+}
+
+.contactpage .form-wrapper form .submit-wrapper .send-button:disabled {
+    cursor: not-allowed;
+}
+
+/* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+.contactpage .form-wrapper .contact-info {
+    padding: 1.5rem;
+}
+
+.contactpage .form-wrapper .contact-info p {
+    font-weight: 600;
+}
+
+.contactpage .form-wrapper .contact-info .para2 {
+    margin-top: 1.6rem;
+    text-align: right;
+}
+
+.contactpage .form-wrapper .contact-info .para2 a {
+    text-decoration: none;
+    display: inline-block;
+    color: var(--brown);
+}
+
+.contactpage .form-wrapper .contact-info .para2 a:hover {
+    color: rgba(255, 22, 100);
+    scale: 1.08;
+}
+
+/* ----------------------------------------- Contact-Page | Responsive Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+@media (min-width: 992px) and (max-width: 1190px) {
+
+    /*  Responsive Styles for
+            - Small Desktops and 
+            - Tablets
+    */
+
+    .contactpage .contents-inpage {
+        padding: 2.8rem 0 1.8rem;
+    }
+
+    /* --------------- Contact-Page Heading Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .heading-wrapper {
+        margin-bottom: 2.8rem;
+    }
+
+    .contactpage .heading-wrapper h2 {
+        font-size: 40px;
+    }
+
+    .contactpage .heading-wrapper p {
+        font-size: 0.84rem;
+        padding-left: 1.8rem;
+    }
+
+    /* --------------- Contact-Page Form Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .form-wrapper {
+        width: 520px;
+        padding: 0.55rem;
+    }
+
+    .contactpage .form-wrapper p {
+        font-size: 0.95rem;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper form {
+        padding: 1.8rem;
+    }
+
+    .contactpage .form-wrapper form p {
+        margin-top: 0.9rem;
+    }
+
+    .contactpage .form-wrapper form input,
+    .contactpage .form-wrapper form textarea {
+        font-size: 0.95rem;
+        margin: 1.3rem 0.5rem;
+        padding: 0.5rem;
+        border-radius: 0.7rem;
+    }
+
+    .contactpage .form-wrapper form textarea {
+        height: 11rem;
+    }
+
+    /* Contact-Page Feedback Form (Submit) | Styles */
+
+    .contactpage .form-wrapper form .submit-wrapper .send-button {
+        font-size: 1.06rem;
+        width: 7rem;
+        padding: 5.5px 14px;
+        border-radius: 11px;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper .contact-info {
+        padding: 1.3rem;
+    }
+
+    .contactpage .form-wrapper .contact-info .para2 {
+        margin-top: 1.4rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*  Responsive Styles for
+            - Tablets and
+            - Small Tablets
+    */
+
+    .contactpage .contents-inpage {
+        padding: 2.6rem 0 1.6rem;
+    }
+
+    /* --------------- Contact-Page Heading Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .heading-wrapper {
+        margin-bottom: 2.6rem;
+    }
+
+    .contactpage .heading-wrapper h2 {
+        font-size: 35px;
+    }
+
+    .contactpage .heading-wrapper p {
+        font-size: 0.78rem;
+        padding-left: 1.6rem;
+    }
+
+    /* --------------- Contact-Page Form Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .form-wrapper {
+        width: 440px;
+        padding: 0.5rem;
+    }
+
+    .contactpage .form-wrapper p {
+        font-size: 0.9rem;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper form {
+        padding: 1.6rem;
+    }
+
+    .contactpage .form-wrapper form p {
+        margin-top: 0.8rem;
+    }
+
+    .contactpage .form-wrapper form input,
+    .contactpage .form-wrapper form textarea {
+        font-size: 0.9rem;
+        margin: 1.2rem 0.4rem;
+        padding: 0.4rem;
+        border-radius: 0.6rem;
+    }
+
+    .contactpage .form-wrapper form textarea {
+        height: 10rem;
+    }
+
+    /* Contact-Page Feedback Form (Submit) | Styles */
+
+    .contactpage .form-wrapper form .submit-wrapper .send-button {
+        font-size: 1.02rem;
+        width: 6.5rem;
+        padding: 5px 13px;
+        border-radius: 10px;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper .contact-info {
+        padding: 1.1rem;
+    }
+
+    .contactpage .form-wrapper .contact-info .para2 {
+        margin-top: 1.2rem;
+    }
+}
+
+@media (min-width: 678px) and (max-width: 767px) {
+
+    /*  Responsive Styles for
+            - Small Tablets only
+    */
+
+    .contactpage .contents-inpage {
+        padding: 2.4rem 0 1.4rem;
+    }
+
+    /* --------------- Contact-Page Heading Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .heading-wrapper {
+        margin-bottom: 2.4rem;
+    }
+
+    .contactpage .heading-wrapper h2 {
+        font-size: 30px;
+    }
+
+    .contactpage .heading-wrapper p {
+        font-size: 0.72rem;
+        padding-left: 1.4rem;
+    }
+
+    /* --------------- Contact-Page Form Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .form-wrapper {
+        width: 360px;
+        padding: 0.45rem;
+    }
+
+    .contactpage .form-wrapper p {
+        font-size: 0.85rem;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper form {
+        padding: 1.4rem;
+    }
+
+    .contactpage .form-wrapper form p {
+        margin-top: 0.7rem;
+    }
+
+    .contactpage .form-wrapper form input,
+    .contactpage .form-wrapper form textarea {
+        font-size: 0.85rem;
+        margin: 1.1rem 0.3rem;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
+    }
+
+    .contactpage .form-wrapper form textarea {
+        height: 9rem;
+    }
+
+    /* Contact-Page Feedback Form (Submit) | Styles */
+
+    .contactpage .form-wrapper form .submit-wrapper .send-button {
+        font-size: 0.98rem;
+        width: 6rem;
+        padding: 4.5px 12px;
+        border-radius: 9px;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper .contact-info {
+        padding: 0.9rem;
+    }
+
+    .contactpage .form-wrapper .contact-info .para2 {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 677px) {
+
+    /*  Responsive Styles for
+            - Small Tablets and
+            - Mobiles
+    */
+
+    .contactpage .contents-inpage {
+        padding: 2.2rem 0 1.2rem;
+    }
+
+    /* --------------- Contact-Page Heading Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .heading-wrapper {
+        margin-bottom: 2.2rem;
+    }
+
+    .contactpage .heading-wrapper h2 {
+        font-size: 25px;
+    }
+
+    .contactpage .heading-wrapper p {
+        font-size: 0.66rem;
+        padding-left: 1.2rem;
+    }
+
+    /* --------------- Contact-Page Form Section | Styles
+------------------------------------------------------------------- */
+
+    .contactpage .form-wrapper {
+        width: 280px;
+        padding: 0.4rem;
+    }
+
+    .contactpage .form-wrapper p {
+        font-size: 0.8rem;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper form {
+        padding: 1.2rem;
+    }
+
+    .contactpage .form-wrapper form p {
+        margin-top: 0.6rem;
+    }
+
+    .contactpage .form-wrapper form input,
+    .contactpage .form-wrapper form textarea {
+        font-size: 0.8rem;
+        margin: 1rem 0.2rem;
+        padding: 0.2rem;
+        border-radius: 0.4rem;
+    }
+
+    .contactpage .form-wrapper form textarea {
+        height: 8rem;
+    }
+
+    /* Contact-Page Feedback Form (Submit) | Styles */
+
+    .contactpage .form-wrapper form .submit-wrapper .send-button {
+        font-size: 0.94rem;
+        width: 5.5rem;
+        padding: 4px 11px;
+        border-radius: 8px;
+    }
+
+    /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+    .contactpage .form-wrapper .contact-info {
+        padding: 0.7rem;
+    }
+
+    .contactpage .form-wrapper .contact-info .para2 {
+        margin-top: 0.8rem;
+    }
+
+    @media (max-width: 500px) {
+
+        .contactpage .contents-inpage {
+            padding: 2rem 0 1rem;
+        }
+
+        /* --------------- Contact-Page Heading Section | Styles
+    ------------------------------------------------------------------- */
+
+        .contactpage .heading-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .contactpage .heading-wrapper h2 {
+            font-size: 20px;
+        }
+
+        .contactpage .heading-wrapper p {
+            font-size: 0.6rem;
+            padding-left: 1rem;
+        }
+
+        /* --------------- Contact-Page Form Section | Styles
+    ------------------------------------------------------------------- */
+
+        .contactpage .form-wrapper {
+            width: 200px;
+            padding: 0.35rem;
+        }
+
+        .contactpage .form-wrapper p {
+            font-size: 0.75rem;
+        }
+
+        /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+        .contactpage .form-wrapper form {
+            padding: 1rem;
+        }
+
+        .contactpage .form-wrapper form p {
+            margin-top: 0.5rem;
+        }
+
+        .contactpage .form-wrapper form input,
+        .contactpage .form-wrapper form textarea {
+            font-size: 0.75rem;
+            margin: 0.9rem 0.1rem;
+            padding: 0.25rem;
+            border-radius: 0.3rem;
+        }
+
+        .contactpage .form-wrapper form textarea {
+            height: 7rem;
+        }
+
+        /* Contact-Page Feedback Form (Submit) | Styles */
+
+        .contactpage .form-wrapper form .submit-wrapper .send-button {
+            font-size: 0.9rem;
+            width: 5rem;
+            padding: 3.5px 10px;
+            border-radius: 7px;
+        }
+
+        /* ---------- Contact-Page (Feedback) Form | Styles ---------- */
+
+        .contactpage .form-wrapper .contact-info {
+            padding: 0.5rem;
+        }
+
+        .contactpage .form-wrapper .contact-info .para2 {
+            margin-top: 0.6rem;
+        }
+    }
+}

@@ -1,0 +1,599 @@
+/* ----------------------------------------- Sign-Up & Log-In | Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+.signup-container,
+.login-container {
+    display: none;
+}
+
+/* --------------- Sign-Up & Log-In - Background | Styles
+------------------------------------------------------------------- */
+
+.signup-container.active,
+.login-container.active {
+    position: fixed;
+    inset: 0;
+    isolation: isolate;
+    background-color: rgba(0, 18, 25, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 120;
+}
+
+/* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+.signup-container .signup-menu.active,
+.login-container .login-menu.active {
+    position: absolute;
+    text-align: center;
+    background: url("../Images/authenticate.jpg") no-repeat top/cover;
+    width: 31rem;
+    border-radius: 20px;
+}
+
+
+.signup-container .form-container,
+.login-container .form-container {
+    box-sizing: border-box;
+    font-size: 18px;
+    background-color: rgba(234, 234, 234, 0.4);
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+/* ---------- Sign-Up & Log-In - Close Button | Styles ---------- */
+
+.signup-container .form-container .signup-close,
+.login-container .form-container .login-close {
+    position: relative;
+    float: right;
+    font-size: 30px;
+    margin: -10px -60px 0 0;
+    background-color: rgba(0, 18, 25, 0.9);
+    color: var(--aliceblue);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.signup-container .form-container .signup-close:hover,
+.login-container .form-container .login-close:hover {
+    background-color: rgba(234, 234, 234, 0.9);
+    color: var(--brown);
+    cursor: pointer;
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+}
+
+/* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+.signup-container .form-container h2,
+.login-container .form-container h2 {
+    margin-top: 15px;
+}
+
+.signup-container .form-container h2 span,
+.login-container .form-container h2 span {
+    color: var(--azure);
+}
+
+/* ---------- Sign-Up & Log-In - Message | Styles ---------- */
+
+.signup-container .form-container .error-message,
+.login-container .form-container .error-message,
+.contactpage .form-wrapper .error-message,
+.templates .error-message {
+    position: fixed;
+    display: none;
+    width: auto;
+    margin: 0;
+}
+
+.signup-container .form-container .error-message.show,
+.login-container .form-container .error-message.show,
+.contactpage .form-wrapper .error-message.show,
+.templates .error-message.show {
+    font-weight: 400;
+    right: 10px;
+    bottom: auto;
+    background-color: rgba(0, 18, 25, 0.9);
+    color: rgb(247, 90, 90);
+    display: block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    -webkit-transition: 800ms;
+    -moz-transition: 800ms;
+    -o-transition: 800ms;
+    transition: 800s;
+}
+
+/* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+.signup-container .form-container p,
+.login-container .form-container p {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    margin: 15px 5px;
+}
+
+.signup-container .form-container input,
+.login-container .form-container input {
+    font-family: "Consolas", monospace;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--white);
+    width: 19rem;
+    padding: 10px;
+    letter-spacing: 0.1em;
+    border-radius: 12px;
+    border-style: none;
+    resize: none;
+}
+
+.signup-container .form-container input:focus,
+.login-container .form-container input:focus {
+    outline: none;
+}
+
+/* Sign-Up & Log-In - Form (Submit) | Styles */
+
+.signup-container .form-container .submit-wrapper,
+.login-container .form-container .submit-wrapper {
+    margin: 40px 0 20px;
+}
+
+.signup-container .form-container .submit-wrapper .submit-button,
+.login-container .form-container .submit-wrapper .submit-button {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 18px;
+    background-color: var(--darkpurple);
+    color: var(--aliceblue);
+    width: 7.5rem;
+    padding: 6px 15px;
+    box-shadow: 0 0.1em 0.4em var(--oxfordbluedark);
+    border-radius: 12px;
+    border: none;
+    -webkit-transition: 200ms;
+    -moz-transition: 200ms;
+    -o-transition: 200ms;
+    transition: 200ms;
+}
+
+.signup-container .form-container .submit-wrapper .submit-button:not(:disabled):hover,
+.login-container .form-container .submit-wrapper .submit-button:not(:disabled):hover {
+    background-color: rgba(255, 22, 100, 0.8);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+.signup-container .form-container .submit-wrapper .submit-button:disabled,
+.login-container .form-container .submit-wrapper .submit-button:disabled {
+    cursor: not-allowed;
+}
+
+/* Sign-Up & Log-In - Form (Link) | Styles */
+
+.signup-container .form-container .login-wrapper p,
+.login-container .form-container .signup-wrapper p {
+    text-align: right;
+    font-weight: 400;
+    font-style: italic;
+    margin: 15px 20px 0 0;
+}
+
+.signup-container .form-container .login-wrapper a,
+.login-container .form-container .signup-wrapper a {
+    font-size: 17px;
+    font-weight: bolder;
+    font-style: normal;
+    text-decoration: underline;
+    color: var(--darkcornflowerblue);
+    cursor: pointer;
+}
+
+.signup-container .form-container .login-wrapper a:hover,
+.login-container .form-container .signup-wrapper a:hover {
+    color: var(--platinum);
+}
+
+/* ----------------------------------------- Sign-Up & Log-In | Responsive Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+@media (min-width: 992px) and (max-width: 1190px) {
+
+    /*  Responsive Styles for
+            - Small Desktops and 
+            - Tablets
+    */
+
+    /* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+    .signup-container .signup-menu.active,
+    .login-container .login-menu.active {
+        width: 29rem;
+        border-radius: 19px;
+    }
+
+    .signup-container .form-container,
+    .login-container .form-container {
+        font-size: 17px;
+        padding: 0.9rem;
+        border-radius: 19px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Close Button | Styles ---------- */
+
+    .signup-container .form-container .signup-close,
+    .login-container .form-container .login-close {
+        font-size: 29px;
+        height: 19px;
+        margin: -8.5px -55px 0 0;
+        padding: 9px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+    .signup-container .form-container h2,
+    .login-container .form-container h2 {
+        font-size: 1.5rem;
+        margin-top: 13px;
+    }
+
+    .signup-container .form-container .error-message.show,
+    .login-container .form-container .error-message.show {
+        padding: 4.5px 9px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+    .signup-container .form-container p,
+    .login-container .form-container p {
+        font-size: 13px;
+        margin: 14px 4.5px;
+    }
+
+    .signup-container .form-container input,
+    .login-container .form-container input {
+        font-size: 15.2px;
+        width: 19.1rem;
+        padding: 9px;
+        border-radius: 11px;
+    }
+
+    /* Sign-Up & Log-In - Form (Submit) | Styles */
+
+    .signup-container .form-container .submit-wrapper,
+    .login-container .form-container .submit-wrapper {
+        margin: 35px 0 15px;
+    }
+
+    .signup-container .form-container .submit-wrapper .submit-button,
+    .login-container .form-container .submit-wrapper .submit-button {
+        font-size: 17px;
+        width: 7rem;
+        padding: 5.5px 14px;
+        border-radius: 11px;
+    }
+
+    /* Sign-Up & Log-In - Form (Link) | Styles */
+
+    .signup-container .form-container .login-wrapper p,
+    .login-container .form-container .signup-wrapper p {
+        margin: 14px 19px 0 0;
+    }
+
+    .signup-container .form-container .login-wrapper a,
+    .login-container .form-container .signup-wrapper a {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*  Responsive Styles for
+            - Tablets and
+            - Small Tablets
+    */
+
+    /* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+    .signup-container .signup-menu.active,
+    .login-container .login-menu.active {
+        width: 27rem;
+        border-radius: 18px;
+    }
+
+    .signup-container .form-container,
+    .login-container .form-container {
+        font-size: 16px;
+        padding: 0.8rem;
+        border-radius: 18px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Close Button | Styles ---------- */
+
+    .signup-container .form-container .signup-close,
+    .login-container .form-container .login-close {
+        font-size: 28px;
+        height: 18px;
+        margin: -7px -50px 0 0;
+        padding: 8px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+    .signup-container .form-container h2,
+    .login-container .form-container h2 {
+        font-size: 1.4rem;
+        margin-top: 11px;
+    }
+
+    .signup-container .form-container .error-message.show,
+    .login-container .form-container .error-message.show {
+        padding: 4px 8px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+    .signup-container .form-container p,
+    .login-container .form-container p {
+        font-size: 12px;
+        margin: 13px 4px;
+    }
+
+    .signup-container .form-container input,
+    .login-container .form-container input {
+        font-size: 15.4px;
+        width: 19.2rem;
+        padding: 8px;
+        border-radius: 10px;
+    }
+
+    /* Sign-Up & Log-In - Form (Submit) | Styles */
+
+    .signup-container .form-container .submit-wrapper,
+    .login-container .form-container .submit-wrapper {
+        margin: 30px 0 10px;
+    }
+
+    .signup-container .form-container .submit-wrapper .submit-button,
+    .login-container .form-container .submit-wrapper .submit-button {
+        font-size: 16px;
+        width: 6.5rem;
+        padding: 5px 13px;
+        border-radius: 10px;
+    }
+
+    /* Sign-Up & Log-In - Form (Link) | Styles */
+
+    .signup-container .form-container .login-wrapper p,
+    .login-container .form-container .signup-wrapper p {
+        margin: 13px 18px 0 0;
+    }
+
+    .signup-container .form-container .login-wrapper a,
+    .login-container .form-container .signup-wrapper a {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 678px) and (max-width: 767px) {
+
+    /*  Responsive Styles for
+            - Small Tablets only
+    */
+
+    /* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+    .signup-container .signup-menu.active,
+    .login-container .login-menu.active {
+        width: 25rem;
+        border-radius: 17px;
+    }
+
+    .signup-container .form-container,
+    .login-container .form-container {
+        font-size: 15px;
+        padding: 0.7rem;
+        border-radius: 17px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Close Button | Styles ---------- */
+
+    .signup-container .form-container .signup-close,
+    .login-container .form-container .login-close {
+        font-size: 27px;
+        height: 17px;
+        margin: -5.5px -50px 0 0;
+        padding: 7px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+    .signup-container .form-container h2,
+    .login-container .form-container h2 {
+        font-size: 1.3rem;
+        margin-top: 9px;
+    }
+
+    .signup-container .form-container .error-message.show,
+    .login-container .form-container .error-message.show {
+        padding: 3.5px 7px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+    .signup-container .form-container p,
+    .login-container .form-container p {
+        font-size: 11px;
+        margin: 12px 3.5px;
+    }
+
+    .signup-container .form-container input,
+    .login-container .form-container input {
+        font-size: 15.6px;
+        width: 19.3rem;
+        padding: 7px;
+        border-radius: 9px;
+    }
+
+    /* Sign-Up & Log-In - Form (Submit) | Styles */
+
+    .signup-container .form-container .submit-wrapper,
+    .login-container .form-container .submit-wrapper {
+        margin: 25px 0 5px;
+    }
+
+    .signup-container .form-container .submit-wrapper .submit-button,
+    .login-container .form-container .submit-wrapper .submit-button {
+        font-size: 15px;
+        width: 6rem;
+        padding: 4.5px 12px;
+        border-radius: 9px;
+    }
+
+    /* Sign-Up & Log-In - Form (Link) | Styles */
+
+    .signup-container .form-container .login-wrapper p,
+    .login-container .form-container .signup-wrapper p {
+        margin: 12px 17px 0 0;
+    }
+
+    .signup-container .form-container .login-wrapper a,
+    .login-container .form-container .signup-wrapper a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 677px) {
+
+    /*  Responsive Styles for
+            - Small Tablets and
+            - Mobiles
+    */
+
+    /* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+    .signup-container .signup-menu.active,
+    .login-container .login-menu.active {
+        width: 23rem;
+        border-radius: 16px;
+    }
+
+    .signup-container .form-container,
+    .login-container .form-container {
+        font-size: 14px;
+        padding: 0.6rem;
+        border-radius: 16px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Close Button | Styles ---------- */
+
+    .signup-container .form-container .signup-close,
+    .login-container .form-container .login-close {
+        font-size: 26px;
+        height: 16px;
+        margin: -4px -45px 0 0;
+        padding: 6px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+    .signup-container .form-container h2,
+    .login-container .form-container h2 {
+        font-size: 1.2rem;
+        margin-top: 7px;
+    }
+
+    .signup-container .form-container .error-message.show,
+    .login-container .form-container .error-message.show {
+        padding: 3px 6px;
+    }
+
+    /* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+    .signup-container .form-container p,
+    .login-container .form-container p {
+        font-size: 10px;
+        margin: 11px 3px;
+    }
+
+    .signup-container .form-container input,
+    .login-container .form-container input {
+        font-size: 15.8px;
+        width: 19.4rem;
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    /* Sign-Up & Log-In - Form (Submit) | Styles */
+
+    .signup-container .form-container .submit-wrapper,
+    .login-container .form-container .submit-wrapper {
+        margin: 20px 0 1px;
+    }
+
+    .signup-container .form-container .submit-wrapper .submit-button,
+    .login-container .form-container .submit-wrapper .submit-button {
+        font-size: 14px;
+        width: 5.5rem;
+        padding: 4px 11px;
+        border-radius: 8px;
+    }
+
+    /* Sign-Up & Log-In - Form (Link) | Styles */
+
+    .signup-container .form-container .login-wrapper p,
+    .login-container .form-container .signup-wrapper p {
+        margin: 11px 16px 0 0;
+    }
+
+    .signup-container .form-container .login-wrapper a,
+    .login-container .form-container .signup-wrapper a {
+        font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
+
+        /* --------------- Sign-Up & Log-In - Menu | Styles
+------------------------------------------------------------------- */
+
+        .signup-container .signup-menu.active,
+        .login-container .login-menu.active {
+            width: 75%;
+            border-radius: 16px;
+        }
+
+        /* ---------- Sign-Up & Log-In - Title | Styles ---------- */
+
+        .signup-container .form-container h2,
+        .login-container .form-container h2 {
+            font-size: 1.05rem;
+            margin-top: 5px;
+        }
+
+        /* ---------- Sign-Up & Log-In - Form | Styles ---------- */
+
+        .signup-container .form-container input,
+        .login-container .form-container input {
+            width: 80%;
+        }
+    }
+}

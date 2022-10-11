@@ -1,0 +1,242 @@
+/* ----------------------------------------- Templates-Page | Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+.templates {
+    background-color: var(--platinum);
+    margin: 5px 0;
+}
+
+header .fixed-menubar {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+}
+
+.templates .status {
+    position: absolute;
+    right: 0.5em;
+    background-color: var(--oxfordbluedark);
+    color: var(--orangeweb);
+    margin: 0;
+    padding: 0.1em 0.6em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    -webkit-animation: pop-in 0.3s both;
+    -moz-animation: pop-in 0.3s both;
+    -o-animation: pop-in 0.3s both;
+    animation: pop-in 0.3s both;
+}
+
+@-webkit-keyframes pop-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes pop-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes pop-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* --------------- Templates-Page (Template-Slider) | Styles
+----------------------------------------------------------------------------- */
+
+.templates .template-slider {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
+    height: 450px;
+    overflow-x: hidden;
+}
+
+.templates .template-slider div {
+    position: absolute;
+    display: flex;
+    width: 20em;
+    height: 25em;
+    border: 1px groove var(--middlegrey);
+    -webkit-transition: 600ms;
+    -moz-transition: 600ms;
+    -o-transition: 600ms;
+    transition: 600ms;
+}
+
+.templates .template-slider .positionleft {
+    margin-left: -3360px;
+}
+
+.templates .template-slider .position-2 {
+    margin-left: -1360px;
+}
+
+.templates .template-slider .position-1 {
+    margin-left: -680px;
+}
+
+.templates .template-slider .position0 {
+    border: 2px solid var(--orangeweb);
+    scale: 1.1;
+}
+
+.templates .template-slider .position1 {
+    margin-right: -680px;
+}
+
+.templates .template-slider .position2 {
+    margin-right: -1360px;
+}
+
+.templates .template-slider .positionright {
+    margin-right: -3360px;
+}
+
+.templates .template-slider div img {
+    width: 100%;
+}
+
+.templates .template-slider {
+    text-align: center;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.templates .template-slider img {
+    width: 100%;
+}
+
+/* --------------- Templates-Page (Previous & Next) Button | Styles
+----------------------------------------------------------------------------- */
+
+.templates .template-slider .arrow-button,
+.templates .template-slider .arrow-button {
+    position: absolute;
+    top: 50%;
+    font-size: 1.5em;
+    background-color: var(--orangeweb);
+    opacity: 0.75;
+    padding: 0.5em 1em;
+    border-radius: 80px;
+    z-index: 90;
+    transition: 150ms;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+}
+
+.templates .template-slider .arrow-button.previous {
+    left: 10px;
+}
+
+.templates .template-slider .arrow-button.next {
+    right: 10px;
+}
+
+.templates .template-slider .arrow-button:hover {
+    opacity: 0.95;
+    cursor: pointer;
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+}
+
+.templates .template-slider .arrow-button.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.templates .template-slider .arrow-button::-moz-selection,
+.templates .template-slider .arrow-button::selection {
+    background-color: transparent;
+}
+
+/* --------------- Templates-Page (Template-Toolbar) | Styles
+----------------------------------------------------------------------------- */
+
+.templates .template-toolbar {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+}
+
+.templates .template-toolbar img {
+    width: 20px;
+    height: 18px;
+}
+
+.templates .template-toolbar a,
+.templates .template-toolbar label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 12em;
+    margin: 0.5em 1em;
+    padding: 0.5em 2em;
+    border: 1px solid var(--orangeweb);
+    border-radius: 5em;
+    cursor: pointer;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+.templates .template-toolbar .download-button {
+    background-color: var(--indigodye);
+    color: var(--platinum);
+    border: 1px solid var(--azure);
+}
+
+.templates .template-toolbar .edit-button:hover {
+    background-color: rgba(255, 165, 0, 0.3);
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+}
+
+.templates .template-toolbar .download-button:hover {
+    background-color: var(--azure);
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+    transition: 300ms;
+}

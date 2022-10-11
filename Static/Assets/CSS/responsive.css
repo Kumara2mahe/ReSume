@@ -1,42 +1,378 @@
-/* Stylesheet for Responsive Web Page
---------------------------------------------*/
+/* ----------------------------------------- Responsive Web Page | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
 
-@media screen and (max-width: 1024px) {
+@media (min-width: 992px) and (max-width: 1190px) {
+
+    /*  Responsive Styles for
+            - Small Desktops and 
+            - Tablets
+    */
+
+    body {
+        font-size: 13px;
+    }
+
+    /* --------------- MenuBar | Styles
+------------------------------------------------------------------- */
+
+    header {
+        height: 75px;
+    }
+
+    /* -------- MenuBar Title-Logo | Styles -------- */
+
+    .menubar.title-logo img {
+        width: 67.5px;
+        margin-left: 17px;
+    }
+
+    .menubar.title p {
+        margin-top: -19px;
+    }
+
+    /* -------- MenuBar Links | Styles -------- */
+
+    .menubar.nav-links {
+        padding-right: 22.5px;
+        border-left-width: 4.5px;
+    }
+
+    .menubar.nav-links h3 {
+        margin: 24px 14px;
+        height: 24px;
+    }
+
+    .menubar.nav-links a {
+        padding: 17.5px;
+    }
+
+    /* MenuBar (Sign Up) Button link | Styles */
+
+    .menubar.nav-links .sign-up {
+        border-radius: 14px;
+    }
+
+    /* MenuBar (Profile) DropDown link | Styles */
+
+    .menubar.nav-links .user-profile {
+        margin: 4.5px 0 0 0;
+        padding: 13px 14px;
+        padding-bottom: 15px;
+    }
+
+    .menubar.nav-links .user-profile img {
+        width: 2.15rem;
+        height: 2.15rem;
+    }
+
+    .menubar.nav-links .profile-options {
+        top: 75px;
+        padding: 18px;
+        border-radius: 4.5px;
+    }
+
+    .menubar.nav-links .profile-options a {
+        font-size: 14px;
+        margin-bottom: 9.5px;
+        padding: 9px;
+        border-radius: 18px;
+    }
+
+    /* ----------------------------------------- (Top) ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider {
+        grid-template-columns: 1.2fr 1fr;
+    }
+
+    /* ------------- ImageSlider - Content | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider .slider-content {
+        margin: 60px 40px;
+        margin-right: 20px;
+        padding: 40px;
+        border-radius: 25px;
+        border-width: 4px;
+    }
+
+    .top-imageslider .content-slider .slider-content h2 {
+        margin-top: 15px;
+        font-size: 45px;
+    }
+
+    .top-imageslider .content-slider .slider-content .first-para {
+        font-size: 22px;
+    }
+
+    .top-imageslider .content-slider .slider-content .second-para {
+        font-size: 13px;
+        letter-spacing: 1.18px;
+    }
+
+    /* -------- ImageSlider - Create Button | Styles -------- */
+
+    .top-imageslider .content-slider .slider-content a {
+        font-size: 16px;
+        margin: 9px;
+        padding: 14px 24px;
+        border-radius: 9px;
+    }
+
+    /* ------------- ImageSlider - Switch Button | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .slider-buttons {
+        margin-top: -40.5px;
+    }
+
+    .top-imageslider .slider-buttons a {
+        margin: 0 4.5px;
+        padding: 0px 22.5px;
+        border-radius: 17.5px;
+    }
+
+    /* ----------------------------------------- Intermediate - Title | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .intermediate-title-1 h2,
+    .intermediate-title-2 h2 {
+        font-size: 30px;
+    }
+
+    .aboutpage .main-title h2 {
+        font-size: 40px;
+    }
+
+    .intermediate-title-1 p,
+    .intermediate-title-2 p,
+    .aboutpage .main-title p {
+        font-size: 14.5px;
+        letter-spacing: 1.8px;
+    }
+
+    /* ------------- Intermediate - Title (Image) | Styles
+------------------------------------------------------------------- */
+
+    .intermediate-title-1 img,
+    .intermediate-title-2 img,
+    .aboutpage .main-title img {
+        height: 100px;
+    }
+
+    /* ----------------------------------------- Middle - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-detailed-content,
+    .lower-detailed-content {
+        padding: 50px 60px;
+    }
+
+    /* ------------- Middle - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content img,
+    .lower-detailed-content img {
+        height: 90%;
+        padding: 15px;
+    }
+
+    /* ------------- Middle - Detailed Content (Details) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content .content-details,
+    .lower-detailed-content .content-details {
+        padding: 0 15px;
+        font-size: 15.5px;
+    }
+
+    .middle-detailed-content .content-details h2,
+    .lower-detailed-content .content-details h2 {
+        font-size: 25px;
+    }
+
+    /* -------- Middle - GetStarted Button | Styles -------- */
+
+    .middle-detailed-content .content-details a,
+    .lower-detailed-content .content-details a {
+        font-size: 16px;
+        margin: 9px;
+        padding: 14px 24px;
+        border-radius: 9px;
+    }
+
+    /* ----------------------------------------- Middle - ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-imageslider {
+        margin-bottom: 45px;
+        width: 78%;
+    }
+
+    /* ------------- Middle - ImageSlider (Images) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .images-section img {
+        width: 12rem;
+        height: 265px;
+        margin: 0 13px;
+    }
+
+    /* -------- Previous & Next Button | Styles -------- */
+
+    .middle-imageslider .images-section .previous,
+    .middle-imageslider .images-section .next {
+        top: 65px;
+        font-size: 17px;
+        margin-left: 18px;
+        padding: 50px 9px;
+        border-radius: 0 4.5px 4.5px 0;
+    }
+
+    .middle-imageslider .images-section .previous {
+        border-radius: 4.5px 0 0 4.5px;
+        margin-left: 0;
+        margin-right: 18px;
+    }
+
+    /* ------------- Middle - ImageSlider (Content) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .content-section p,
+    .aboutpage .detailed-content .content-wrapper p {
+        font-size: 15px;
+        margin-top: 28px;
+        letter-spacing: 1.8px;
+    }
+
+    /* -------- See More Button | Styles -------- */
+
+    .middle-imageslider .content-section a,
+    .aboutpage .detailed-content .content-wrapper a {
+        font-size: 16px;
+        margin: 9px;
+        padding: 14px 27px;
+        border-radius: 9px;
+    }
+
+    .aboutpage .detailed-content .content-wrapper a {
+        margin: 1.8em;
+    }
+
+    /* ----------------------------------------- Bottom - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .bottom-detailed-content {
+        width: 78%;
+        margin: 70px auto;
+    }
+
+    /* ------------- Bottom - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .images-section {
+        font-size: 18px;
+        letter-spacing: 1.8px;
+    }
+
+    .bottom-detailed-content .images-section img {
+        width: 5.25rem;
+        height: 5.25rem;
+    }
+
+    /* ------------- Bottom - Detailed Content (Content) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .content-section {
+        margin-top: 45px;
+    }
+
+    .bottom-detailed-content .content-section p {
+        font-size: 14px;
+        letter-spacing: 1.8px;
+    }
+
+    /* ------------- Bottom-Info (Title-Logo) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.logo a {
+        width: 240px;
+    }
+
+    footer .bottom-info.logo img {
+        width: 67.5px;
+    }
+
+    footer .bottom-logo-title p {
+        margin-top: -19px;
+    }
+
+    /* ------------- Bottom-Info (Contacts) | Styles
+------------------------------------------------------------------- */
+
+    footer .contacts-heading {
+        font-size: 15px;
+        letter-spacing: 1.8px;
+    }
+
+    /* -------- Bottom-Info (Contacts) Images | Styles -------- */
+
+    footer .bottom-info.contacts figure {
+        font-size: 12.5px;
+    }
+
+    footer .bottom-info.contacts img {
+        width: 1.4rem;
+        height: 1.4rem;
+    }
+
+    /* ------------- Bottom-Info (Social) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.social-links {
+        padding: 17px;
+        padding-top: 0;
+    }
+
+    footer .bottom-info.social-links img {
+        width: 33px;
+        border-radius: 14px;
+        margin: 0 11px;
+    }
+
+    /* ------------- Bottom-Info (CopyRights) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.copyrights {
+        font-size: 9.75px;
+        padding: 7.5px 24.5px;
+        letter-spacing: 0.98px;
+    }
+
+    footer .bottom-info.copyrights .links a {
+        margin-right: 16px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*  Responsive Styles for
+            - Tablets and
+            - Small Tablets
+    */
 
     body {
         font-size: 12px;
     }
 
-    /* ----------- Header Styles ----------- */
+    /* --------------------------- MenuBar | Styles
+------------------------------------------------------------------- */
 
     header {
         height: 70px;
     }
 
-    .fixed-menubar {
-        height: 70px;
-    }
-
-    .floating-menubar {
-        animation: slide-in 0.8s both;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-    }
-
-    @keyframes slide-in {
-        0% {
-            transform: translateY(-70px);
-        }
-
-        100% {
-            transform: translateY(0);
-        }
-    }
-
-    .menubar {
-        height: 70px;
-    }
+    /* -------- MenuBar Title-Logo | Styles -------- */
 
     .menubar.title-logo img {
         width: 60px;
@@ -45,652 +381,1114 @@
 
     .menubar.title p {
         margin-top: -18px;
-        color: #FFA500;
-        font-stretch: condensed;
     }
 
-    .menubar.options {
+    /* -------- MenuBar Links | Styles -------- */
+
+    .menubar.nav-links {
         padding-right: 20px;
-        border-left: 4px solid #FFA500;
-        border-top-left-radius: 300px;
-        border-bottom-left-radius: 30px;
+        border-left-width: 4px;
     }
 
-    .menubar.options h3 {
+    .menubar.nav-links h3 {
         margin: 23px 13px;
         height: 23px;
     }
 
-    .menubar.options a {
+    .menubar.nav-links a {
         padding: 15px;
     }
 
-    .menubar.options .log {
+    /* MenuBar (Sign Up) Button link | Styles */
+
+    .menubar.nav-links .sign-up {
         border-radius: 13px;
     }
 
-    .menubar.options .logged {
-        padding: 10px 15px;
-        border-radius: 90px;
+    /* MenuBar (Profile) DropDown link | Styles */
+
+    .menubar.nav-links .user-profile {
+        margin: 4px 0 0 0;
+        padding: 12px 13px;
+        padding-bottom: 14px;
     }
 
-    /* ----------- Article Styles ----------- */
-
-    .content-slider {
-        height: 500px;
+    .menubar.nav-links .user-profile img {
+        width: 2.05rem;
+        height: 2.05rem;
     }
 
-    .slider-content {
-        height: 310px;
-        margin: 50px 35px;
-        padding: 35px;
-        border-radius: 28px;
-        border: 4px solid rgba(234, 234, 234, 0.2);
+    .menubar.nav-links .profile-options {
+        top: 70px;
+        padding: 16px;
+        border-radius: 4px;
     }
 
-    .slider-content h2 {
-        margin-top: 15px;
-        font-size: 35px;
-    }
-
-    .slider-content .first-para {
-        font-size: 20px;
-    }
-
-    .slider-content .second-para {
-        font-size: 12px;
-    }
-
-    .slider-content a {
-        font-size: 15px;
-        margin: 18px;
-        padding: 13px 23px;
-    }
-
-    .content-image .slider-buttons {
-        margin-top: -40px;
-        margin-bottom: 30px;
-    }
-
-    .content.middle-1 img,
-    .content.middle-2 img {
-        width: 560px;
-        height: 90px;
-    }
-
-    .content.middle-1 h2,
-    .content.middle-2 h2 {
-        font-size: 23px;
-    }
-
-    .content.middle-1 p,
-    .content.middle-2 p {
-        font-size: 12px;
-    }
-
-    .content.details-1,
-    .content.details-2 {
-        padding: 40px 60px;
-    }
-
-    .content.details-1 img,
-    .content.details-2 img {
-        width: 350px;
-        height: 160px;
-    }
-
-    .detailed-content-1,
-    .detailed-content-2 {
-        padding: 0 13px;
+    .menubar.nav-links .profile-options a {
         font-size: 13px;
-    }
-
-    .detailed-content-1 h2,
-    .detailed-content-2 h2 {
-        font-size: 20px;
-    }
-
-    .detailed-content-1 a,
-    .detailed-content-2 a {
-        font-size: 13px;
-        margin: 5px;
-        padding: 10px 18px;
-        border-radius: 10px;
-    }
-
-    .content.slider-2 {
-        margin: 0 100px;
-        margin-bottom: 30px;
-    }
-
-    .content.slider-2 .images img {
-        width: 10rem;
-        height: 210px;
-        margin: 0 10px;
-    }
-
-    .previous,
-    .next {
-        top: 55px;
-        padding: 35px 8px;
-        font-size: 15px;
-    }
-
-    .previous {
-        border-radius: 5px 0 0 5px;
-    }
-
-    .slider-content-2 p {
-        font-size: 12px;
-        margin-top: 30px;
-    }
-
-    .slider-content-2 a {
-        font-size: 12px;
-        margin: 5px;
-        padding: 10px 18px;
-        border-radius: 10px;
-    }
-
-    .content.slider-3 {
-        margin: 50px 100px;
-    }
-
-    .content.slider-3 .images {
-        font-size: 14px;
-    }
-
-    .content.slider-3 .images img {
-        width: 65px;
-    }
-
-    .slider-content-3 {
-        margin-top: 30px;
-    }
-
-    .slider-content-3 p {
-        font-size: 12px;
-        margin-top: 0;
-    }
-
-    .bottom-info.logo {
-        margin-top: 8px;
-    }
-
-    .bottom-info.logo a {
-        width: 250px;
-    }
-
-    .bottom-info.logo img {
-        width: 55px;
-        margin: 0 10px;
-    }
-
-    .bottom-info.title {
-        margin-left: -10px;
-    }
-
-    .bottom-info.title h2 {
-        font-size: 15px;
-    }
-
-    .bottom-info.title p {
-        margin-top: -12px;
-        font-size: 10px;
-    }
-
-    footer .first-para {
-        font-size: 13px;
-    }
-
-    .bottom-info.images {
-        padding: 10px 180px;
-    }
-
-    .bottom-info.images figure {
-        font-size: 11px;
-    }
-
-    .bottom-info.images figure img {
-        width: 15px;
-    }
-
-    .bottom-info.images p:first-of-type {
-        margin-bottom: 3px;
-    }
-
-    .bottom-info.social-images {
-        padding: 13px;
-    }
-
-    .bottom-info.social-images img {
-        width: 25px;
-        border-radius: 10px;
-        margin: 0 10px;
-    }
-
-    .bottom-info.copyrights {
-        padding: 5px 20px;
-        font-size: 9px;
-    }
-
-    /* Responsive Styles for blur.css */
-
-    .signup-popup.active,
-    .login-popup.active {
-        width: 350px;
-        border-radius: 15px;
-    }
-
-    .signup-popup.active .form-container,
-    .login-popup.active .form-container {
-        padding: 1rem;
-        border-radius: 15px;
-        font-size: 11px;
-    }
-
-    .form-container .signup-close,
-    .form-container .login-close {
-        margin: -10px -55px 0 0;
-        font-size: 23px;
-        height: 12px;
-        border-radius: 20px;
-    }
-
-    .form-container h2 {
-        margin-top: 8px;
-    }
-
-    .form-container .error-message.show {
-        font-size: 11px;
-        border-radius: 13px;
-    }
-
-    .form-container p {
-        margin: 10px 3px;
-        font-size: 11px;
-    }
-
-    .form-container input {
-        width: 220px;
-        font-size: 10px;
+        margin-bottom: 9px;
         padding: 8px;
+        border-radius: 16px;
+    }
+
+    /* ----------------------------------------- (Top) ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider {
+        grid-template-columns: 1.4fr 1fr;
+    }
+
+    /* ------------- ImageSlider - Content | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider .slider-content {
+        margin: 50px 30px;
+        margin-right: 15px;
+        padding: 30px;
+        border-radius: 20px;
+        border-width: 3px;
+    }
+
+    .top-imageslider .content-slider .slider-content h2 {
+        margin-top: 10px;
+        font-size: 40px;
+    }
+
+    .top-imageslider .content-slider .slider-content .first-para {
+        font-size: 19px;
+    }
+
+    .top-imageslider .content-slider .slider-content .second-para {
+        font-size: 12px;
+        letter-spacing: 1.16px;
+    }
+
+    /* -------- ImageSlider - Create Button | Styles -------- */
+
+    .top-imageslider .content-slider .slider-content a {
+        font-size: 15px;
+        margin: 8px;
+        padding: 13px 23px;
         border-radius: 8px;
     }
 
-    .send-button {
-        margin: 20px 0 10px;
+    /* ------------- ImageSlider - Switch Button | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .slider-buttons {
+        margin-top: -41px;
     }
 
-    .form-container .email-confirm {
-        width: 80px;
-        font-size: 11px;
-        padding: 6px 5px;
-        border-radius: 12px;
+    .top-imageslider .slider-buttons a {
+        margin: 0 4px;
+        padding: 0px 20px;
+        border-radius: 15px;
     }
 
-    .form-container .log-in p {
-        margin: 10px 10px 0 0;
+    /* ----------------------------------------- Intermediate - Title | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .intermediate-title-1 h2,
+    .intermediate-title-2 h2 {
+        font-size: 25px;
     }
 
-    .form-container .log-in a {
+    .aboutpage .main-title h2 {
+        font-size: 35px;
+    }
+
+    .intermediate-title-1 p,
+    .intermediate-title-2 p,
+    .aboutpage .main-title p {
+        font-size: 13px;
+        letter-spacing: 1.6px;
+    }
+
+    /* ------------- Intermediate - Title (Image) | Styles
+------------------------------------------------------------------- */
+
+    .intermediate-title-1 img,
+    .intermediate-title-2 img,
+    .aboutpage .main-title img {
+        height: 80px;
+    }
+
+    /* ----------------------------------------- Middle - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-detailed-content,
+    .lower-detailed-content {
+        padding: 40px 50px;
+    }
+
+    /* ------------- Middle - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content img,
+    .lower-detailed-content img {
+        height: 85%;
+        padding: 10px;
+    }
+
+    /* ------------- Middle - Detailed Content (Details) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content .content-details,
+    .lower-detailed-content .content-details {
+        padding: 0 10px;
         font-size: 14px;
     }
 
-    /* Responsive Styles for template.css */
-    .getting-started {
-        height: 700px;
+    .middle-detailed-content .content-details h2,
+    .lower-detailed-content .content-details h2 {
+        font-size: 20px;
     }
 
-    .forms-navbar .navbar-names a {
+    /* -------- Middle - GetStarted Button | Styles -------- */
+
+    .middle-detailed-content .content-details a,
+    .lower-detailed-content .content-details a {
         font-size: 15px;
-        font-weight: 500;
-        padding: 7px 11px;
+        margin: 8px;
+        padding: 13px 23px;
+        border-radius: 8px;
     }
 
-    .forms-navbar .navbar-names img {
-        width: 18px;
-        height: 16px;
+    /* ----------------------------------------- Middle - ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-imageslider {
+        margin-bottom: 40px;
+        width: 76%;
+    }
+
+    /* ------------- Middle - ImageSlider (Images) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .images-section img {
+        width: 11rem;
+        height: 250px;
+        margin: 0 11px;
+    }
+
+    .middle-imageslider .images-section img.fourth {
+        display: none;
+    }
+
+    /* -------- Previous & Next Button | Styles -------- */
+
+    .middle-imageslider .images-section .previous,
+    .middle-imageslider .images-section .next {
+        top: 70px;
+        font-size: 16px;
+        margin-left: 16px;
+        padding: 40px 8px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .middle-imageslider .images-section .previous {
+        border-radius: 4px 0 0 4px;
+        margin-left: 0;
+        margin-right: 16px;
+    }
+
+    /* ------------- Middle - ImageSlider (Content) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .content-section p,
+    .aboutpage .detailed-content .content-wrapper p {
+        font-size: 14px;
+        margin-top: 26px;
+        letter-spacing: 1.6px;
+    }
+
+    /* -------- See More Button | Styles -------- */
+
+    .middle-imageslider .content-section a,
+    .aboutpage .detailed-content .content-wrapper a {
+        font-size: 15px;
+        margin: 8px;
+        padding: 13px 26px;
+        border-radius: 8px;
+    }
+
+    .aboutpage .detailed-content .content-wrapper a {
+        margin: 1.6em;
+    }
+
+    /* ----------------------------------------- Bottom - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .bottom-detailed-content {
+        width: 76%;
+        margin: 60px auto;
+    }
+
+    /* ------------- Bottom - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .images-section {
+        font-size: 16px;
+        letter-spacing: 1.6px;
+    }
+
+    .bottom-detailed-content .images-section img {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
+
+    /* ------------- Bottom - Detailed Content (Content) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .content-section {
+        margin-top: 40px;
+    }
+
+    .bottom-detailed-content .content-section p {
+        font-size: 13px;
+        letter-spacing: 1.6px;
+    }
+
+    /* ------------- Bottom-Info (Title-Logo) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.logo a {
+        width: 230px;
+    }
+
+    footer .bottom-info.logo img {
+        width: 60px;
+    }
+
+    footer .bottom-logo-title p {
+        margin-top: -18px;
+    }
+
+    /* ------------- Bottom-Info (Contacts) | Styles
+------------------------------------------------------------------- */
+
+    footer .contacts-heading {
+        font-size: 14px;
+        letter-spacing: 1.6px;
+    }
+
+    /* -------- Bottom-Info (Contacts) Images | Styles -------- */
+
+    footer .bottom-info.contacts figure {
+        font-size: 12px;
+    }
+
+    footer .bottom-info.contacts img {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    /* ------------- Bottom-Info (Social) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.social-links {
+        padding: 16px;
+        padding-top: 0;
+    }
+
+    footer .bottom-info.social-links img {
+        width: 31px;
+        border-radius: 13px;
+        margin: 0 10px;
+    }
+
+    /* ------------- Bottom-Info (CopyRights) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.copyrights {
+        font-size: 9.5px;
+        padding: 7px 24px;
+        letter-spacing: 0.96px;
+    }
+
+    footer .bottom-info.copyrights .links a {
+        margin-right: 12px;
     }
 }
 
+@media (min-width: 678px) and (max-width: 767px) {
 
-@media screen and (max-width: 800px) {
+    /*  Responsive Styles for
+            - Small Tablets only
+    */
 
     body {
         font-size: 11px;
     }
 
-    /* ----------- Header Styles ----------- */
+    /* --------------- MenuBar | Styles
+------------------------------------------------------------------- */
+
+    header {
+        height: 65px;
+    }
+
+    /* -------- MenuBar Title-Logo | Styles -------- */
+
+    .menubar.title-logo img {
+        width: 52.5px;
+        margin-left: 11px;
+    }
+
+    .menubar.title p {
+        margin-top: -17px;
+    }
+
+    /* -------- MenuBar Links | Styles -------- */
+
+    .menubar.nav-links {
+        padding-right: 17.5px;
+        border-left-width: 3.5px;
+    }
+
+    .menubar.nav-links h3 {
+        margin: 22px 12px;
+        height: 22px;
+    }
+
+    .menubar.nav-links a {
+        padding: 12.5px;
+    }
+
+    /* MenuBar (Sign Up) Button link | Styles */
+
+    .menubar.nav-links .sign-up {
+        border-radius: 12px;
+    }
+
+    /* MenuBar (Profile) DropDown link | Styles */
+
+    .menubar.nav-links .user-profile {
+        margin: 3.5px 0 0 0;
+        padding: 11px 12px;
+        padding-bottom: 13px;
+    }
+
+    .menubar.nav-links .user-profile img {
+        width: 1.95rem;
+        height: 1.95rem;
+    }
+
+    .menubar.nav-links .profile-options {
+        top: 65px;
+        padding: 14px;
+        border-radius: 3.5px;
+    }
+
+    .menubar.nav-links .profile-options a {
+        font-size: 12px;
+        margin-bottom: 8.5px;
+        padding: 7px;
+        border-radius: 14px;
+    }
+
+    /* ----------------------------------------- (Top) ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider {
+        grid-template-columns: 1.8fr 1fr;
+    }
+
+    /* ------------- ImageSlider - Content | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider .slider-content {
+        margin: 50px 20px;
+        margin-right: 10px;
+        padding: 20px;
+        border-radius: 15px;
+        border-width: 2px;
+    }
+
+    .top-imageslider .content-slider .slider-content h2 {
+        margin-top: 5px;
+        font-size: 35px;
+    }
+
+    .top-imageslider .content-slider .slider-content .first-para {
+        font-size: 16px;
+    }
+
+    .top-imageslider .content-slider .slider-content .second-para {
+        font-size: 11px;
+        letter-spacing: 1.14px;
+    }
+
+    /* -------- ImageSlider - Create Button | Styles -------- */
+
+    .top-imageslider .content-slider .slider-content a {
+        font-size: 14px;
+        margin: 7px;
+        padding: 12px 22px;
+        border-radius: 7px;
+    }
+
+    /* ------------- ImageSlider - Switch Button | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .slider-buttons {
+        margin-top: -41.5px;
+    }
+
+    .top-imageslider .slider-buttons a {
+        margin: 0 3.5px;
+        padding: 0px 17.5px;
+        border-radius: 12.5px;
+    }
+
+    /* ----------------------------------------- Intermediate - Title | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .intermediate-title-1 h2,
+    .intermediate-title-2 h2 {
+        font-size: 20px;
+    }
+
+    .aboutpage .main-title h2 {
+        font-size: 30px;
+    }
+
+    .intermediate-title-1 p,
+    .intermediate-title-2 p,
+    .aboutpage .main-title p {
+        font-size: 11.5px;
+        letter-spacing: 1.4px;
+    }
+
+    /* ------------- Intermediate - Title (Image) | Styles
+------------------------------------------------------------------- */
+
+    .intermediate-title-1 img,
+    .intermediate-title-2 img,
+    .aboutpage .main-title img {
+        height: 60px;
+    }
+
+    /* ----------------------------------------- Middle - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-detailed-content,
+    .lower-detailed-content {
+        padding: 30px 40px;
+    }
+
+    /* ------------- Middle - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content img,
+    .lower-detailed-content img {
+        height: 80%;
+        padding: 5px;
+    }
+
+    /* ------------- Middle - Detailed Content (Details) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content .content-details,
+    .lower-detailed-content .content-details {
+        padding: 0 5px;
+        font-size: 12.5px;
+    }
+
+    .middle-detailed-content .content-details h2,
+    .lower-detailed-content .content-details h2 {
+        font-size: 16px;
+    }
+
+    /* -------- Middle - GetStarted Button | Styles -------- */
+
+    .middle-detailed-content .content-details a,
+    .lower-detailed-content .content-details a {
+        font-size: 14px;
+        margin: 7px;
+        padding: 12px 22px;
+        border-radius: 7px;
+    }
+
+    /* ----------------------------------------- Middle - ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-imageslider {
+        margin-bottom: 35px;
+        width: 74%;
+    }
+
+    /* ------------- Middle - ImageSlider (Images) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .images-section img {
+        width: 10rem;
+        height: 235px;
+        margin: 0 9px;
+    }
+
+    .middle-imageslider .images-section img.fourth,
+    .middle-imageslider .images-section img.third {
+        display: none;
+    }
+
+    /* -------- Previous & Next Button | Styles -------- */
+
+    .middle-imageslider .images-section .previous,
+    .middle-imageslider .images-section .next {
+        top: 75px;
+        font-size: 15px;
+        margin-left: 14px;
+        padding: 30px 7px;
+        border-radius: 0 3.5px 3.5px 0;
+    }
+
+    .middle-imageslider .images-section .previous {
+        border-radius: 3.5px 0 0 3.5px;
+        margin-left: 0;
+        margin-right: 14px;
+    }
+
+    /* ------------- Middle - ImageSlider (Content) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .content-section p,
+    .aboutpage .detailed-content .content-wrapper p {
+        font-size: 13px;
+        margin-top: 24px;
+        letter-spacing: 1.4px;
+    }
+
+    /* -------- See More Button | Styles -------- */
+
+    .middle-imageslider .content-section a,
+    .aboutpage .detailed-content .content-wrapper a {
+        font-size: 14px;
+        margin: 7px;
+        padding: 12px 25px;
+        border-radius: 7px;
+    }
+
+    .aboutpage .detailed-content .content-wrapper a {
+        margin: 1.4em;
+    }
+
+    /* ----------------------------------------- Bottom - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .bottom-detailed-content {
+        width: 74%;
+        margin: 50px auto;
+    }
+
+    /* ------------- Bottom - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .images-section {
+        font-size: 14px;
+        letter-spacing: 1.4px;
+    }
+
+    .bottom-detailed-content .images-section img {
+        width: 3.75rem;
+        height: 3.75rem;
+    }
+
+    /* ------------- Bottom - Detailed Content (Content) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .content-section {
+        margin-top: 35px;
+    }
+
+    .bottom-detailed-content .content-section p {
+        font-size: 12px;
+        letter-spacing: 1.4px;
+    }
+
+    /* ------------- Bottom-Info (Title-Logo) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.logo a {
+        width: 220px;
+    }
+
+    footer .bottom-info.logo img {
+        width: 52.5px;
+    }
+
+    footer .bottom-logo-title p {
+        margin-top: -17px;
+    }
+
+    /* ------------- Bottom-Info (Contacts) | Styles
+------------------------------------------------------------------- */
+
+    footer .contacts-heading {
+        font-size: 13px;
+        letter-spacing: 1.4px;
+    }
+
+    /* -------- Bottom-Info (Contacts) Images | Styles -------- */
+
+    footer .bottom-info.contacts figure {
+        font-size: 11.5px;
+    }
+
+    footer .bottom-info.contacts img {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+
+    /* ------------- Bottom-Info (Social) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.social-links {
+        padding: 15px;
+        padding-top: 0;
+    }
+
+    footer .bottom-info.social-links img {
+        width: 29px;
+        border-radius: 12px;
+        margin: 0 9px;
+    }
+
+    /* ------------- Bottom-Info (CopyRights) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.copyrights {
+        font-size: 9.25px;
+        padding: 6.5px 23.5px;
+        letter-spacing: 0.94px;
+    }
+
+    footer .bottom-info.copyrights .links a {
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 677px) {
+
+    /*  Responsive Styles for
+            - Small Tablets and
+            - Mobiles
+    */
+
+    body {
+        font-size: 10px;
+    }
+
+    /* --------------- MenuBar | Styles
+------------------------------------------------------------------- */
 
     header {
         height: 60px;
     }
 
+    /* -------- MenuBar Title-Logo | Styles -------- */
+
     .fixed-menubar {
-        height: 60px;
-    }
-
-    .floating-menubar {
-        animation: slide-in 0.8s both;
-        position: fixed;
-        top: 0;
-        z-index: 100;
-    }
-
-    @keyframes slide-in {
-        0% {
-            transform: translateY(-60px);
-        }
-
-        100% {
-            transform: translateY(0);
-        }
-    }
-
-    .menubar {
-        height: 60px;
+        grid-template-columns: 3fr 2fr;
     }
 
     .menubar.title-logo img {
-        width: 54px;
+        width: 50px;
         margin-left: 10px;
     }
 
     .menubar.title p {
         margin-top: -16px;
-        color: #FFA500;
-        font-stretch: condensed;
     }
 
-    .menubar.options {
+    /* -------- MenuBar Links | Styles -------- */
+
+    .menubar.nav-links {
         padding-right: 15px;
-        border-left: 3px solid #FFA500;
-        border-top-left-radius: 300px;
-        border-bottom-left-radius: 30px;
+        border-left-width: 3px;
     }
 
-    .menubar.options h3 {
-        margin: 20px 8px;
-        height: 20px;
+    .menubar.nav-links h3 {
+        margin: 8px;
+        height: 22px;
+        display: none;
     }
 
-    .menubar.options a {
-        padding: 12px;
-    }
+    /* MenuBar (Sign Up) Button link | Styles */
 
-    .menubar.options a:hover {
-        border-bottom: 1px solid #FFA500;
-    }
-
-    .menubar.options .log {
-        border-radius: 11px;
-    }
-
-    .menubar.options .logged {
-        padding: 8px 13px;
-        border-radius: 90px;
-    }
-
-    /* ----------- Article Styles ----------- */
-
-    .content-slider {
-        height: 400px;
-    }
-
-    .slider-content {
-        height: 250px;
-        margin: 40px 25px;
-        padding: 25px;
-        border-radius: 26px;
-        border: 3px solid rgba(234, 234, 234, 0.2);
-    }
-
-    .slider-content h2 {
-        margin-top: 10px;
-        font-size: 25px;
-    }
-
-    .slider-content .first-para {
-        font-size: 17px;
-    }
-
-    .slider-content .second-para {
-        font-size: 11px;
-    }
-
-    .slider-content a {
-        font-size: 13px;
-        margin: 14px;
-        padding: 10px 18px;
-    }
-
-    .content-image .slider-buttons {
-        margin-top: -40px;
-        margin-bottom: 30px;
-    }
-
-    .content.middle-1 img,
-    .content.middle-2 img {
-        width: 480px;
-        height: 80px;
-    }
-
-    .content.middle-1 h2,
-    .content.middle-2 h2 {
-        font-size: 19px;
-    }
-
-    .content.middle-1 p,
-    .content.middle-2 p {
-        font-size: 9px;
-    }
-
-    .content.details-1,
-    .content.details-2 {
-        padding: 25px 50px;
-    }
-
-    .content.details-1 img,
-    .content.details-2 img {
-        width: 280px;
-        height: 140px;
-    }
-
-    .detailed-content-1,
-    .detailed-content-2 {
-        padding: 0 10px;
-        font-size: 11px;
-    }
-
-    .detailed-content-1 h2,
-    .detailed-content-2 h2 {
-        font-size: 15px;
-    }
-
-    .detailed-content-1 a,
-    .detailed-content-2 a {
-        font-size: 10px;
-        margin: 4px;
-        padding: 9px 15px;
-        border-radius: 8px;
-    }
-
-    .content.slider-2 {
-        margin: 0 65px;
-        margin-bottom: 20px;
-    }
-
-    .content.slider-2 .images img {
-        width: 9rem;
-        height: 180px;
-        margin: 0 6px;
-    }
-
-    .previous,
-    .next {
-        top: 45px;
-        padding: 30px 7px;
-        font-size: 14px;
-    }
-
-    .previous {
-        border-radius: 5px 0 0 5px;
-    }
-
-    .slider-content-2 p {
-        font-size: 9px;
-        margin-top: 25px;
-    }
-
-    .slider-content-2 a {
-        font-size: 10px;
-        margin: 4px;
-        padding: 8px 14px;
-        border-radius: 8px;
-    }
-
-    .content.slider-3 {
-        margin: 40px 80px;
-    }
-
-    .content.slider-3 .images {
-        font-size: 11px;
-    }
-
-    .content.slider-3 .images img {
-        width: 50px;
-    }
-
-    .slider-content-3 {
-        margin-top: 25px;
-    }
-
-    .slider-content-3 p {
-        font-size: 9px;
-    }
-
-    .bottom-info.logo {
-        margin-top: 7px;
-    }
-
-    .bottom-info.logo a {
-        width: 220px;
-    }
-
-    .bottom-info.logo img {
-        width: 48px;
-        margin: 0 9px;
-    }
-
-    .bottom-info.title {
-        margin-left: -9px;
-    }
-
-    .bottom-info.title h2 {
-        font-size: 13px;
-    }
-
-    .bottom-info.title p {
-        margin-top: -11px;
-        font-size: 9px;
-    }
-
-    footer .first-para {
-        font-size: 10px;
-    }
-
-    .bottom-info.images {
-        padding: 8px 120px;
-    }
-
-    .bottom-info.images figure {
-        font-size: 9px;
-    }
-
-    .bottom-info.images figure img {
-        width: 14px;
-    }
-
-    .bottom-info.images p:first-of-type {
-        margin-bottom: 2px;
-    }
-
-    .bottom-info.social-images {
-        padding: 11px;
-    }
-
-    .bottom-info.social-images img {
-        width: 22px;
-        border-radius: 9px;
-        margin: 0 9px;
-    }
-
-    .bottom-info.copyrights {
-        padding: 4px 13px;
-        font-size: 8px;
-    }
-
-    /* Responsive Styles for blur.css */
-
-    .signup-popup.active,
-    .login-popup.active {
-        width: 330px;
-        border-radius: 13px;
-    }
-
-    .signup-popup.active .form-container,
-    .login-popup.active .form-container {
-        padding: 1rem;
-        border-radius: 13px;
-        font-size: 10px;
-    }
-
-    .form-container .signup-close,
-    .form-container .login-close {
-        margin: -9px -53px 0 0;
-        font-size: 22px;
-        height: 12px;
-        border-radius: 19px;
-    }
-
-    .form-container h2 {
-        margin-top: 7px;
-    }
-
-    .form-container .error-message.show {
-        font-size: 10px;
+    .menubar.nav-links .sign-up {
         border-radius: 12px;
     }
 
-    .form-container p {
-        margin: 9px 2px;
-        font-size: 10px;
+    /* MenuBar (Hamburger) Menu link | Styles */
+
+    .menubar.nav-links .ham-menu {
+        display: block;
+        margin-right: 0;
     }
 
-    .form-container input {
-        width: 210px;
-        font-size: 9px;
-        padding: 7px;
-        border-radius: 7px;
+    .menubar.nav-links .ham-menu a {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.5rem;
+        border: none;
+        border-radius: 5rem;
+        cursor: pointer;
     }
 
-    .send-button {
-        margin: 15px 0 6px;
+    .menubar.nav-links .ham-menu a img {
+        width: 1.65rem;
+        height: 1.65rem;
     }
 
-    .form-container .email-confirm {
-        width: 60px;
-        font-size: 10px;
-        padding: 5px 4px;
-        border-radius: 11px;
+    .menubar.nav-links .ham-menu a:hover {
+        scale: 1.1;
     }
 
-    .form-container .log-in p {
-        margin: 9px 9px 0 0;
+    .menubar.nav-links .ham-menu a:active {
+        background-color: rgba(0, 86, 179, 0.1);
     }
 
-    .form-container .log-in a {
+    /* ----------------------------------------- (Top) ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider {
+        grid-template-columns: 2fr 0.6fr;
+    }
+
+    /* ------------- ImageSlider - Content | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .content-slider .slider-content {
+        margin: 50px 10px;
+        margin-right: 5px;
+        padding: 10px;
+        border-radius: 10px;
+        border-width: 1px;
+    }
+
+    .top-imageslider .content-slider .slider-content h2 {
+        margin-top: 2px;
+        font-size: 30px;
+    }
+
+    .top-imageslider .content-slider .slider-content .first-para {
         font-size: 13px;
+    }
+
+    .top-imageslider .content-slider .slider-content .second-para {
+        font-size: 10px;
+        letter-spacing: 1.12px;
+    }
+
+    /* -------- ImageSlider - Create Button | Styles -------- */
+
+    .top-imageslider .content-slider .slider-content a {
+        font-size: 13px;
+        margin: 6px;
+        padding: 11px 21px;
+        border-radius: 6px;
+    }
+
+    /* ------------- ImageSlider - Switch Button | Styles
+------------------------------------------------------------------- */
+
+    .top-imageslider .slider-buttons {
+        margin-top: -42px;
+    }
+
+    .top-imageslider .slider-buttons a {
+        margin: 0 3px;
+        padding: 0px 15px;
+        border-radius: 10px;
+    }
+
+    /* ----------------------------------------- Intermediate - Title | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .intermediate-title-1 h2,
+    .intermediate-title-2 h2 {
+        font-size: 15px;
+    }
+
+    .aboutpage .main-title h2 {
+        font-size: 25px;
+    }
+
+    .intermediate-title-1 p,
+    .intermediate-title-2 p,
+    .aboutpage .main-title p {
+        font-size: 10px;
+        letter-spacing: 1.2px;
+    }
+
+    /* ------------- Intermediate - Title (Image) | Styles
+------------------------------------------------------------------- */
+
+    .intermediate-title-1 img,
+    .intermediate-title-2 img,
+    .aboutpage .main-title img {
+        height: 40px;
+    }
+
+    /* ----------------------------------------- Middle - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-detailed-content,
+    .lower-detailed-content {
+        padding: 20px 30px;
+    }
+
+    /* ------------- Middle - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content img,
+    .lower-detailed-content img {
+        height: 75%;
+        padding: 0;
+    }
+
+    @media (max-width: 500px) {
+
+        .middle-detailed-content,
+        .lower-detailed-content {
+            grid-template-columns: 1fr;
+        }
+
+        .middle-detailed-content img,
+        .lower-detailed-content img {
+            width: 80%;
+            height: 95%;
+            margin: 0 auto;
+        }
+
+        .middle-detailed-content .content-details h2,
+        .lower-detailed-content .content-details h2 {
+            text-decoration: underline;
+            text-decoration-color: var(--orangeweb);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+
+        /* ------------- Bottom - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+        .bottom-detailed-content .images-section {
+            flex-direction: column;
+        }
+
+        .bottom-detailed-content .images-section figure {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .bottom-detailed-content .images-section figure img {
+            width: 5rem;
+            height: 5rem;
+        }
+
+        .bottom-detailed-content .images-section figure figcaption {
+            font-size: 14px;
+            padding: 0;
+        }
+
+        /* ------------- Bottom - Detailed Content (Content) | Styles
+------------------------------------------------------------------- */
+
+        .bottom-detailed-content div.content-section {
+            margin-top: 20px;
+        }
+    }
+
+    /* ------------- Middle - Detailed Content (Details) | Styles
+------------------------------------------------------------------- */
+
+    .middle-detailed-content .content-details,
+    .lower-detailed-content .content-details {
+        padding: 0;
+        font-size: 11px;
+    }
+
+    .middle-detailed-content .content-details h2,
+    .lower-detailed-content .content-details h2 {
+        font-size: 15px;
+    }
+
+    /* -------- Middle - GetStarted Button | Styles -------- */
+
+    .middle-detailed-content .content-details a,
+    .lower-detailed-content .content-details a {
+        font-size: 13px;
+        margin: 6px;
+        padding: 11px 21px;
+        border-radius: 6px;
+    }
+
+    /* ----------------------------------------- Middle - ImageSlider | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .middle-imageslider {
+        margin-bottom: 30px;
+        width: 72%;
+    }
+
+    /* ------------- Middle - ImageSlider (Images) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .images-section img {
+        width: 9rem;
+        height: 220px;
+        margin: 0 7px;
+    }
+
+    .middle-imageslider .images-section img.fourth,
+    .middle-imageslider .images-section img.third,
+    .middle-imageslider .images-section img.second {
+        display: none;
+    }
+
+    /* -------- Previous & Next Button | Styles -------- */
+
+    .middle-imageslider .images-section .previous,
+    .middle-imageslider .images-section .next {
+        top: 80px;
+        font-size: 14px;
+        margin-left: 12px;
+        padding: 20px 6px;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .middle-imageslider .images-section .previous {
+        border-radius: 3px 0 0 3px;
+        margin-left: 0;
+        margin-right: 12px;
+    }
+
+    /* ------------- Middle - ImageSlider (Content) | Styles
+------------------------------------------------------------------- */
+
+    .middle-imageslider .content-section p,
+    .aboutpage .detailed-content .content-wrapper p {
+        font-size: 12px;
+        margin-top: 22px;
+        letter-spacing: 1.2px;
+    }
+
+    /* -------- See More Button | Styles -------- */
+
+    .middle-imageslider .content-section a,
+    .aboutpage .detailed-content .content-wrapper a {
+        font-size: 13px;
+        margin: 6px;
+        padding: 11px 24px;
+        border-radius: 6px;
+    }
+
+    .aboutpage .detailed-content .content-wrapper a {
+        margin: 1.2em;
+    }
+
+    /* ----------------------------------------- Bottom - Detailed Content | Styles ------------------------------------------
+----------------------------------------------------------------------------------------------------------------- */
+
+    .bottom-detailed-content {
+        width: 72%;
+        margin: 40px auto;
+    }
+
+    /* ------------- Bottom - Detailed Content (Image) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .images-section {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+    }
+
+    .bottom-detailed-content .images-section img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    /* ------------- Bottom - Detailed Content (Content) | Styles
+------------------------------------------------------------------- */
+
+    .bottom-detailed-content .content-section {
+        margin-top: 30px;
+    }
+
+    .bottom-detailed-content .content-section p {
+        font-size: 11px;
+        letter-spacing: 1.2px;
+    }
+
+    /* ------------- Bottom-Info (Title-Logo) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.logo a {
+        width: 210px;
+    }
+
+    footer .bottom-info.logo img {
+        width: 50px;
+    }
+
+    footer .bottom-logo-title p {
+        margin-top: -15px;
+    }
+
+    /* ------------- Bottom-Info (Contacts) | Styles
+------------------------------------------------------------------- */
+
+    footer .contacts-heading {
+        font-size: 12px;
+        letter-spacing: 1.2px;
+    }
+
+    /* -------- Bottom-Info (Contacts) Images | Styles -------- */
+
+    footer .bottom-info.contacts {
+        flex-direction: column;
+    }
+
+    footer .bottom-info.contacts figure {
+        font-size: 11px;
+        margin-bottom: 20px;
+    }
+
+    footer .bottom-info.contacts figure:last-of-type {
+        margin-bottom: 0;
+    }
+
+    footer .bottom-info.contacts img {
+        width: 1.45rem;
+        height: 1.45rem;
+    }
+
+    /* ------------- Bottom-Info (Social) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.social-links {
+        padding: 14px;
+        padding-top: 0;
+    }
+
+    footer .bottom-info.social-links img {
+        width: 27px;
+        border-radius: 11px;
+        margin: 0 8px;
+    }
+
+    /* ------------- Bottom-Info (CopyRights) | Styles
+------------------------------------------------------------------- */
+
+    footer .bottom-info.copyrights {
+        font-size: 9.25px;
+        grid-template-columns: 1fr;
+        padding: 6.5px 23px;
+        letter-spacing: 0.94px;
+    }
+
+    footer .bottom-info.copyrights .links {
+        display: none;
     }
 }

@@ -1,197 +1,116 @@
-{% extends "base.html" %}
+{% extends "builderTemplate.html" %}
 {% load static %}
 
-{% block content %}
 
-<!doctype html>
-<html lang="en-US" dir="ltr">
+{% block formcontent %}
 
-<head>
-    <title>Create | ReSume - Builder</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/blur.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/template.css' %}">
-    <link rel="stylesheet" href="{% static 'Assets/CSS/responsive.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'Assets/Images/logo.png' %}">
-    <script type="module" src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/logs.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
-    <script type="module" src="{% static 'Assets/JavaScript/tips_dropdown.js' %}"></script>
-    <style>
-        footer {
-            display: none;
-        }
-    </style>
-</head>
+<!-- Forms -Section -->
+<section class="forms-entry">
 
-<body>
-    <main class="personal-details">
+    <!-- Forms Title -->
+    <h1>Let's Start with your <span class="mid-blue">Contact</span> Info!</h1>
 
-        <article class="forms-navbar">
+    <!-- Personal-Details-Form -->
+    <form class="personal-details-form" method="POST" autocomplete="on">
 
-            <section class="navbar-names">
+        {% csrf_token %}
 
-                <a class="first-link nav-bar-active {{link}}">
-                    <img src="{% static 'Assets/Images/navbar_icon_01.png' %}">
-                    <span>&ensp;Contact</span>
-                </a>
+        <!-- First & Last name -Section -->
+        <div class="firstname-lastname">
 
-                <a class="second-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_02.png' %}">
-                    <span>&ensp;Experience</span>
-                </a>
+            <input class="first_name" type="text" name="firstname" value="{{ detail.first_name }}"
+                placeholder="First Name*" autocomplete="name">
 
-                <a class="third-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_03.png' %}">
-                    <span>&ensp;Education</span>
-                </a>
+            <input class="last_name" type="text" name="lastname" value="{{ detail.last_name }}" placeholder="Last Name*"
+                autocomplete="name">
 
-                <a class="fourth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_04.png' %}">
-                    <span>&ensp;Certifications</span>
-                </a>
+        </div>
 
-                <a class="fifth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_05.png' %}">
-                    <span>&ensp;Additional Skills</span>
-                </a>
+        <!-- Email & Phone -Section -->
+        <div class="email-phone">
 
-                <a class="sixth-link">
-                    <img src="{% static 'Assets/Images/navbar_icon_06.png' %}">
-                    <span>&ensp;Career Objective</span>
-                </a>
+            <input class="current_email" type="email" name="currentemail" value="{{ detail.current_email }}"
+                placeholder="Email*" autocomplete="email">
 
-            </section>
+            <input class="phone_number" type="tel" name="phonenumber" value="{{ detail.phone_number }}"
+                placeholder="Phone" autocomplete="mobile">
 
-            <section class="form-progress">
+        </div>
 
-                <div class="form-progress-title">
-                    <p>Progress</p>
-                </div>
+        <!-- Address -Section -->
+        <div class="text-container physical-address">
 
-                <div class="form-progress-container">
-                    <div class="form-progress-bar"></div>
-                </div>
+            <textarea class="current_address" type="text" name="currentaddress" placeholder="Address"
+                autocomplete="street-address">{{ detail.current_address }}</textarea>
 
-                <div class="form-progress-percentage">0%</div>
+        </div>
 
-            </section>
+        <!-- Country & City -Section -->
+        <div class="country-city">
 
-        </article>
+            <!-- Country -Dropdown -->
+            <select class="current_country" type="text" name="currentcountry">
+                <!--#767270 => #918C89-->
 
-        <article class="forms-content-section">
+                <!-- Default Option -->
+                <option value="{{ detail.current_country }}" selected hidden>{{ detail.current_country }}</option>
 
-            <section class="forms-entry">
-                <h1>Let's Start with your <span class="mid-blue">Contact</span> Info!</h1>
+                {% for country in countries %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+                {% endfor %}
 
-                <form class="personal-details-form" method="POST" autocomplete="off">
+            </select>
 
-                    {% csrf_token %}
+            <input class="current_city" type="text" name="currentcity" value="{{ detail.current_city }}"
+                placeholder="City">
 
-                    <div class="firstname-lastname">
+        </div>
 
-                        <input class="first_name" type="text" name="firstname" value="{{detail.first_name}}"
-                            placeholder="First Name*">
+        <!-- State Name & PinCode -Section -->
+        <div class="state-pincode">
 
-                        <input class="last_name" type="text" name="lastname" value="{{detail.last_name}}"
-                            placeholder="Last Name*">
+            <input class="current_state" type="text" name="currentstate" value="{{ detail.current_state }}"
+                placeholder="State/Province">
 
-                    </div>
+            <input class="pin_code" type="text" name="pincode" value="{{ detail.pin_code }}" placeholder="Pincode"
+                autocomplete="postal-code">
 
-                    <div class="email-phone">
+        </div>
 
-                        <input class="current_email" type="email" name="currentemail" value="{{detail.current_email}}"
-                            placeholder="Email*">
+        <!-- Button -Section -->
+        <div class="form-buttons">
 
-                        <input class="phone_number" type="tel" name="phonenumber" value="{{detail.phone_number}}"
-                            placeholder="Phone">
+            <input type="button" class="back-button" value="Back">
 
-                    </div>
+            <input type="submit" class="continue-button" value="Continue">
 
-                    <div class="physical-address">
+        </div>
 
-                        <textarea class="current_address" type="text" name="currentaddress"
-                            placeholder="Address">{{detail.current_address}}</textarea>
+    </form>
 
-                    </div>
+    <!-- Confirmation-Dialog -->
+    <div class="confirmation-wrapper">
+        <div class="confirmation-dialog">
+            <h2 class="confirm-question">If you go back the data entered is not saved, are you sure?</h2>
+            <div class="confirm-option">
+                <a class="confirm-yes">Yes</a>
+                <a class="confirm-no">No</a>
+            </div>
+        </div>
+    </div>
 
-                    <div class="country-city">
+</section>
 
-                        <select class="current_country" type="text" name="currentcountry">
+{% endblock %}
 
-                            {% if detail.current_country == "Country" %}
-                            <option value="Country" selected hidden style="color: #918C89;">Country</option>
-                            {% else %}
-                            <option value="{{detail.current_country}}" selected hidden>{{detail.current_country}}
-                            </option>
-                            {% endif %}
 
-                            {% for country in countries %}
-                            <option value="{{country.name}}">{{country.name}}</option>
-                            {% endfor %}
+{% block tipscontent %}
 
-                        </select>
-
-                        <input class="current_city" type="text" name="currentcity" value="{{detail.current_city}}"
-                            placeholder="City">
-
-                    </div>
-
-                    <div class="state-pincode">
-
-                        <input class="current_state" type="text" name="currentstate" value="{{detail.current_state}}"
-                            placeholder="State/Province">
-
-                        <input class="pin_code" type="text" name="pincode" value="{{detail.pin_code}}"
-                            placeholder="Pincode">
-
-                    </div>
-
-                    <div class="personal-details-buttons">
-
-                        <input type="button" class="personal-details-back-button" value="Back">
-
-                        <input type="submit" class="personal-details-continue-button" value="Continue">
-
-                    </div>
-
-                </form>
-
-                <div class="confirmation-box">
-                    <div class="confirmation show">
-                        <h2 class="confirm-question">If you go back the data entered is not saved, are you sure?</h2>
-                        <div class="confirm-option">
-                            <a class="confirm-yes">Yes</a>
-                            <a class="confirm-no">No</a>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="forms-tips-preview">
-                <a class="tips-button"><img src="{% static 'Assets/Images/tips_01.png' %}"> <span>Tips</span></a>
-
-                <div class="tips-advice show">
-                    <h3>Tips & Advice</h3>
-
-                    <ul>
-                        <li>Use a professional sounding email address.</li>
-                        <li>Other info like phone number and location are optional, check the job requirements to see
-                            what you should include.</li>
-                    </ul>
-                </div>
-
-            </section>
-
-        </article>
-
-    </main>
-</body>
-
-</html>
+<!-- Tips -Content -->
+<ul>
+    <li>Use a professional sounding email address.</li>
+    <li>Other info like phone number and location are optional, check the job requirements to see
+        what you should include.</li>
+</ul>
 
 {% endblock %}

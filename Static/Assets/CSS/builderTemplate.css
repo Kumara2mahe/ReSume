@@ -1,0 +1,1206 @@
+/* ----------------------------------------- Builder-Template | Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+.builder-template {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin: 10px 8px 0;
+}
+
+header .fixed-menubar {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+}
+
+/* =================== Builder-Template (Side Panel) | Styles ================== */
+
+
+/* ------------ Builder-Template  (Forms NavBar) | Styles
+---------------------------------------------------------------------- */
+
+.forms-navbar {
+    position: relative;
+}
+
+.forms-navbar .navbar-names {
+    box-sizing: border-box;
+    position: fixed;
+    top: 6.25rem;
+    padding: 15px 20px;
+}
+
+.forms-navbar .navbar-names a {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    opacity: 0.5;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: not-allowed;
+}
+
+.forms-navbar .navbar-names .nav-bar-activated {
+    color: var(--black);
+    opacity: 1;
+    cursor: pointer;
+}
+
+.forms-navbar .navbar-names .nav-bar-activated:not(.nav-bar-active) {
+    color: var(--russianviolet);
+}
+
+.forms-navbar .navbar-names .nav-bar-activated:hover:not(.nav-bar-active) {
+    text-shadow: 0 0 0.06em var(--middlegrey);
+}
+
+.forms-navbar .navbar-names .nav-bar-active {
+    background-color: var(--orangeweb);
+    cursor: not-allowed;
+}
+
+.forms-navbar .navbar-names img {
+    width: 20px;
+    height: 18px;
+}
+
+.forms-navbar .navbar-names span {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+/* ------------ Builder-Template  (Forms Progress) | Styles
+----------------------------------------------------------------------- */
+
+.forms-navbar .form-progress {
+    box-sizing: border-box;
+    position: fixed;
+    top: 30rem;
+    padding: 5px 28px;
+}
+
+.forms-navbar .form-progress-title {
+    text-align: left;
+    color: var(--blackolive);
+}
+
+.forms-navbar .progress-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.forms-navbar .progress-bar {
+    display: inline-block;
+    background-color: var(--platinum);
+    width: 82%;
+    border: 1px solid var(--orangeweb);
+    border-radius: 20px;
+}
+
+.forms-navbar .progress {
+    background-color: var(--orangeweb);
+    height: 10px;
+    border-radius: 80px;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+}
+
+.forms-navbar .progress-percentage {
+    display: inline-block;
+}
+
+/* =================== Builder-Template (Right Panel) | Styles ================== */
+
+.forms-content-section {
+    box-sizing: border-box;
+    background-color: rgba(234, 234, 234, 0.5);
+    display: grid;
+    grid-template-columns: 5fr 0.5fr;
+    grid-template-columns: 5.5fr 0.5fr;
+}
+
+.forms-content-section.shrinked {
+    grid-template-columns: 6fr 1.5fr;
+}
+
+/* ------------- Builder-Template  (Forms Section) | Styles
+--------------------------------------------------------------------- */
+
+.forms-content-section .forms-entry {
+    text-align: center;
+    margin: 30px;
+}
+
+.forms-content-section .forms-entry .mid-blue {
+    color: var(--azure);
+}
+
+.forms-content-section .forms-entry h1 {
+    font-size: 2.25rem;
+    margin: 0 0 1.5rem;
+}
+
+/* ------------------- Form Selection | Styles -------------------- */
+
+.forms-content-section .forms-entry .form-selection.hide,
+.forms-content-section .forms-entry .selected-form,
+.forms-content-section .forms-entry .higher-education-form.hide,
+.forms-content-section .forms-entry .higher-education-form .school_form,
+.forms-content-section .forms-entry .higher-education-form .college_form {
+    display: none;
+}
+
+.forms-content-section .forms-entry .selected-form.show {
+    display: block;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options a {
+    font-size: 1.25em;
+    font-weight: 600;
+    background-color: var(--white);
+    color: var(--orangeweb);
+    width: 5%;
+    margin: 0.6em 1.8em;
+    padding: 1.5em 3em;
+    border: 2px solid rgba(255, 165, 0, 0.5);
+    border-radius: 4.5em;
+    cursor: pointer;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options a:hover {
+    scale: 1.05;
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options .yes-button:hover {
+    color: rgb(14, 121, 0);
+    border-color: rgba(14, 121, 0, 0.5);
+}
+
+.forms-content-section .forms-entry .form-selection .show-options .no-button:hover {
+    color: rgb(252, 25, 25);
+    border-color: rgba(252, 25, 25, 0.5);
+}
+
+/* ------------------- (Education) Form Selection | Styles -------------------- */
+
+.forms-content-section .forms-entry .form-selection .school-or-college {
+    justify-content: space-evenly;
+}
+
+.forms-content-section .forms-entry .form-selection .school-or-college a {
+    width: 25%;
+    margin: 0.6em 0;
+    padding: 1em 0.5em;
+    border-radius: 2.5em;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options a span {
+    display: inline-block;
+    font-size: 0.9em;
+    height: 1.5em;
+    overflow-y: hidden;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options img {
+    width: 25%;
+    height: 25%;
+    margin: 1.5em 0;
+}
+
+.forms-content-section .forms-entry .form-selection .show-options .school-img img {
+    scale: 1.8;
+}
+
+/* ------------------- Form | Styles -------------------- */
+
+.forms-content-section .forms-entry form:not(.higher-education-form) {
+    display: grid;
+    grid-template-columns: 0.85fr;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.forms-content-section .forms-entry .personal-details-form {
+    grid-template-rows: 1fr 1fr 1.5fr 1fr 1fr 1fr;
+    height: 540px;
+}
+
+.forms-content-section .forms-entry .years-of-experience-form {
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 540px;
+}
+
+.forms-content-section .forms-entry .higher-education-form .school_form.show,
+.forms-content-section .forms-entry .higher-education-form .college_form.show {
+    display: grid;
+    grid-template-columns: 0.85fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-content: space-around;
+    height: 360px;
+}
+
+.forms-content-section .forms-entry .higher-education-form .college_form.show {
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 500px;
+}
+
+.forms-content-section .forms-entry form div,
+.forms-content-section .edit-container .form-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.forms-content-section .forms-entry .certifications-form .skills-container,
+.forms-content-section .forms-entry .additional-skills-form .skills-container {
+    flex-direction: column;
+    align-items: center;
+}
+
+.forms-content-section .forms-entry .certifications-form .add-more,
+.forms-content-section .forms-entry .additional-skills-form .add-more,
+.forms-content-section .forms-entry .career-objective-form .skip-or-show-objective {
+    justify-content: flex-start;
+}
+
+.forms-content-section .forms-entry form input,
+.forms-content-section .forms-entry form textarea,
+.forms-content-section .forms-entry form select,
+.forms-content-section .edit-container .form-buttons a {
+    font-family: "Inconsolata", monospace;
+    font-size: 1.3em;
+    font-weight: 300;
+    background-color: var(--white);
+    width: 40%;
+    padding: 10px;
+    border-color: rgb(227, 227, 227);
+    border-style: solid;
+    border-radius: 10px;
+    resize: none;
+    outline: none;
+}
+
+.forms-content-section .forms-entry form .jobtitle-section input,
+.forms-content-section .forms-entry form .companyname-section input,
+.forms-content-section .forms-entry .higher-education-form .name-section input,
+.forms-content-section .forms-entry .higher-education-form .college-degree input,
+.forms-content-section .forms-entry .higher-education-form .college-branch input,
+.forms-content-section .forms-entry .certifications-form .skills-container input,
+.forms-content-section .forms-entry .additional-skills-form .skills-container input {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.forms-content-section .forms-entry .certifications-form .skills-container input,
+.forms-content-section .forms-entry .additional-skills-form .skills-container input {
+    margin: 1em 0;
+}
+
+.forms-content-section .forms-entry form input:focus,
+.forms-content-section .forms-entry form select:focus,
+.forms-content-section .forms-entry form textarea:focus {
+    border-bottom: 2px solid var(--orangeweb);
+}
+
+.forms-content-section .forms-entry form .text-container textarea {
+    width: 90%;
+    height: 6em;
+    margin: 0 auto;
+    padding: 8px;
+    line-height: 2;
+}
+
+.forms-content-section .forms-entry form .form-buttons input,
+.forms-content-section .forms-entry form .form-buttons input:focus {
+    color: var(--aliceblue);
+    width: 30%;
+    margin: 0 auto;
+    border: 1px outset var(--white);
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+.forms-content-section .forms-entry form .form-buttons input:active,
+.forms-content-section .edit-container .form-buttons a:active {
+    border: 1px inset var(--white);
+}
+
+.forms-content-section .forms-entry form .form-buttons input:disabled {
+    cursor: not-allowed;
+}
+
+.forms-entry form .form-buttons .back-button,
+.forms-content-section .edit-container .form-buttons .back-button {
+    background-color: var(--richblackfogra29);
+}
+
+.forms-entry form .form-buttons .continue-button,
+.forms-content-section .edit-container .form-buttons .continue-button {
+    background-color: var(--indigodye);
+}
+
+.forms-entry form .form-buttons .back-button:not(:disabled):hover,
+.forms-content-section .edit-container .form-buttons .back-button:not(:disabled):hover {
+    background-color: rgba(252, 25, 25, 0.7);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+.forms-entry form .form-buttons .continue-button:not(:disabled):hover,
+.forms-content-section .edit-container .form-buttons .continue-button:not(:disabled):hover {
+    background-color: var(--azure);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+/* ------------ (Career) Form Section -Styles ------------ */
+
+.forms-content-section .forms-entry .career-objective-form .objective-container .career_objective {
+    width: 90%;
+    height: 11em;
+    line-height: 1.2;
+}
+
+.forms-content-section .forms-entry .career-objective-form .skip-or-show-objective {
+    width: 90%;
+    margin: 2em auto;
+}
+
+.forms-content-section .forms-entry .career-objective-form .skip-or-show-objective input {
+    width: fit-content;
+    margin: 0.2em 1em;
+    text-align: left;
+}
+
+/* ------------ (Education) Edit Section -Styles ------------ */
+
+.forms-content-section .edit-container,
+.forms-content-section .edit-container .qualification {
+    display: none;
+}
+
+.forms-content-section .edit-container.show {
+    display: grid;
+    grid-template-columns: 0.85fr;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+.forms-content-section .edit-container .qualification.show {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    background-color: var(--white);
+    width: 90%;
+    margin: 0.8em auto;
+    border: 1px solid var(--orangeweb);
+    border-radius: 15px;
+    padding: 15px 20px;
+}
+
+.forms-content-section .edit-container .edit-content {
+    text-align: left;
+}
+
+/* --- Edit Icon | Styles --- */
+
+.forms-content-section .edit-container .edit-option {
+    text-align: right;
+}
+
+.forms-content-section .edit-container .edit-option a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+.forms-content-section .edit-container .edit-option a:hover {
+    background-color: var(--platinum);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 2500ms;
+    transition: 250ms;
+}
+
+.forms-content-section .edit-container .edit-option a img {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* --- Add Option | Styles --- */
+
+
+.forms-content-section .forms-entry .certifications-form .add-more .warning,
+.forms-content-section .forms-entry .additional-skills-form .add-more .warning {
+    margin: 0 15px;
+    color: rgba(252, 25, 25, 0.7);
+}
+
+.forms-content-section .forms-entry .certifications-form .certification_2.hide,
+.forms-content-section .forms-entry .certifications-form .certification_3.hide,
+.forms-content-section .forms-entry .certifications-form .certification_4.hide,
+.forms-content-section .forms-entry .certifications-form .certification_5.hide,
+.forms-content-section .forms-entry .certifications-form .certification_6.hide,
+.forms-content-section .forms-entry .certifications-form .add-more a.hide,
+.forms-content-section .forms-entry .certifications-form .add-more .warning.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_4.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_5.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_6.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_7.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_8.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_9.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_10.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_11.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_12.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_13.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_14.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_15.hide,
+.forms-content-section .forms-entry .additional-skills-form .skill_16.hide,
+.forms-content-section .forms-entry .additional-skills-form .add-more a.hide,
+.forms-content-section .forms-entry .additional-skills-form .add-more .warning.hide {
+    display: none;
+}
+
+.forms-content-section .edit-container .add-education,
+.forms-content-section .forms-entry .certifications-form .add-more,
+.forms-content-section .forms-entry .additional-skills-form .add-more,
+.forms-content-section .forms-entry .career-objective-form .objective-container .skip-or-show-objective {
+    text-align: left;
+    width: 90%;
+    margin: 1.5em auto 3em;
+}
+
+.forms-content-section .edit-container .add-education a,
+.forms-content-section .forms-entry .certifications-form .add-more a,
+.forms-content-section .forms-entry .additional-skills-form .add-more a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.forms-content-section .edit-container .add-education a img,
+.forms-content-section .forms-entry .certifications-form .add-more a img,
+.forms-content-section .forms-entry .additional-skills-form .add-more a img {
+    width: 18px;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 1500ms;
+    transition: 150ms;
+}
+
+.forms-content-section .edit-container .add-education a:hover img,
+.forms-content-section .forms-entry .certifications-form .add-more a:hover img,
+.forms-content-section .forms-entry .additional-skills-form .add-more a:hover img {
+    scale: 1.5;
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 2500ms;
+    transition: 250ms;
+}
+
+.forms-content-section .edit-container .add-education span,
+.forms-content-section .forms-entry .certifications-form .add-more span,
+.forms-content-section .forms-entry .additional-skills-form .add-more span {
+    font-size: 1em;
+    font-weight: 600;
+    color: var(--azure);
+    margin-left: 0.5em;
+}
+
+/* --- Continue & Back button | Styles --- */
+
+.forms-content-section .edit-container .form-buttons,
+.forms-content-section .forms-entry .career-objective-form .form-buttons {
+    margin-top: 1.4em;
+}
+
+.forms-content-section .edit-container .form-buttons a {
+    color: var(--aliceblue);
+    width: 25%;
+    margin: 0 auto;
+    padding: 5px;
+    border: 1px outset var(--white);
+    cursor: default;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+/* ------------ Confirmation Dialog | Styles ------------ */
+
+.forms-entry .confirmation-wrapper {
+    display: none;
+}
+
+.forms-entry .confirmation-wrapper.show {
+    position: fixed;
+    inset: 0;
+    isolation: isolate;
+    background-color: rgba(0, 18, 25, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 120;
+}
+
+.forms-entry .confirmation-wrapper .confirmation-dialog {
+    text-align: center;
+    position: absolute;
+    background-color: rgba(234, 234, 234, 1);
+    width: 35em;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.forms-entry .confirmation-wrapper .confirm-option {
+    margin: 40px 10px;
+}
+
+.forms-entry .confirmation-wrapper .confirm-option a {
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-block;
+    background-color: var(--indigodye);
+    color: var(--aliceblue);
+    width: 2em;
+    margin: 0 30px;
+    padding: 10px 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    -webkit-transition: 150ms;
+    -moz-transition: 150ms;
+    -o-transition: 150ms;
+    transition: 150ms;
+}
+
+.forms-entry .confirmation-wrapper .confirm-option .confirm-no {
+    background-color: var(--azure);
+}
+
+
+.forms-entry .confirmation-wrapper .confirm-option .confirm-yes:hover {
+    background-color: rgba(252, 25, 25, 0.7);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+.forms-entry .confirmation-wrapper .confirm-option .confirm-no:hover {
+    background-color: rgba(14, 121, 0, 0.5);
+    -webkit-transition: 250ms;
+    -moz-transition: 250ms;
+    -o-transition: 250ms;
+    transition: 250ms;
+}
+
+/* ------------ Builder-Template  (Tips and Advice Section) | Styles
+-------------------------------------------------------------------------------- */
+
+.forms-content-section .forms-tips-preview {
+    text-align: right;
+}
+
+.forms-content-section .forms-tips-preview a {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.forms-content-section .forms-tips-preview a::-moz-selection,
+.forms-content-section .forms-tips-preview a::selection,
+.forms-content-section .forms-tips-preview a img::-moz-selection,
+.forms-content-section .forms-tips-preview a img::selection,
+.forms-content-section .forms-tips-preview a span::-moz-selection,
+.forms-content-section .forms-tips-preview a span::selection {
+    background-color: transparent;
+}
+
+.forms-content-section .forms-tips-preview a img {
+    width: 15px;
+}
+
+.forms-content-section .forms-tips-preview a span {
+    color: var(--orangeweb);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 5px;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice,
+.forms-content-section .forms-tips-preview .tips-advice.show .selection-tip.hide,
+.forms-content-section .forms-tips-preview .tips-advice.show .objective-tip.hide {
+    display: none;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show {
+    text-align: center;
+    display: block;
+    background-color: var(--white);
+    width: 100%;
+    margin: 40px 45px 0 -45px;
+    padding: 15px;
+    border: 2px solid rgba(0, 18, 25, 0.1);
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show h3 {
+    position: relative;
+    top: -30px;
+    background-color: var(--russianviolet);
+    color: var(--aliceblue);
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 0.5em;
+    border-radius: 2em;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show p {
+    font-size: 13px;
+    text-align: left;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show .p-heading {
+    font-weight: bold;
+    margin: -15px 0 0;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show .p-last-para {
+    margin: -35px 0 0;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show ul {
+    text-align: left;
+    position: relative;
+    font-size: 13px;
+    padding: 10px 0 10px 15px;
+    top: -20px;
+}
+
+.forms-content-section .forms-tips-preview .tips-advice.show li {
+    margin: 10px 0;
+}
+
+
+/* ----------------------------------------- Builder-Template | Responsive Styles ------------------------------------------
+---------------------------------------------------------------------------------------------------- */
+
+@media (min-width: 992px) and (max-width: 1190px) {
+
+    /*  Responsive Styles for
+            - Small Desktops and 
+            - Tablets
+    */
+
+    .builder-template {
+        grid-template-columns: 1.2fr 4fr;
+    }
+
+    /* ------------ Builder-Template  (Forms NavBar) | Styles
+---------------------------------------------------------------------- */
+
+    .forms-navbar .navbar-names {
+        top: 6.24rem;
+        padding: 14.5px 19.5px;
+    }
+
+    .forms-navbar .navbar-names a {
+        padding: 7.5px 14.5px;
+        border-radius: 24px;
+    }
+
+    .forms-navbar .navbar-names img {
+        width: 19px;
+        height: 17px;
+    }
+
+    .forms-navbar .navbar-names span {
+        margin-left: 0.45em;
+    }
+
+    /* ------------ Builder-Template  (Forms Progress) | Styles
+----------------------------------------------------------------------- */
+
+    .forms-navbar .form-progress {
+        top: 29.9rem;
+        padding: 4.5px 27.5px;
+    }
+
+    .forms-navbar .progress-bar {
+        width: 81%;
+    }
+
+    /* ------------- Builder-Template  (Forms Section) | Styles
+--------------------------------------------------------------------- */
+
+    .forms-content-section .forms-entry {
+        margin: 27.5px;
+    }
+
+    .forms-content-section .forms-entry h1 {
+        font-size: 2rem;
+        margin: 0 0 1.35rem;
+    }
+
+    /* ------------------- Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .show-options {
+        padding-top: 1.8rem;
+    }
+
+    .forms-content-section .forms-entry .form-selection .show-options a {
+        width: 5.5%;
+        margin: 0.5em 1.5em;
+        padding: 1.4em 2.8em;
+    }
+
+    /* ------------------- (Education) Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .school-or-college a {
+        width: 27%;
+        margin: 0.5em 0;
+        padding: 1.2em 0.6em;
+        border-radius: 2.75em;
+    }
+
+    /* ------------------- Form | Styles -------------------- */
+
+    .forms-content-section .forms-entry .personal-details-form,
+    .forms-content-section .forms-entry .years-of-experience-form {
+        grid-template-columns: 0.9fr;
+        height: 520px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .school_form.show {
+        height: 340px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .college_form.show {
+        height: 480px;
+    }
+
+    .forms-content-section .forms-entry form input,
+    .forms-content-section .forms-entry form textarea,
+    .forms-content-section .forms-entry form select {
+        padding: 9.5px;
+        border-radius: 9.5px;
+    }
+
+    .forms-content-section .forms-entry form .text-container textarea {
+        padding: 7.5px;
+        line-height: 1.8;
+    }
+
+    /* ------------ Builder-Template  (Tips and Advice Section) | Styles
+-------------------------------------------------------------------------------- */
+
+    .forms-content-section .forms-tips-preview a {
+        margin: 9px 9px 0 0;
+        padding: 4px;
+    }
+
+    .forms-content-section .forms-tips-preview a img {
+        width: 14px;
+    }
+
+    .forms-content-section .forms-tips-preview a span {
+        font-size: 14px;
+        margin: 0 4px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show {
+        margin: 50px 40px 0 -40px;
+        padding: 13px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show h3 {
+        top: -27px;
+        padding: 0 0.45em;
+        border-radius: 1.75em;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show p {
+        font-size: 12px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-heading {
+        margin: -13px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-last-para {
+        margin: -30px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show ul {
+        font-size: 12px;
+        padding: 8px 0 9px 14px;
+        top: -18px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show li {
+        margin: 9px 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*  Responsive Styles for
+            - Small Tablets only
+    */
+
+    .builder-template {
+        grid-template-columns: 1.4fr 4fr;
+    }
+
+    /* ------------ Builder-Template  (Forms NavBar) | Styles
+---------------------------------------------------------------------- */
+
+    .forms-navbar .navbar-names {
+        top: 6.23rem;
+        padding: 14px 19px;
+    }
+
+    .forms-navbar .navbar-names a {
+        padding: 7px 14px;
+        border-radius: 23px;
+    }
+
+    .forms-navbar .navbar-names img {
+        width: 18px;
+        height: 16px;
+    }
+
+    .forms-navbar .navbar-names span {
+        margin-left: 0.4em;
+    }
+
+    /* ------------ Builder-Template  (Forms Progress) | Styles
+----------------------------------------------------------------------- */
+
+    .forms-navbar .form-progress {
+        top: 29.8rem;
+        padding: 4px 27px;
+    }
+
+    .forms-navbar .progress-bar {
+        width: 80%;
+    }
+
+    /* ------------- Builder-Template  (Forms Section) | Styles
+--------------------------------------------------------------------- */
+
+    .forms-content-section .forms-entry {
+        margin: 25px;
+    }
+
+    .forms-content-section .forms-entry h1 {
+        font-size: 1.75rem;
+        margin: 0 0 1.2rem;
+    }
+
+    /* ------------------- Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .show-options {
+        padding-top: 1.6rem;
+    }
+
+    .forms-content-section .forms-entry .form-selection .show-options a {
+        width: 6%;
+        margin: 0.4em 1.2em;
+        padding: 1.3em 2.6em;
+    }
+
+    /* ------------------- (Education) Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .school-or-college a {
+        width: 29%;
+        margin: 0.4em 0;
+        padding: 1.4em 0.7em;
+        border-radius: 3em;
+    }
+
+    /* ------------------- Form | Styles -------------------- */
+
+    .forms-content-section .forms-entry .personal-details-form,
+    .forms-content-section .forms-entry .years-of-experience-form {
+        grid-template-columns: 0.95fr;
+        height: 500px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .school_form.show {
+        height: 320px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .college_form.show {
+        height: 460px;
+    }
+
+    .forms-content-section .forms-entry form input,
+    .forms-content-section .forms-entry form textarea,
+    .forms-content-section .forms-entry form select {
+        padding: 9px;
+        border-radius: 9px;
+    }
+
+    .forms-content-section .forms-entry form .text-container textarea {
+        padding: 7px;
+        line-height: 1.6;
+    }
+
+    /* ------------ Builder-Template  (Tips and Advice Section) | Styles
+-------------------------------------------------------------------------------- */
+
+    .forms-content-section .forms-tips-preview a {
+        display: inline-block;
+        margin: 8px 8px 0 0;
+        padding: 3px;
+        cursor: pointer;
+    }
+
+    .forms-content-section .forms-tips-preview a img {
+        width: 13px;
+    }
+
+    .forms-content-section .forms-tips-preview a span {
+        color: var(--orangeweb);
+        font-size: 13px;
+        margin: 0 3px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show {
+        margin: 60px 35px 0 -35px;
+        padding: 11px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show h3 {
+        top: -24px;
+        padding: 0 0.4em;
+        border-radius: 1.5em;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show p {
+        font-size: 11px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-heading {
+        margin: -11px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-last-para {
+        margin: -25px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show ul {
+        font-size: 11px;
+        padding: 6px 0 8px 13px;
+        top: -16px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show li {
+        margin: 8px 0;
+    }
+}
+
+
+@media (min-width: 678px) and (max-width: 767px) {
+
+    /*  Responsive Styles for
+            - Tablets and
+            - Small Tablets
+    */
+
+    .builder-template {
+        grid-template-columns: 1.6fr 4fr;
+    }
+
+    /* ------------ Builder-Template  (Forms NavBar) | Styles
+---------------------------------------------------------------------- */
+
+    .forms-navbar .navbar-names {
+        top: 6.22rem;
+        padding: 13.5px 18.5px;
+    }
+
+    .forms-navbar .navbar-names a {
+        padding: 6.5px 13.5px;
+        border-radius: 22px;
+    }
+
+    .forms-navbar .navbar-names img {
+        width: 17px;
+        height: 15px;
+    }
+
+    .forms-navbar .navbar-names span {
+        margin-left: 0.35em;
+    }
+
+    /* ------------ Builder-Template  (Forms Progress) | Styles
+----------------------------------------------------------------------- */
+
+    .forms-navbar .form-progress {
+        top: 29.7rem;
+        padding: 3.5px 26.5px;
+    }
+
+    .forms-navbar .progress-bar {
+        width: 79%;
+    }
+
+    /* ------------- Builder-Template  (Forms Section) | Styles
+--------------------------------------------------------------------- */
+
+    .forms-content-section .forms-entry {
+        margin: 22.5px;
+    }
+
+    .forms-content-section .forms-entry h1 {
+        font-size: 1.5rem;
+        margin: 0 0 1.05rem;
+    }
+
+    /* ------------------- Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .show-options {
+        padding-top: 1.4rem;
+    }
+
+    .forms-content-section .forms-entry .form-selection .show-options a {
+        width: 6.5%;
+        margin: 0.3em 0.9em;
+        padding: 1.2em 2.2em;
+    }
+
+    /* ------------------- (Education) Form Selection | Styles -------------------- */
+
+    .forms-content-section .forms-entry .form-selection .school-or-college a {
+        width: 31%;
+        margin: 0.3em 0;
+        padding: 1.6em 0.8em;
+        border-radius: 3.25em;
+    }
+
+    /* ------------------- Form | Styles -------------------- */
+
+    .forms-content-section .forms-entry .personal-details-form,
+    .forms-content-section .forms-entry .years-of-experience-form {
+        grid-template-columns: 1fr;
+        height: 480px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .school_form.show {
+        height: 300px;
+    }
+
+    .forms-content-section .forms-entry .higher-education-form .college_form.show {
+        height: 440px;
+    }
+
+    .forms-content-section .forms-entry form input,
+    .forms-content-section .forms-entry form textarea,
+    .forms-content-section .forms-entry form select {
+        padding: 8.5px;
+        border-radius: 8.5px;
+    }
+
+    .forms-content-section .forms-entry form .text-container textarea {
+        padding: 6.5px;
+        line-height: 1.4;
+    }
+
+    /* ------------ Builder-Template  (Tips and Advice Section) | Styles
+-------------------------------------------------------------------------------- */
+
+    .forms-content-section .forms-tips-preview a {
+        margin: 7px 7px 0 0;
+        padding: 2px;
+    }
+
+    .forms-content-section .forms-tips-preview a img {
+        width: 12px;
+    }
+
+    .forms-content-section .forms-tips-preview a span {
+        font-size: 12px;
+        margin: 0 2px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show {
+        margin: 70px 30px 0 -30px;
+        padding: 9px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show h3 {
+        top: -21px;
+        padding: 0 0.35em;
+        border-radius: 1.25em;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show p {
+        font-size: 10px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-heading {
+        margin: -9px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show .p-last-para {
+        margin: -20px 0 0;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show ul {
+        font-size: 10px;
+        padding: 4px 0 7px 12px;
+        top: -14px;
+    }
+
+    .forms-content-section .forms-tips-preview .tips-advice.show li {
+        margin: 7px 0;
+    }
+}
