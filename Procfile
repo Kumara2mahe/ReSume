@@ -1,1 +1,1 @@
-web: gunicorn mainApp.wsgi --log-file -
+web: python manage.py collectstatic --clear --noinput && python manage.py migrate && gunicorn mainApp.wsgi

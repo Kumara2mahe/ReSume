@@ -9,9 +9,11 @@ if DEBUG:
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(" ")
 
 # Securing COOKIES & SESSIONS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = toBool("SESSION_COOKIE_SECURE")
+CSRF_COOKIE_SECURE = toBool("CSRF_COOKIE_SECURE")
+SECURE_HSTS_SECONDS = 60
+SECURE_SSL_REDIRECT = toBool("SECURE_SSL_REDIRECT")
+SECURE_PROXY_SSL_HEADER = toTuple("SECURE_PROXY_SSL_HEADER")
 
 # Adding Whitenoise
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
@@ -20,4 +22,4 @@ MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 STATIC_ROOT = (os.path.join(BASE_DIR, "staticfiles"))
 
 # Compressing and Caching static files
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"

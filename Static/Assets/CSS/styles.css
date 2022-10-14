@@ -811,7 +811,102 @@ header {
 }
 
 .aboutpage .main-title {
+    position: relative;
+}
+
+.aboutpage .main-title .bg-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.aboutpage .main-title .bg-image.initial {
     background: url("../Images/slider_01.jpg") no-repeat top/cover;
+}
+
+.aboutpage .main-title .bg-image.after {
+    background: url("../Images/slider_02.jpg") no-repeat top/cover;
+}
+
+@-webkit-keyframes bGfade-in {
+    0% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes bGfade-in {
+    0% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes bGfade-in {
+    0% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes bGfade-in {
+    0% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes bGfade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@-moz-keyframes bGfade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@-o-keyframes bGfade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes bGfade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
 }
 
 .intermediate-title-1 h2,

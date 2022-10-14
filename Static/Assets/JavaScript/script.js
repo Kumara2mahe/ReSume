@@ -27,7 +27,6 @@ const imageChangerFunction = () => {
         // Changing the background image
         backgroundImage.classList.replace("slider-2", "slider-1")
     }
-
     if (sliderButton2 == "rgb(0, 18, 25)") {
 
         // Changing the background color of button
@@ -42,7 +41,6 @@ const imageChangerFunction = () => {
             backgroundImage.classList.toggle("slider-2")
         }
     }
-
 }
 
 let imageChangeTimer
@@ -53,19 +51,39 @@ if (backgroundImage != null) {
 }
 else if (aboutTitleSection != null) {
 
-    // Automatically changing the About page title's background image
+    // Getting the About-page title's background image container
+    const aboutBgImage = aboutTitleSection.querySelector(".bg-image")
+
+    // Changing the About-page title's background image for the first time
+    aboutBgImage.classList.add("initial")
+
+    // Fading in image
+    aboutBgImage.style.animation = "bGfade-in 2s both"
+
+    // Script for Automatically changing the About-page title's background image
     setInterval(() => {
 
-        // Getting the previous image path
-        let previousImagePath = window.getComputedStyle(aboutTitleSection).backgroundImage
-        let imageName = previousImagePath.split("_")[1].split(".jpg")[0]
+        // Getting the current class of image
+        let className = aboutBgImage.classList[1]
 
-        if (imageName == "01") {
-            aboutTitleSection.style.backgroundImage = previousImagePath.replace("slider_01", "slider_02")
-        }
-        else {
-            aboutTitleSection.style.backgroundImage = previousImagePath.replace("slider_02", "slider_01")
-        }
+        // Fading out image
+        aboutBgImage.style.animation = "bGfade-out 3s both"
+        setTimeout(() => {
+
+            // Changing the background image
+            if (className == "initial") {
+                aboutBgImage.classList.replace(className, "after")
+            }
+            else if (className == "after") {
+                aboutBgImage.classList.replace(className, "initial")
+            }
+            else {
+                aboutBgImage.classList.replace(className, "initial")
+            }
+            // Fading in image
+            aboutBgImage.style.animation = "bGfade-in 2s both"
+        }, 1800)
+
     }, 8000)
 }
 // ----------------------------------------------------------------------------------------------------------------- //
@@ -95,12 +113,10 @@ const sliderImageButton = (event) => {
         if (backgroundImage.classList[1] != "") {
             backgroundImage.classList.toggle("slider-1")
         }
-
         if (backgroundImage.classList[1] == "slider-2") {
             backgroundImage.classList.replace("slider-2", "slider-1")
         }
     }
-
     // Checking for the clicked button is 'button-2'
     else if (sliderButton.className == "button-2") {
 
@@ -112,7 +128,6 @@ const sliderImageButton = (event) => {
         if (backgroundImage.classList[1] != "") {
             backgroundImage.classList.toggle("slider-2")
         }
-
         if (backgroundImage.classList[1] == "slider-1") {
             backgroundImage.classList.replace("slider-1", "slider-2")
         }
@@ -131,7 +146,6 @@ const sliderButton2 = document.querySelector(".slider-buttons .button-2")
 if (sliderButton2 != null) {
     sliderButton2.addEventListener("click", sliderImageButton)
 }
-
 // -------------------------------------------------------------------------------------------------------------- //
 
 
@@ -192,11 +206,8 @@ const sliderChangeImage = (event) => {
                     }
                 }
             }
-
         }, 300)
-
     }
-
     // Checking for the clicked button is 'previous'
     else if (sliderArrow.className == "previous") {
 
@@ -232,9 +243,7 @@ const sliderChangeImage = (event) => {
                     }
                 }
             }
-
         }, 300)
-
     }
 }
 
@@ -251,6 +260,4 @@ const nextButton = document.querySelector(".middle-imageslider .next")
 if (nextButton != null) {
     nextButton.addEventListener("click", sliderChangeImage)
 }
-
 // ------------------------------------------------------------------------------------------------------------ //
-

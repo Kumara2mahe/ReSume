@@ -1,6 +1,12 @@
 # Temporary & cache files
 temp/
 __pycache__/
+*.tmp
+
+# Static and migration files
+staticfiles/
+*/migrations/*.py
+!*/migrations/__init__.py
 
 # Django Db
 db.sqlite3

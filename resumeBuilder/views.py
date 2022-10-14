@@ -6,8 +6,6 @@ from django.utils.datastructures import MultiValueDictKeyError
 from resumeBuilder.models import userDetail
 
 # Importing some pre-built modules to work with ospaths and '.json' files
-from tkinter import Tk
-from tkinter.filedialog import askdirectory
 import json
 import os
 
@@ -34,7 +32,12 @@ for i in range(1950, 2023):
 years.sort(reverse=True)
 
 
+# Path to temporary files
+TEMPLATES = "Static/temp"
+
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 def home(request):
 
     # Function for resetting form values
@@ -599,26 +602,18 @@ def downloadTemplate(request):
 
         selected_template = request.POST["selectedtemplate"]
 
-        window = Tk()
-        window.attributes("-topmost", True)
-        window.withdraw()
+        path_to_doc = os.path.join(TEMPLATES, f"{selected_template}.docx")
+        if os.path.exists(path_to_doc):
 
-        DIR_PATH = askdirectory(parent=window)
-        if DIR_PATH:
+            pdfPath = os.path.join(TEMPLATES, "resume.pdf")
+            convert(path_to_doc, pdfPath)
 
-            path_to_doc = f"Static/temp/{selected_template}.docx"
-            if os.path.exists(path_to_doc):
+            successMessage = ("Success", "/resume-builder")
+            return JsonResponse({"message": list(successMessage)})
 
-                pdfPath = os.path.join(DIR_PATH, "resume.pdf")
-                convert(f"Static/temp/{selected_template}.docx", pdfPath)
-
-            else:
-
-                errormessage = ("Error", "/resume-builder/templates")
-                return JsonResponse({"message": list(errormessage)})
-
-        successMessage = ("Success", "/resume-builder")
-        return JsonResponse({"message": list(successMessage)})
+        else:
+            errormessage = ("Error", "/resume-builder/templates")
+            return JsonResponse({"message": list(errormessage)})
 
     return redirect(previousURL)
 
@@ -755,6 +750,11 @@ def login(request):
         user2name = request.POST["user2name"]
         pass2word = request.POST['pass2word']
 
+        if user2name == "" or pass2word == "":
+
+            emptyMessage = ("Fields can't be empty", 0)
+            return JsonResponse({"message": list(emptyMessage)})
+
         # Checking the credentials in database
         user = auth.authenticate(username=user2name, password=pass2word)
 
@@ -765,13 +765,7 @@ def login(request):
             successMessage = ("Success", previousURL)
             return JsonResponse({"message": list(successMessage)})
 
-        elif user2name == "" or pass2word == "":
-
-            emptyMessage = ("Fields can't be empty", 0)
-            return JsonResponse({"message": list(emptyMessage)})
-
         else:
-
             invalidMessage = ("Credentials Invalid, please check", 0)
             return JsonResponse({"message": list(invalidMessage)})
 
@@ -863,8 +857,6 @@ def resetFormValue():
     career_objective = ""
 
     # Deleting the temporary files
-    TEMPLATES = "Static/temp"
-
     if not os.path.exists(TEMPLATES):
         os.mkdir(TEMPLATES)
     files = os.listdir(TEMPLATES)

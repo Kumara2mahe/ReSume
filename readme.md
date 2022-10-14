@@ -49,6 +49,8 @@ You can now run the development server:
 
 - Included own CSS and JavaScript files to make it more responsive and interactive
 
+- Has a custom python module to type cast the values of enviromental variables to bool or tuple, according to the function called.
+
 <br>
 
 ### License
