@@ -57,7 +57,7 @@ professional designs{% endblock %}
     <h4 class="error-message">error: 404</h4>
 
     <!-- Templates-Toolbar -->
-    <form class="template-toolbar" method="POST">
+    <form class="template-toolbar" action="{% url 'download-template-pdf' %}" method="POST">
 
         {% csrf_token %}
 
@@ -75,8 +75,6 @@ professional designs{% endblock %}
         </label>
 
     </form>
-
-    <p><a href="~Desktop/resume.pdf">pdf</a></p>
 
 </article>
 

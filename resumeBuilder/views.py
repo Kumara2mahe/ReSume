@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.datastructures import MultiValueDictKeyError
 from resumeBuilder.models import userDetail
 
 # Importing some pre-built modules to work with ospaths and '.json' files
-import json
+from json import load
 import os
 
 # Importing some third-party modules to work with .docx and .pdf files
 from mailmerge import MailMerge
-from docx2pdf import convert
+from pModules.convert2pdf import docxToPdf
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ previousURL = "/"
 linkClick = "none"
 
 # Loading json file for Countries List
-COUNTRIES_FILE = json.load(open("Static/Assets/countries.json"))
+COUNTRIES_FILE = load(open("Static/Assets/countries.json"))
 
 
 # Month and Years for DropDown Boxes
@@ -600,20 +600,31 @@ def downloadTemplate(request):
 
     if request.method == "POST":
 
-        selected_template = request.POST["selectedtemplate"]
+        # Getting the value of parameter to perform some operation
+        data_holder = request.POST["dataholder"]
+        if (data_holder == "convert"):
 
-        path_to_doc = os.path.join(TEMPLATES, f"{selected_template}.docx")
-        if os.path.exists(path_to_doc):
+            # Getting the name of the selected template
+            selected_template = request.POST["selectedtemplate"]
+            path_to_doc = os.path.join(TEMPLATES, f"{selected_template}.docx")
 
-            pdfPath = os.path.join(TEMPLATES, "resume.pdf")
-            convert(path_to_doc, pdfPath)
+            if os.path.exists(path_to_doc):
 
-            successMessage = ("Success", "/resume-builder")
-            return JsonResponse({"message": list(successMessage)})
+                # Converting the '.docx' to '.pdf' and saving it in the temporary path
+                pdfPath = os.path.join(TEMPLATES, "resume.pdf")
+                docxToPdf(path_to_doc, pdfPath)
+
+                successMessage = ("Success", pdfPath)
+                return JsonResponse({"message": list(successMessage)})
+
+            else:
+                errormessage = ("Error", 0)
+                return JsonResponse({"message": list(errormessage)})
 
         else:
-            errormessage = ("Error", "/resume-builder/templates")
-            return JsonResponse({"message": list(errormessage)})
+            # Opening and reading the newly converted pdf and send as download response
+            file = open(data_holder, "rb")
+            return FileResponse(file, as_attachment=True, filename="reSume.pdf")
 
     return redirect(previousURL)
 

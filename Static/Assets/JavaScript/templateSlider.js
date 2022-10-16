@@ -458,6 +458,7 @@ const createNewResume = (event) => {
             url: "/resume-builder/download-template-pdf",
             data: {
                 selectedtemplate: templateName,
+                dataholder: "convert",
                 csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
             },
             success: (data) => {
@@ -468,6 +469,19 @@ const createNewResume = (event) => {
                     // Changing the status message to show success
                     autoHidMsg.innerHTML = "Process complete."
                     sec = 400
+
+                    // Creating a new Input element to hold pdf path
+                    let pathHolder = document.createElement("input")
+                    downloadForm.children[1].before(pathHolder)
+
+                    // Assigning the attributes and thier values
+                    pathHolder.classList.add("data-holder")
+                    pathHolder.value = data.message[1]
+                    Object.assign(pathHolder, { name: "dataholder", type: "text", hidden: true })
+
+                    // Sending the converted pdf file path as new parameter
+                    downloadForm.submit()
+                    pathHolder.remove()
                 }
                 else {
                     // Changing the status message to show error

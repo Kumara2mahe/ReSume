@@ -51,6 +51,8 @@ You can now run the development server:
 
 - Has a custom python module to type cast the values of enviromental variables to bool or tuple, according to the function called.
 
+- To convert '.docx' to '.pdf' a third party API named [PSPDFKit API](https://pspdfkit.com/api/) is used
+
 <br>
 
 ### License
