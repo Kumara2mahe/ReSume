@@ -17,6 +17,19 @@ def toBool(key: str) -> bool:
     return False
 
 
+def toInt(key: str) -> int:
+    """
+        Function which converts the value of environment variable to python's (int)-datatype
+        and it takes one required argument as the key to a environment variable
+    """
+    
+    value = os.getenv(key)
+    if (value is not None and value.isdigit()):
+        return int(value)
+
+    return 0
+
+
 def toTuple(key: str):
     """
         Function which converts the value of environment variable to python's (tuple)-datatype
