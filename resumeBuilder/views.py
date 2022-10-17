@@ -3,7 +3,6 @@ from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.utils.datastructures import MultiValueDictKeyError
-from resumeBuilder.models import userDetail
 
 # Importing some pre-built modules to work with ospaths and '.json' files
 from json import load
@@ -463,66 +462,6 @@ def objective(request):
     return render(request, "careerObjective.html", {"objectives": career_objective, "link": linkClick})
 
 
-def addToDataBase():
-
-    # Creating resume templates with the user entered details
-    userdetails = userDetail.objects.create(
-        firstname=first_name,
-        lastname=last_name,
-        currentemail=current_email,
-        phonenumber=phone_number,
-        currentaddress=current_address,
-        currentcountry=current_country,
-        currentcity=current_city,
-        currentstate=current_state,
-        pincode=pin_code,
-        job_title=job_title,
-        company_name=company_name,
-        country_name=country_name,
-        city_name=city_name,
-        start_month=start_month,
-        start_year=start_year,
-        end_month=end_month,
-        end_year=end_year,
-        school_name=school_name,
-        school_percentage=school_percentage,
-        school_passedyear=school_passedyear,
-        school_country=school_country,
-        school_city=school_city,
-        college_name=college_name,
-        college_percentage=college_percentage,
-        college_passedyear=college_passedyear,
-        college_degree=college_degree,
-        college_branch=college_branch,
-        college_country=college_country,
-        college_city=college_city,
-        certification_1=certification_1,
-        certification_2=certification_2,
-        certification_3=certification_3,
-        certification_4=certification_4,
-        certification_5=certification_5,
-        certification_6=certification_6,
-        skill_1=skill_1,
-        skill_2=skill_2,
-        skill_3=skill_3,
-        skill_4=skill_4,
-        skill_5=skill_5,
-        skill_6=skill_6,
-        skill_7=skill_7,
-        skill_8=skill_8,
-        skill_9=skill_9,
-        skill_10=skill_10,
-        skill_11=skill_11,
-        skill_12=skill_12,
-        skill_13=skill_13,
-        skill_14=skill_14,
-        skill_15=skill_15,
-        skill_16=skill_16,
-        career_objective=career_objective
-    )
-    userdetails.save()
-
-
 def templates(request):
 
     global linkClick
@@ -531,9 +470,6 @@ def templates(request):
 
     global previousURL
     previousURL = "/resume-builder/templates"
-
-    # Saving the data to the database
-    addToDataBase()
 
     templates = [
         "Static/Assets/Template/template_01.docx",
