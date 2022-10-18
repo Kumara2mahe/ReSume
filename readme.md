@@ -53,6 +53,8 @@ You can now run the development server:
 
 - To convert '.docx' to '.pdf' a third party API named [PSPDFKit API](https://pspdfkit.com/api/) is used
 
+- Another custom module(datDump) to clear the in-active user data stored in the server whenever it starts or reloads. Particularly the data(files & folders) not being active for more than 10 days got deleted from the server.
+
 <br>
 
 ### License

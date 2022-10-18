@@ -16,6 +16,7 @@ from ReSume.settings.base import SESSION_COOKIE_SECURE
 
 # Importing some third party libraries to work with '.docx' & '.pdf' files
 from docxtpl import DocxTemplate
+from pModules.datDump import userDatCleaner
 from pModules.convert2pdf import docxToPdf
 
 
@@ -977,10 +978,8 @@ def createResume(userRequest, templatePath):
     doc.render(context=varDICT,
                autoescape=True)
 
-    # Generating the path of user specific dir and Creating the dirs if not exists
+    # Generating the path for user specific dir and Creating that dirs if not exists
     USER_FILES = TEMP_DIR.joinpath(userRequest.COOKIES["sessionid"])
-    #
-    Path.mkdir(TEMP_DIR, exist_ok=True)
     Path.mkdir(USER_FILES, exist_ok=True)
 
     # Removing the old files from the user specific DIRS if does
@@ -991,7 +990,7 @@ def createResume(userRequest, templatePath):
     tempfile = USER_FILES.joinpath("resume.docx")
     doc.save(tempfile)
 
-    # Converting the .docx -> .pdf 
+    # Converting the .docx -> .pdf
     pdffile = USER_FILES.joinpath("resume.pdf")
     docxToPdf(tempfile, pdffile)
 
@@ -1019,3 +1018,11 @@ PLACEHOLDER_TEXT = ["Country",
                     "End Month",
                     "End Year",
                     "Passed Out Year*"]
+
+# ----- Clearing the (in-active) user's data ------
+
+userDatCleaner(dirPath=TEMP_DIR,
+               dateTime=TODAY,
+               max_age=10)
+
+# ---------------------------------------------
