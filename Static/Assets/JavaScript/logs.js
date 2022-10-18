@@ -160,7 +160,7 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
 
             $.ajax({
                 type: "POST",
-                url: "/signup",
+                url: "/create-account",
                 data: {
                     username: $(".user_name").val(),
                     email: $(".email_id").val(),
@@ -173,7 +173,7 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
                     if (data.message[0] == "Success") {
 
                         // Showing the success message
-                        autoHidMsg.innerHTML = "Thanks for signing up. Welcome to our community"
+                        autoHidMsg.innerHTML = `${data.message[1]}`
                         autoHidMsg.style.color = "rgb(41, 191, 18)"
                         autoHidMsg.classList.toggle("show")
 
@@ -207,7 +207,7 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
 
             $.ajax({
                 type: "POST",
-                url: "/login",
+                url: "/authenticate-user",
                 data: {
                     user2name: $(".user_2name").val(),
                     pass2word: $(".pass_2word").val(),

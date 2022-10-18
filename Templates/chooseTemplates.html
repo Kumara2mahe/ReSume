@@ -16,40 +16,16 @@ professional designs{% endblock %}
         <!-- Previous Button -->
         <a class="arrow-button previous disabled">&#10094;</a>
 
-        <div class="template-1 position0">
-            <img src="{% static 'Assets/Images/template_01.jpg' %}">
+        {% for img, id in formData %}
+
+        <div class="{{ id }}">
+            <img src="{{ img }}">
         </div>
 
-        <div class="template-2 position1">
-            <img src="{% static 'Assets/Images/template_02.jpg' %}">
-        </div>
-
-        <div class="template-3 position2">
-            <img src="{% static 'Assets/Images/template_03.jpg' %}">
-        </div>
-
-        <div class="template-4 positionright">
-            <img src="{% static 'Assets/Images/template_04.jpg' %}">
-        </div>
-
-        <div class="template-5 positionright">
-            <img src="{% static 'Assets/Images/template_05.jpg' %}">
-        </div>
-
-        <div class="template-6 positionright">
-            <img src="{% static 'Assets/Images/template_06.jpg' %}">
-        </div>
-
-        <div class="template-7 positionright">
-            <img src="{% static 'Assets/Images/template_07.jpg' %}">
-        </div>
-
-        <div class="template-8 positionright">
-            <img src="{% static 'Assets/Images/template_08.jpg' %}">
-        </div>
+        {% endfor %}
 
         <!-- Next Button -->
-        <a class="arrow-button next">&#10095;</a>
+        <a class="arrow-button next disabled">&#10095;</a>
 
     </section>
 
@@ -57,7 +33,7 @@ professional designs{% endblock %}
     <h4 class="error-message">error: 404</h4>
 
     <!-- Templates-Toolbar -->
-    <form class="template-toolbar" action="{% url 'download-template-pdf' %}" method="POST">
+    <form class="template-toolbar" action="{% url 'choose-templates' %}" method="POST">
 
         {% csrf_token %}
 

@@ -96,48 +96,12 @@ header .fixed-menubar {
     transition: 600ms;
 }
 
-.templates .template-slider .positionleft {
-    margin-left: -3360px;
-}
-
-.templates .template-slider .position-2 {
-    margin-left: -1360px;
-}
-
-.templates .template-slider .position-1 {
-    margin-left: -680px;
-}
-
 .templates .template-slider .position0 {
     border: 2px solid var(--orangeweb);
     scale: 1.1;
 }
 
-.templates .template-slider .position1 {
-    margin-right: -680px;
-}
-
-.templates .template-slider .position2 {
-    margin-right: -1360px;
-}
-
-.templates .template-slider .positionright {
-    margin-right: -3360px;
-}
-
 .templates .template-slider div img {
-    width: 100%;
-}
-
-.templates .template-slider {
-    text-align: center;
-    height: 480px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.templates .template-slider img {
     width: 100%;
 }
 

@@ -30,7 +30,7 @@
             <!-- Job Title -Section -->
             <div class="jobtitle-section">
 
-                <input class="job_title" type="text" name="jobtitle" value="{{ experience.job_title }}"
+                <input class="job_title" type="text" name="jobtitle" value="{{ formData.job_title }}"
                     placeholder="Job Title*">
 
             </div>
@@ -38,7 +38,7 @@
             <!-- Company Name -Section -->
             <div class="companyname-section">
 
-                <input class="company_name" type="text" name="companyname" value="{{ experience.company_name }}"
+                <input class="company_name" type="text" name="companyname" value="{{ formData.company_name }}"
                     placeholder="Company Name*">
 
             </div>
@@ -50,7 +50,7 @@
                 <select class="country_name" type="text" name="countryname">
 
                     <!-- Default Option -->
-                    <option value="{{ experience.country_name }}" selected hidden>{{ experience.country_name }}</option>
+                    <option value="{{ formData.country_name }}" selected hidden>{{ formData.country_name }}</option>
 
                     {% for country in countries %}
                     <option value="{{ country.name }}">{{ country.name }}</option>
@@ -58,7 +58,8 @@
 
                 </select>
 
-                <input class="city_name" type="text" name="cityname" value="{{ experience.city_name }}" placeholder="City">
+                <input class="city_name" type="text" name="cityname" value="{{ formData.city_name }}"
+                    placeholder="City">
 
             </div>
 
@@ -69,7 +70,7 @@
                 <select class="start_month" type="text" name="startmonth">
 
                     <!-- Default Option -->
-                    <option value="{{ experience.start_month }}" selected hidden>{{ experience.start_month }}</option>
+                    <option value="{{ formData.start_month }}" selected hidden>{{ formData.start_month }}</option>
 
                     {% for month in months %}
                     <option value="{{ month }}">{{ month }}</option>
@@ -81,7 +82,7 @@
                 <select class="start_year" type="text" name="startyear">
 
                     <!-- Default Option -->
-                    <option value="{{ experience.start_year }}" selected hidden>{{ experience.start_year }}</option>
+                    <option value="{{ formData.start_year }}" selected hidden>{{ formData.start_year }}</option>
 
                     {% for year in years %}
                     <option value="{{ year }}">{{ year }}</option>
@@ -98,7 +99,7 @@
                 <select class="end_month" type="text" name="endmonth">
 
                     <!-- Default Option -->
-                    <option value="{{ experience.end_month }}" selected hidden>{{ experience.end_month }}</option>
+                    <option value="{{ formData.end_month }}" selected hidden>{{ formData.end_month }}</option>
 
                     {% for month in months %}
                     <option value="{{ month }}">{{ month }}</option>
@@ -110,7 +111,7 @@
                 <select class="end_year" type="text" name="endyear">
 
                     <!-- Default Option -->
-                    <option value="{{ experience.end_year }}" selected hidden>{{ experience.end_year }}</option>
+                    <option value="{{ formData.end_year }}" selected hidden>{{ formData.end_year }}</option>
 
                     {% for year in years %}
                     <option value="{{ year }}">{{ year }}</option>
@@ -124,7 +125,6 @@
             <div class="form-buttons">
 
                 <input type="button" class="back-button" value="Back">
-
                 <input type="submit" class="continue-button" value="Continue">
 
             </div>

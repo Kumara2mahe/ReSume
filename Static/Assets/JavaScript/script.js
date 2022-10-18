@@ -232,7 +232,6 @@ const sliderChangeImage = (event) => {
                 sibilings[9].attributes[0].value = `${lastImage.join("_")}_0${image4Num}.jpg`
 
                 if (image1Num == 1) {
-
                     sliderArrow.disabled = true
                     sliderArrow.classList.toggle("disabled-arrow")
                 }

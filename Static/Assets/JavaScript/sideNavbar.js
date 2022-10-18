@@ -92,26 +92,25 @@ if (builderTemplate != null) {
         if (link.tagName == "SPAN" || link.tagName == "IMG") {
             link = link.parentElement
         }
-
         setTimeout(() => {
 
             if (link.classList[0] == "first-link") {
-                window.location.pathname = "/resume-builder/personal-details"
+                window.location.pathname = "/builder/personal-details"
             }
             else if (link.classList[0] == "second-link") {
-                window.location.pathname = "/resume-builder/years-of-experience"
+                window.location.pathname = "/builder/years-of-experience"
             }
             else if (link.classList[0] == "third-link") {
-                window.location.pathname = "/resume-builder/higher-education"
+                window.location.pathname = "/builder/higher-education"
             }
             else if (link.classList[0] == "fourth-link") {
-                window.location.pathname = "/resume-builder/certifications"
+                window.location.pathname = "/builder/certifications"
             }
             else if (link.classList[0] == "fifth-link") {
-                window.location.pathname = "/resume-builder/additional-skills"
+                window.location.pathname = "/builder/additional-skills"
             }
             else if (link.classList[0] == "sixth-link") {
-                window.location.pathname = "/resume-builder/career-objective"
+                window.location.pathname = "/builder/career-objective"
             }
         }, 200)
     }
@@ -217,7 +216,7 @@ if (builderTemplate != null) {
 
             $.ajax({
                 type: "POST",
-                url: "/resume-builder/personal-details",
+                url: "/builder/personal-details",
                 data: {
                     firstname: $(".first_name").val(),
                     lastname: $(".last_name").val(),
@@ -248,17 +247,7 @@ if (builderTemplate != null) {
                     else {
 
                         // Getting the element by the name returned in the JSON data
-                        let emptyField
-
-                        if (data.message[0] == "fName") {
-                            emptyField = currentForm.querySelector(".first_name")
-                        }
-                        else if (data.message[0] == "lName") {
-                            emptyField = currentForm.querySelector(".last_name")
-                        }
-                        else if (data.message[0] == "Email") {
-                            emptyField = currentForm.querySelector(".current_email")
-                        }
+                        let emptyField = currentForm.querySelector(`.${data.message[0]}`)
 
                         // Scrolling the scrollbar to the position of the element and also showing error by changing the border color
                         document.documentElement.scrollTop = emptyField.scrollHeight
@@ -285,7 +274,7 @@ if (builderTemplate != null) {
         // Assigning a validator function to change the default behaviour of current form
         currentForm.addEventListener("submit", validatingPersonalDetails)
 
-        if (sideNavBar.previousElementSibling.value == "personal") {
+        if (sideNavBar.previousElementSibling.value == "personal-details") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 1
@@ -299,7 +288,7 @@ if (builderTemplate != null) {
                 validatingPersonalDetails(event, true)
             })
         }
-        else if (sideNavBar.previousElementSibling.value == "experience") {
+        else if (sideNavBar.previousElementSibling.value == "years-of-experience") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 2
@@ -307,7 +296,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "10%"
         }
-        else if (sideNavBar.previousElementSibling.value == "education") {
+        else if (sideNavBar.previousElementSibling.value == "higher-education") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 3
@@ -323,7 +312,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "59%"
         }
-        else if (sideNavBar.previousElementSibling.value == "skills") {
+        else if (sideNavBar.previousElementSibling.value == "additional-skills") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 5
@@ -337,12 +326,12 @@ if (builderTemplate != null) {
             activeFormsLinkCount = 6
 
             // Progress Bar Percentage
-            newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
+            newWidth = (sideNavBar.previousElementSibling.value == "career-objective") ? "72%" : "94%"
         }
 
         // Getting and setting a quit function to Back button on the current form
         buttonContainer.children[0].addEventListener("click", () => {
-            openConfirmation("/resume-builder")
+            openConfirmation("/builder")
         })
     }
 
@@ -366,7 +355,7 @@ if (builderTemplate != null) {
 
                 // Getting and setting a go back function to Back button on the current form
                 currentForm.querySelector(".form-buttons .back-button").addEventListener("click", () => {
-                    window.location.pathname = "/resume-builder/personal-details"
+                    window.location.pathname = "/builder/personal-details"
                 })
             }
             // ------------ //
@@ -381,7 +370,7 @@ if (builderTemplate != null) {
                 }
                 else {
                     setTimeout(() => {
-                        window.location.pathname = "/resume-builder/higher-education"
+                        window.location.pathname = "/builder/higher-education"
                     }, 300)
                 }
             }
@@ -403,7 +392,7 @@ if (builderTemplate != null) {
 
             $.ajax({
                 type: "POST",
-                url: "/resume-builder/years-of-experience",
+                url: "/builder/years-of-experience",
                 data: {
                     jobtitle: $(".job_title").val(),
                     companyname: $(".company_name").val(),
@@ -462,7 +451,7 @@ if (builderTemplate != null) {
             }
         })()
 
-        if (sideNavBar.previousElementSibling.value == "experience") {
+        if (sideNavBar.previousElementSibling.value == "years-of-experience") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 2
@@ -470,7 +459,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "10%"
         }
-        else if (sideNavBar.previousElementSibling.value == "education") {
+        else if (sideNavBar.previousElementSibling.value == "higher-education") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 3
@@ -486,7 +475,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "59%"
         }
-        else if (sideNavBar.previousElementSibling.value == "skills") {
+        else if (sideNavBar.previousElementSibling.value == "additional-skills") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 5
@@ -500,7 +489,7 @@ if (builderTemplate != null) {
             activeFormsLinkCount = 6
 
             // Progress Bar Percentage
-            newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
+            newWidth = (sideNavBar.previousElementSibling.value == "career-objective") ? "72%" : "94%"
         }
 
         // Getting the element of Form Selection section options
@@ -530,7 +519,7 @@ if (builderTemplate != null) {
                                                     <p>${cardBrief}</p>
                                                 </div>
                                                 <div class="edit-option">
-                                                    <a><img src="/static/Assets/Images/edit.png"></a>
+                                                    <a><img src="/Static/Assets/Images/edit.png"></a>
                                                 </div>`
 
                 qualificationCard.querySelector(".edit-option a").addEventListener("click", () => {
@@ -591,7 +580,7 @@ if (builderTemplate != null) {
                 currentForm.querySelectorAll(".form-buttons .back-button").forEach((button) => {
                     button.addEventListener("click", () => {
                         if (request == "onclick") {
-                            window.location.pathname = "/resume-builder/years-of-experience"
+                            window.location.pathname = "/builder/years-of-experience"
                         }
                         else {
                             window.location.reload()
@@ -674,65 +663,65 @@ if (builderTemplate != null) {
             let button = higherEd.querySelector(".form-buttons .continue-button")
             button.disabled = true
 
-            let submittedData, emptyDataDict
+            let submittedData
             if (higherEd.classList[0] == "school_form") {
 
                 // Collecting the data from HighSchool form
                 submittedData = {
-                    schoolform: "school",
-                    schoolname: $(".school_form .school_name").val(),
-                    schoolpercentage: $(".school_form .percent_grade").val(),
-                    schoolpassedyear: $(".school_form .passed_year").val(),
-                    schoolcountry: $(".school_form .country_name").val(),
-                    schoolcity: $(".school_form .city_name").val(),
+                    formname: "highschool",
+                    name: $(".school_form .school_name").val(),
+                    grade: $(".school_form .percent_grade").val(),
+                    passedyear: $(".school_form .passed_year").val(),
+                    country: $(".school_form .country_name").val(),
+                    city: $(".school_form .city_name").val(),
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-                }
-
-                // Assigning a dict of error message with their respective class names
-                emptyDataDict = {
-                    "emptyname": "school_name",
-                    "emptyyear": "passed_year"
                 }
             }
             else if (higherEd.classList[0] == "college_form") {
 
                 // Collecting the data from HighSchool form
                 submittedData = {
-                    collegeform: "college",
-                    collegename: $(".college_form .college_name").val(),
-                    collegepercentage: $(".college_form .percent_grade").val(),
-                    collegepassedyear: $(".college_form .passed_year").val(),
-                    collegedegree: $(".college_form .college_degree").val(),
-                    collegebranch: $(".college_form .college_branch").val(),
-                    collegecountry: $(".college_form .country_name").val(),
-                    collegecity: $(".college_form .city_name").val(),
+                    formname: "college",
+                    name: $(".college_form .college_name").val(),
+                    grade: $(".college_form .percent_grade").val(),
+                    passedyear: $(".college_form .passed_year").val(),
+                    degree: $(".college_form .college_degree").val(),
+                    branch: $(".college_form .college_branch").val(),
+                    country: $(".college_form .country_name").val(),
+                    city: $(".college_form .city_name").val(),
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-                }
-
-                // Assigning a dict of error message with their respective class names
-                emptyDataDict = {
-                    "emptyname": "college_name",
-                    "emptyyear": "passed_year",
-                    "emptydegree": "college_degree",
-                    "emptybranch": "college_branch"
                 }
             }
 
             $.ajax({
                 type: "POST",
-                url: "/resume-builder/higher-education",
+                url: "/builder/higher-education",
                 data: submittedData,
 
                 success: (data) => {
 
-                    if (data.message[0] == "Notempty") {
+                    if (data.message[0] == "Verified") {
 
                         // Reloading the page to go to Education Edit section
                         window.location.reload()
                     }
                     else {
+                        // Assigning a dict of error message with their respective class names
+                        const emptyDataDict = {
+                            "highschool": {
+                                "emptyname": "school_name",
+                                "emptyyear": "passed_year"
+                            },
+                            "college": {
+                                "emptyname": "college_name",
+                                "emptyyear": "passed_year",
+                                "emptydegree": "college_degree",
+                                "emptybranch": "college_branch"
+                            },
+                        }
+
                         // Getting the element by the name returned in the JSON data
-                        let class_name = emptyDataDict[data.message[0]]
+                        let class_name = emptyDataDict[data.message[1]][data.message[0]]
                         let emptyField = higherEd.querySelector(`.${class_name}`)
 
                         // Scrolling the scrollbar to the position of the element and also showing error by changing the border color
@@ -762,7 +751,7 @@ if (builderTemplate != null) {
         // Assigning the current form concurrent link name to a variable
         activeFormLink = "Education"
 
-        if (sideNavBar.previousElementSibling.value == "education") {
+        if (sideNavBar.previousElementSibling.value == "higher-education") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 3
@@ -829,7 +818,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "59%"
         }
-        else if (sideNavBar.previousElementSibling.value == "skills") {
+        else if (sideNavBar.previousElementSibling.value == "additional-skills") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 5
@@ -837,13 +826,13 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "63%"
         }
-        else if (sideNavBar.previousElementSibling.value == "objective" || sideNavBar.previousElementSibling.value == "templates") {
+        else if (sideNavBar.previousElementSibling.value == "career-objective" || sideNavBar.previousElementSibling.value == "choose-templates") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 6
 
             // Progress Bar Percentage
-            newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
+            newWidth = (sideNavBar.previousElementSibling.value == "career-objective") ? "72%" : "94%"
         }
 
         // Getting the element of Form Selection section options
@@ -859,111 +848,140 @@ if (builderTemplate != null) {
         })
     }
 
-    else if (currentForm.classList[0] == "certifications-form") {
+    else if (currentForm.classList[0] == "certifications-form" || currentForm.classList[0] == "additional-skills-form") {
 
-        // Function for adding More Certificate Inputs
-        const addingMoreCertificates = () => {
+        // ----- Script for adding more skills / certificates ------------------ //
+        const addMoreInput = () => {
 
-            let count = ++certiCount
+            // Disabling the add skill / certificate function
+            addMoreButton.removeEventListener("click", addMoreInput)
 
-            // Getting the certificate input section
-            let certificateInputSection = currentForm.querySelector(".skills-container")
+            // Getting the element of last skill / certificate input and spliting its placeholder text
+            let lastInput = currentForm.querySelector(".skills-container .skill:last-child")
+            let placeholder = lastInput.getAttribute("placeholder").split("#")
 
-            if (count <= 6) {
-                // Showing the new certificate input on screen
-                let newCertificate = certificateInputSection.querySelector(`.certification_${count}`)
-                newCertificate.classList.remove("hide")
-            }
-            else {
-                addMoreButton.classList.add("hide")
-                addMoreButton.nextElementSibling.classList.remove("hide")
-                setTimeout(() => {
-                    addMoreButton.nextElementSibling.remove()
-                    addMoreButton.remove()
-                }, 1300)
-            }
+            // Cloning the element of last skill / certificate input
+            let newInput = lastInput.cloneNode()
+            lastInput.after(newInput)
+
+            // Adding/Modifiying multiple attributes to a single Element
+            Object.assign(newInput, { value: "", placeholder: `${placeholder[0]}#${Number(placeholder[1]) + 1}`, style: "" })
+
+            // Enabling the add skill / certificate function back
+            setTimeout(() => {
+                addMoreButton.addEventListener("click", addMoreInput)
+            }, 800)
+
         }
+        // ------------------------------------------------------------- //
 
-        // Function for checking entries are valid and redirecting to Additional Skills Page
-        const goToAdditionalSkills = (active) => {
+        // ---- Script for submitting the data filled in the form through AJAX to validate ------------------- //
+        const validatingCurrentForm = (event) => {
+
+            // --- Script for styling the empty inputs ----------- //
+            const emptyInputStyler = (emptyInputs) => {
+
+                for (let j = 0, emptyCount = emptyInputs.length; j < emptyCount; j++) {
+
+                    // Getting the empty input from empty list
+                    let emptyField = emptyInputs[j]
+
+                    // Scrolling the scrollbar to the position of the element and also showing error by changing the border color
+                    document.documentElement.scrollTop = emptyField.scrollHeight
+                    emptyField.style.borderColor = "#fc1919b3"
+
+                    // Removing the border color indicating all the empty fields
+                    setTimeout(() => {
+                        emptyField.removeAttribute("style")
+                    }, 1500)
+                }
+            }
+            // ---------- //
 
             // Preventing the page from reload
-            active.preventDefault()
+            event.preventDefault()
 
             // Disabling the submit button after clicked
             let button = currentForm.querySelector(".form-buttons .continue-button")
             button.disabled = true
 
-            $.ajax({
-                type: "POST",
-                url: "/resume-builder/certifications",
-                data: {
-                    certification1: $(".certification_1").val(),
-                    certification2: $(".certification_2").val(),
-                    certification3: $(".certification_3").val(),
-                    certification4: $(".certification_4").val(),
-                    certification5: $(".certification_5").val(),
-                    certification6: $(".certification_6").val(),
-                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-                },
-                success: function (data) {
+            // Getting the element of Tips Button
+            let tipsButtonElement = builderTemplate.querySelector(".forms-content-section .tips-button")
 
-                    if (data.message[0] == "Success") {
+            // Getting all the elements of inputs containing skills / certificates
+            let allInputs = currentForm.querySelectorAll(".skills-container .skill")
+            //
+            let filledData = [], emptyInputs = []
+            for (let i = 0, certiCount = allInputs.length; i < certiCount; i++) {
 
-                        // Redirecting to Additional Skills page
-                        window.location.pathname = data.message[1]
-                        // Enabling the button back
-                        button.disabled = false
-                    }
-                    else {
-                        let value1 = currentForm.querySelector(".certification_1")
-                        let value2 = currentForm.querySelector(".certification_2")
-                        let value3 = currentForm.querySelector(".certification_3")
-                        let value4 = currentForm.querySelector(".certification_4")
-                        let value5 = currentForm.querySelector(".certification_5")
-                        let value6 = currentForm.querySelector(".certification_6")
+                if (allInputs[i].value == "") {
 
-                        if (data.message[0] == "Error") {
+                    // Adding the element of empty input to a 'error' list
+                    emptyInputs.push(allInputs[i])
 
-                            // Showing Error through border color
-                            if (value1.value == "") {
-                                value1.style.borderColor = "#fc1919b3"
-                            }
-                            if (value2.value == "") {
-                                value2.style.borderColor = "#fc1919b3"
-                            }
-                            if (value3.value == "") {
-                                value3.style.borderColor = "#fc1919b3"
-                            }
-                            if (value4.value == "") {
-                                value4.style.borderColor = "#fc1919b3"
-                            }
-                            if (value5.value == "") {
-                                value5.style.borderColor = "#fc1919b3"
-                            }
-                            if (value6.value == "") {
-                                value6.style.borderColor = "#fc1919b3"
-                            }
-                        }
-                        // Removing the border color
-                        setTimeout(() => {
+                    if (currentForm.classList[0] == "additional-skills-form" && i >= 0 && i <= 2) {
 
-                            value1.style.borderColor = "rgb(227, 227, 227)"
-                            value2.style.borderColor = "rgb(227, 227, 227)"
-                            value3.style.borderColor = "rgb(227, 227, 227)"
-                            value4.style.borderColor = "rgb(227, 227, 227)"
-                            value5.style.borderColor = "rgb(227, 227, 227)"
-                            value6.style.borderColor = "rgb(227, 227, 227)"
+                        // Calling the function to style the empty inputs
+                        emptyInputStyler(emptyInputs)
 
-                            button.disabled = false
-                        }, 1500)
+                        // Emptying the 'data' list
+                        filledData = []
                     }
                 }
-            })
+                else {
+
+                    // Filling the 'data' list with the values from non-empty inputs
+                    filledData.push(allInputs[i].value)
+                    //
+                    if (emptyInputs.length > 0) {
+
+                        // Calling the function to style the empty inputs
+                        emptyInputStyler(emptyInputs)
+
+                        // Emptying the 'data' list
+                        filledData = []
+                    }
+                }
+            }
+
+            if (currentForm.classList[0] == "certifications-form" && (filledData.length > 0 || allInputs.length == emptyInputs.length) ||
+                (currentForm.classList[0] == "additional-skills-form" && filledData.length > 2)) {
+
+                $.ajax({
+                    type: "POST",
+                    url: `${currentForm.classList[0].split("-form")[0]}`,
+                    data: {
+                        skills: filledData,
+                        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                    },
+                    success: (data) => {
+
+                        // Redirecting to additional-skills page
+                        window.location.pathname = data.message[1]
+                    },
+                    error: () => {
+                        window.location.reload()
+                    }
+                })
+            }
+            else {
+
+                // Showing the Tips & Advice section
+                tipsButtonElement.click()
+
+                // Enabling the Submit button again
+                setTimeout(() => {
+
+                    // Hiding the Tips & Advice section
+                    tipsButtonElement.click()
+                    button.disabled = false
+                }, 1500)
+            }
         }
+        // ------------------------------------------------------------- //
 
         // Assigning the current form concurrent link name to a variable
-        activeFormLink = "Certifications"
+        activeFormLink = (currentForm.classList[0] == "certifications-form") ? "Certifications" : "Additional Skills"
 
         if (sideNavBar.previousElementSibling.value == "certifications") {
 
@@ -973,7 +991,7 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "59%"
         }
-        else if (sideNavBar.previousElementSibling.value == "skills") {
+        else if (sideNavBar.previousElementSibling.value == "additional-skills") {
 
             // Active link name & activated link count
             activeFormsLinkCount = 5
@@ -987,387 +1005,27 @@ if (builderTemplate != null) {
             activeFormsLinkCount = 6
 
             // Progress Bar Percentage
-            newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
+            newWidth = (sideNavBar.previousElementSibling.value == "career-objective") ? "72%" : "94%"
         }
 
-        var certiCount = 1
         // Getting the element of add more button
         const addMoreButton = currentForm.querySelector(".add-more a")
         //
-        addMoreButton.addEventListener("click", addingMoreCertificates)
+        addMoreButton.addEventListener("click", addMoreInput)
 
         // Assigning a validator function to change the default behaviour of current form
-        currentForm.addEventListener("submit", goToAdditionalSkills)
+        currentForm.addEventListener("submit", validatingCurrentForm)
 
-        // Getting the Back Button of Certifications page
-        const certiifcationsBackButton = currentForm.querySelector(".form-buttons .back-button")
-        //
-        certiifcationsBackButton.addEventListener("click", () => {
-            window.location.pathname = "/resume-builder/higher-education"
+        // Setting the go back function to Back button on the current form
+        buttonContainer.children[0].addEventListener("click", (event) => {
+
+            if (currentForm.classList[0] == "certifications-form") {
+                window.location.pathname = "builder/higher-education"
+            }
+            else {
+                window.location.pathname = "builder/certifications"
+            }
         })
-
-        // Getting the values inputs in Certificates Form
-        let certificate_1 = currentForm.querySelector(".certification_1")
-        let certificate_2 = currentForm.querySelector(".certification_2")
-        let certificate_3 = currentForm.querySelector(".certification_3")
-        let certificate_4 = currentForm.querySelector(".certification_4")
-        let certificate_5 = currentForm.querySelector(".certification_5")
-        let certificate_6 = currentForm.querySelector(".certification_6")
-
-        // Checking the number of certificates added
-        if (certificate_1.value != "" || certificate_2.value != "" || certificate_3.value != "" || certificate_4.value != "" || certificate_5.value != "" || certificate_6.value != "") {
-
-            if (certificate_2.value != "") {
-
-                // Showing the second Certificate Input
-                certificate_2.classList.remove("hide")
-                certiCount = 2
-            }
-            if (certificate_3.value != "") {
-
-                // Showing the third Certificate Input
-                certificate_3.classList.remove("hide")
-                certiCount = 3
-            }
-            if (certificate_4.value != "") {
-
-                // Showing the fourth Certificate Input
-                certificate_4.classList.remove("hide")
-                certiCount = 4
-            }
-            if (certificate_5.value != "") {
-
-                // Showing the fifth Certificate Input
-                certificate_5.classList.remove("hide")
-                certiCount = 5
-            }
-            if (certificate_6.value != "") {
-
-                // Showing the sixth Certificate Input
-                certificate_6.classList.remove("hide")
-                certiCount = 6
-            }
-        }
-    }
-
-    else if (currentForm.classList[0] == "additional-skills-form") {
-
-        // Function for adding More Skills Inputs
-        const addingMoreSkills = () => {
-
-            let count = ++skillCount
-
-            // Showing the new Skill input on screen
-            let newSkill = currentForm.querySelector(`.skills-container .skill_${count}`)
-            //
-            newSkill.classList.remove("hide")
-            if (count >= 16) {
-                addMoreButton.removeEventListener("click", addingMoreSkills)
-                addMoreButton.remove()
-            }
-        }
-
-        // Function for checking entries are valid and redirecting to Career Objective Page
-        const goToCareerObjective = (active) => {
-
-            // Preventing the page from reload
-            active.preventDefault()
-
-            // Disabling the submit button after clicked
-            let button = currentForm.querySelector(".form-buttons .continue-button")
-            button.disabled = true
-
-            $.ajax({
-                type: "POST",
-                url: "/resume-builder/additional-skills",
-                data: {
-                    skill1: $(".skill_1").val(),
-                    skill2: $(".skill_2").val(),
-                    skill3: $(".skill_3").val(),
-                    skill4: $(".skill_4").val(),
-                    skill5: $(".skill_5").val(),
-                    skill6: $(".skill_6").val(),
-                    skill7: $(".skill_7").val(),
-                    skill8: $(".skill_8").val(),
-                    skill9: $(".skill_9").val(),
-                    skill10: $(".skill_10").val(),
-                    skill11: $(".skill_11").val(),
-                    skill12: $(".skill_12").val(),
-                    skill13: $(".skill_13").val(),
-                    skill14: $(".skill_14").val(),
-                    skill15: $(".skill_15").val(),
-                    skill16: $(".skill_16").val(),
-                    csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-                },
-
-                success: function (data) {
-
-                    if (data.message[0] == "Success") {
-
-                        // Redirecting to Career Objective page
-                        window.location.pathname = data.message[1]
-                        // Enabling the button back
-                        button.disabled = false
-                    }
-                    else {
-
-                        let value1 = currentForm.querySelector(".skill_1")
-                        let value2 = currentForm.querySelector(".skill_2")
-                        let value3 = currentForm.querySelector(".skill_3")
-                        let value4 = currentForm.querySelector(".skill_4")
-                        let value5 = currentForm.querySelector(".skill_5")
-                        let value6 = currentForm.querySelector(".skill_6")
-                        let value7 = currentForm.querySelector(".skill_7")
-                        let value8 = currentForm.querySelector(".skill_8")
-                        let value9 = currentForm.querySelector(".skill_9")
-                        let value10 = currentForm.querySelector(".skill_10")
-                        let value11 = currentForm.querySelector(".skill_11")
-                        let value12 = currentForm.querySelector(".skill_12")
-                        let value13 = currentForm.querySelector(".skill_13")
-                        let value14 = currentForm.querySelector(".skill_14")
-                        let value15 = currentForm.querySelector(".skill_15")
-                        let value16 = currentForm.querySelector(".skill_16")
-
-                        if (data.message[0] == "requiredError") {
-                            // Showing Error through border color
-                            if (value1.value == "") {
-                                value1.style.borderColor = "#fc1919b3"
-                            }
-                            if (value2.value == "") {
-                                value2.style.borderColor = "#fc1919b3"
-                            }
-                            if (value3.value == "") {
-                                value3.style.borderColor = "#fc1919b3"
-                            }
-
-                            addMoreButton.nextElementSibling.classList.remove("hide")
-
-                            setTimeout(() => {
-                                addMoreButton.nextElementSibling.classList.add("hide")
-                            }, 1300)
-                        }
-
-                        else if (data.message[0] == "Error") {
-
-                            // Showing Error through border color
-                            if (value1.value == "") {
-                                value1.style.borderColor = "#fc1919b3"
-                            }
-                            if (value2.value == "") {
-                                value2.style.borderColor = "#fc1919b3"
-                            }
-                            if (value3.value == "") {
-                                value3.style.borderColor = "#fc1919b3"
-                            }
-                            if (value4.value == "") {
-                                value4.style.borderColor = "#fc1919b3"
-                            }
-                            if (value5.value == "") {
-                                value5.style.borderColor = "#fc1919b3"
-                            }
-                            if (value6.value == "") {
-                                value6.style.borderColor = "#fc1919b3"
-                            }
-                            if (value7.value == "") {
-                                value7.style.borderColor = "#fc1919b3"
-                            }
-                            if (value8.value == "") {
-                                value8.style.borderColor = "#fc1919b3"
-                            }
-                            if (value9.value == "") {
-                                value9.style.borderColor = "#fc1919b3"
-                            }
-                            if (value10.value == "") {
-                                value10.style.borderColor = "#fc1919b3"
-                            }
-                            if (value11.value == "") {
-                                value11.style.borderColor = "#fc1919b3"
-                            }
-                            if (value12.value == "") {
-                                value12.style.borderColor = "#fc1919b3"
-                            }
-                            if (value13.value == "") {
-                                value13.style.borderColor = "#fc1919b3"
-                            }
-                            if (value14.value == "") {
-                                value14.style.borderColor = "#fc1919b3"
-                            }
-                            if (value15.value == "") {
-                                value15.style.borderColor = "#fc1919b3"
-                            }
-                            if (value16.value == "") {
-                                value16.style.borderColor = "#fc1919b3"
-                            }
-                            if (value6.value == "") {
-                                value6.style.borderColor = "#fc1919b3"
-                            }
-                        }
-
-                        // Removing the border color
-                        setTimeout(() => {
-
-                            value1.style.borderColor = "rgb(227, 227, 227)"
-                            value2.style.borderColor = "rgb(227, 227, 227)"
-                            value3.style.borderColor = "rgb(227, 227, 227)"
-                            value4.style.borderColor = "rgb(227, 227, 227)"
-                            value5.style.borderColor = "rgb(227, 227, 227)"
-                            value6.style.borderColor = "rgb(227, 227, 227)"
-                            value7.style.borderColor = "rgb(227, 227, 227)"
-                            value8.style.borderColor = "rgb(227, 227, 227)"
-                            value9.style.borderColor = "rgb(227, 227, 227)"
-                            value10.style.borderColor = "rgb(227, 227, 227)"
-                            value11.style.borderColor = "rgb(227, 227, 227)"
-                            value12.style.borderColor = "rgb(227, 227, 227)"
-                            value13.style.borderColor = "rgb(227, 227, 227)"
-                            value14.style.borderColor = "rgb(227, 227, 227)"
-                            value15.style.borderColor = "rgb(227, 227, 227)"
-                            value16.style.borderColor = "rgb(227, 227, 227)"
-
-                            button.disabled = false
-                        }, 1500)
-
-                    }
-
-                }
-            })
-
-        }
-        // Assigning the current form concurrent link name to a variable
-        activeFormLink = "Additional Skills"
-
-        if (sideNavBar.previousElementSibling.value == "skills") {
-
-            // Active link name & activated link count
-            activeFormsLinkCount = 5
-
-            // Progress Bar Percentage
-            newWidth = "63%"
-        }
-        else {
-
-            // Active link name & activated link count
-            activeFormsLinkCount = 6
-
-            // Progress Bar Percentage
-            newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
-        }
-
-        var skillCount = 3
-        // Getting the element of add more button
-        const addMoreButton = currentForm.querySelector(".add-more a")
-        //
-        addMoreButton.addEventListener("click", addingMoreSkills)
-
-        // Assigning a validator function to change the default behaviour of current form
-        currentForm.addEventListener("submit", goToCareerObjective)
-
-        // Getting the Back Button of Additional-Skill page
-        const additionalSkillsBackButton = currentForm.querySelector(".form-buttons .back-button")
-        //
-        additionalSkillsBackButton.addEventListener("click", () => {
-            window.location.pathname = "/resume-builder/certifications"
-        })
-
-        // Getting the values of inputs in Additional-Skills Form
-        let skill1 = currentForm.querySelector(".skill_1")
-        let skill2 = currentForm.querySelector(".skill_2")
-        let skill3 = currentForm.querySelector(".skill_3")
-        let skill4 = currentForm.querySelector(".skill_4")
-        let skill5 = currentForm.querySelector(".skill_5")
-        let skill6 = currentForm.querySelector(".skill_6")
-        let skill7 = currentForm.querySelector(".skill_7")
-        let skill8 = currentForm.querySelector(".skill_8")
-        let skill9 = currentForm.querySelector(".skill_9")
-        let skill10 = currentForm.querySelector(".skill_10")
-        let skill11 = currentForm.querySelector(".skill_11")
-        let skill12 = currentForm.querySelector(".skill_12")
-        let skill13 = currentForm.querySelector(".skill_13")
-        let skill14 = currentForm.querySelector(".skill_14")
-        let skill15 = currentForm.querySelector(".skill_15")
-        let skill16 = currentForm.querySelector(".skill_16")
-
-        // Checking the number of Skills added
-        if (skill1.value != "" || skill2.value != "" || skill3.value != "" || skill4 == "" || skill5 == "" || skill6 == "" || skill7 == "" || skill8 == "" || skill9 == "" || skill10 == "" || skill11 == "" || skill12 == "" || skill13 == "" || skill14 == "" || skill15 == "" || skill16 == "") {
-
-            if (skill4.value != "") {
-
-                // Showing the fourth Skill Input
-                skill4.classList.remove("hide")
-                skillCount = 4
-            }
-            if (skill5.value != "") {
-
-                // Showing the fifth Skill Input
-                skill5.classList.remove("hide")
-                skillCount = 5
-            }
-            if (skill6.value != "") {
-
-                // Showing the sixth Skill Input
-                skill6.classList.remove("hide")
-                skillCount = 6
-            }
-            if (skill7.value != "") {
-
-                // Showing the seventh Skill Input
-                skill7.classList.remove("hide")
-                skillCount = 7
-            }
-            if (skill8.value != "") {
-
-                // Showing the eighth Skill Input
-                skill8.classList.remove("hide")
-                skillCount = 8
-            }
-            if (skill9.value != "") {
-
-                // Showing the nineth Skill Input
-                skill9.classList.remove("hide")
-                skillCount = 9
-            }
-            if (skill10.value != "") {
-
-                // Showing the tenth Skill Input
-                skill10.classList.remove("hide")
-                skillCount = 10
-            }
-            if (skill11.value != "") {
-
-                // Showing the eleventh Skill Input
-                skill11.classList.remove("hide")
-                skillCount = 11
-            }
-            if (skill12.value != "") {
-
-                // Showing the twelth Skill Input
-                skill12.classList.remove("hide")
-                skillCount = 12
-            }
-            if (skill13.value != "") {
-
-                // Showing the thirteenth Skill Input
-                skill13.classList.remove("hide")
-                skillCount = 13
-            }
-            if (skill14.value != "") {
-
-                // Showing the fourteenth Skill Input
-                skill14.classList.remove("hide")
-                skillCount = 14
-            }
-            if (skill15.value != "") {
-
-                // Showing the fifteenth Skill Input
-                skill15.classList.remove("hide")
-                skillCount = 15
-            }
-            if (skill16.value != "") {
-
-                // Showing the sixteenth Skill Input
-                skill16.classList.remove("hide")
-                skillCount = 16
-            }
-        }
     }
 
     else if (currentForm.classList[0] == "career-objective-form") {
@@ -1401,7 +1059,7 @@ if (builderTemplate != null) {
 
                 // Getting and setting a go back function to Back button on the current form
                 currentForm.querySelector(".form-buttons .back-button").addEventListener("click", () => {
-                    window.location.pathname = "/resume-builder/additional-skills"
+                    window.location.pathname = "/builder/additional-skills"
                 })
             }
             // ------------ //
@@ -1416,7 +1074,7 @@ if (builderTemplate != null) {
                 }
                 else {
                     setTimeout(() => {
-                        window.location.pathname = "/resume-builder/templates"
+                        window.location.pathname = "/builder/choose-templates"
                     }, 300)
                 }
             }
@@ -1436,9 +1094,10 @@ if (builderTemplate != null) {
 
                     $.ajax({
                         type: "POST",
-                        url: "/resume-builder/career-objective",
+                        url: "/builder/career-objective",
                         data: {
                             careerobjective: $(".career_objective").val(),
+                            showobjective: $(".show_objective").is(":checked"),
                             csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                         },
 
@@ -1526,7 +1185,7 @@ if (builderTemplate != null) {
         activeFormsLinkCount = 6
 
         // Progress Bar Percentage
-        newWidth = (sideNavBar.previousElementSibling.value == "objective") ? "72%" : "94%"
+        newWidth = (sideNavBar.previousElementSibling.value == "career-objective") ? "72%" : "94%"
 
         // Getting the element of Form Selection section options
         const formSelectionButtons = rightPanel.querySelectorAll(".forms-entry .form-selection .show-options a")

@@ -1,93 +1,108 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse, FileResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
+
+# Importing some built-in modules to authenticate users
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.utils.datastructures import MultiValueDictKeyError
 
-# Importing some pre-built modules to work with ospaths and '.json' files
+# Importing the required functionality from json and calendar modules
 from json import load
-import os
+from calendar import month_name
+from datetime import datetime
+from pathlib import Path
 
-# Importing some third-party modules to work with .docx and .pdf files
-from mailmerge import MailMerge
+# Importing some constant variables from custom modules in this app
+from ReSume.settings.base import SESSION_COOKIE_SECURE
+
+# Importing some third party libraries to work with '.docx' & '.pdf' files
+from docxtpl import DocxTemplate
 from pModules.convert2pdf import docxToPdf
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-previousURL = "/"
-linkClick = "none"
-
-# Loading json file for Countries List
-COUNTRIES_FILE = load(open("Static/Assets/countries.json"))
-
-
-# Month and Years for DropDown Boxes
-MONTHS = ["January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"]
-
-years = []
-for i in range(1950, 2023):
-    years.append(i)
-years.sort(reverse=True)
-
-
-# Path to temporary files
-TEMPLATES = "Static/temp"
-
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+# Main view to render the Home-Page
 def home(request):
 
-    # Function for resetting form values
-    resetFormValue()
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
 
-    return render(request, "home.html")
+    # Rendering the Home-Page as a response
+    response = render(request, "home.html", tempDICT)
+
+    # Settings the Url of Home-Page as a cookie to reference later
+    response.set_cookie(key="previousurlpath", value=request.path, samesite="Lax",
+                        secure=SESSION_COOKIE_SECURE)
+
+    return response
 
 
+# View to render the About-Page
 def about(request):
 
-    global previousURL
-    previousURL = "/about"
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
 
-    return render(request, "about.html")
+    # Rendering the About-Page as a response
+    response = render(request, "about.html", tempDICT)
 
+    # Settings the Url of About-Page as a cookie to reference later
+    response.set_cookie(key="previousurlpath", value=request.path, samesite="Lax",
+                        secure=SESSION_COOKIE_SECURE)
 
-def build(request):
-
-    global previousURL
-    previousURL = "/resume-builder"
-
-    return redirect("/resume-builder/getting-started")
-
-
-def builderStart(request):
-
-    global linkClick
-    if (linkClick != "none"):
-        linkClick = "none"
-
-    global previousURL
-    previousURL = "/resume-builder/getting-started"
-
-    # Function for resetting form values
-    resetFormValue()
-
-    return render(request, "builderStart.html")
+    return response
 
 
-def personalDetails(request):
-
-    global linkClick
-    if (linkClick == "none"):
-        linkClick = "personal"
-
-    global previousURL
-    previousURL = "/resume-builder/personal-details"
+# View to render the Contact-Page
+def contact(request):
 
     if request.method == "POST":
+        return HttpResponse("Your request has been received successfully")
 
-        global first_name, last_name, current_email, phone_number, current_address, current_country, current_city, current_state, pin_code
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+
+    # Rendering the Contact-Page as a response
+    response = render(request, "contact.html", tempDICT)
+
+    # Settings the Url of Contact-Page as a cookie to reference later
+    response.set_cookie(key="previousurlpath", value=request.path, samesite="Lax",
+                        secure=SESSION_COOKIE_SECURE)
+
+    return response
+
+
+# View to render the Builder-Page
+def builder(request):
+
+    if (request.method == "POST"):
+
+        # Updating the specific key's value in session object
+        request.session["active_form"] = {"fromPATH": request.path,
+                                          "link": None,}
+
+        return redirect("/builder/personal-details")
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+
+    # Rendering the Builder-Page as a response
+    response = render(request, "builder.html", tempDICT)
+
+    # Settings the Url of Builder-Page as a cookie to reference later
+    response.set_cookie(key="previousurlpath", value=request.path, samesite="Lax",
+                        secure=SESSION_COOKIE_SECURE)
+
+    return response
+
+
+# View to render the PersonalDetails-Page
+def personalDetails(request):
+
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "active_form")]
+
+    if (request.method == "POST"):
+
         first_name = request.POST["firstname"]
         last_name = request.POST["lastname"]
         current_email = request.POST["currentemail"]
@@ -98,50 +113,71 @@ def personalDetails(request):
         current_state = request.POST["currentstate"]
         pin_code = request.POST["pincode"]
 
-        if first_name == "":
-            emptyMessage = ("fName", 0)
+        if (first_name == ""):
+            emptyMessage = ("first_name", 0)
             return JsonResponse({"message": list(emptyMessage)})
 
-        elif last_name == "":
-            emptyMessage = ("lName", 0)
+        elif (last_name == ""):
+            emptyMessage = ("last_name", 0)
             return JsonResponse({"message": list(emptyMessage)})
 
-        elif current_email == "":
-            emptyMessage = ("Email", 0)
+        elif (current_email == ""):
+            emptyMessage = ("current_email", 0)
             return JsonResponse({"message": list(emptyMessage)})
 
         else:
-            successMessage = (
-                "Verified", "/resume-builder/years-of-experience")
+
+            # Updating the initial values of the form present in current URL with user filled data
+            request.session["personalDetails"] = {
+                "first_name": first_name,
+                "last_name": last_name,
+                "current_email": current_email,
+                "phone_number": phone_number,
+                "current_address": current_address,
+                "current_country": current_country,
+                "current_city": current_city,
+                "current_state": current_state,
+                "pin_code": pin_code
+            }
+
+            successMessage = ("Verified", "/builder/years-of-experience")
             return JsonResponse({"message": list(successMessage)})
 
-    personal_details = {
-        "first_name": first_name,
-        "last_name": last_name,
-        "current_email": current_email,
-        "phone_number": phone_number,
-        "current_address": current_address,
-        "current_country": current_country,
-        "current_city": current_city,
-        "current_state": current_state,
-        "pin_code": pin_code
-    }
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
 
-    return render(request, "personalDetails.html", {"countries": COUNTRIES_FILE, "detail": personal_details, "link": linkClick})
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["personalDetails"]):
+
+        request.session["personalDetails"] = {
+            "first_name": "",
+            "last_name": "",
+            "current_email": "",
+            "phone_number": "",
+            "current_address": "",
+            "current_country": PLACEHOLDER_TEXT[0],
+            "current_city": "",
+            "current_state": "",
+            "pin_code": ""
+        }
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (valid_key[0]["link"] is None):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["personalDetails"]
+
+    return render(request, "personalDetails.html", tempDICT)
 
 
-def experience(request):
+# Views to render the YearOfExperience-Page
+def yearsofexperience(request):
 
-    global linkClick
-    if linkClick == "personal":
-        linkClick = "experience"
+    if (request.method == "POST"):
 
-    global previousURL
-    previousURL = "/resume-builder/years-of-experience"
-
-    if request.method == "POST":
-
-        global job_title, company_name, country_name, city_name, start_month, start_year, end_month, end_year
         job_title = request.POST["jobtitle"]
         company_name = request.POST["companyname"]
         country_name = request.POST["countryname"]
@@ -151,664 +187,715 @@ def experience(request):
         end_month = request.POST["endmonth"]
         end_year = request.POST["endyear"]
 
-        if job_title == "" or company_name == "":
-            emptyMessage = ("Empty", "/resume-builder/higher-education")
+        if (job_title == "" or company_name == ""):
+            emptyMessage = ("Empty", "/builder/higher-education")
             return JsonResponse({"message": list(emptyMessage)})
 
         else:
+
+            # Updating the initial values of the form present in current URL with user filled data
+            request.session["yearsOfExperience"] = {
+                "job_title": job_title,
+                "company_name": company_name,
+                "country_name": country_name,
+                "city_name": city_name,
+                "start_month": start_month,
+                "start_year": start_year,
+                "end_month": end_month,
+                "end_year": end_year
+            }
+
             successMessage = (
-                "Notempty", "/resume-builder/higher-education")
+                "Notempty", "/builder/higher-education")
             return JsonResponse({"message": list(successMessage)})
 
-    years_of_experience = {
-        "job_title": job_title,
-        "company_name": company_name,
-        "country_name": country_name,
-        "city_name": city_name,
-        "start_month": start_month,
-        "start_year": start_year,
-        "end_month": end_month,
-        "end_year": end_year
-    }
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
 
-    return render(request, "experience.html", {"countries": COUNTRIES_FILE, "months": MONTHS, "years": years, "experience": years_of_experience, "link": linkClick})
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["yearsOfExperience"]):
+
+        # Setting the initial values for the form present in current URL
+        request.session["yearsOfExperience"] = {
+            "job_title": "",
+            "company_name": "",
+            "country_name": PLACEHOLDER_TEXT[0],
+            "city_name": "",
+            "start_month": PLACEHOLDER_TEXT[1],
+            "start_year": PLACEHOLDER_TEXT[2],
+            "end_month": PLACEHOLDER_TEXT[3],
+            "end_year": PLACEHOLDER_TEXT[4]
+        }
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "personal-details"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["yearsOfExperience"]
+
+    return render(request, "yearsofexperience.html", tempDICT)
 
 
-def education(request):
-
-    global linkClick
-    if linkClick == "experience":
-        linkClick = "education"
-
-    global previousURL
-    previousURL = "/resume-builder/higher-education"
+# View to render the HigherEducation Page
+def higherEducation(request):
 
     if (request.method == "POST"):
 
-        try:
+        form_name = request.POST["formname"]
+        name = request.POST["name"]
+        grade = request.POST["grade"]
+        passed_year = request.POST["passedyear"]
+        country = request.POST["country"]
+        city = request.POST["city"]
 
-            if (request.POST["schoolform"] == "school"):
-
-                global school_name, school_percentage, school_passedyear, school_country, school_city
-                school_name = request.POST["schoolname"]
-                school_percentage = request.POST["schoolpercentage"]
-                school_passedyear = request.POST["schoolpassedyear"]
-                school_country = request.POST["schoolcountry"]
-                school_city = request.POST["schoolcity"]
-
-                if school_name == "":
-                    emptyMessage = ("emptyname", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                elif school_passedyear == "Passed Out Year*":
-                    emptyMessage = ("emptyyear", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                else:
-                    successMessage = (
-                        "Notempty", 0)
-                    return JsonResponse({"message": list(successMessage)})
-
-        except MultiValueDictKeyError:
-
-            if (request.POST["collegeform"] == "college"):
-
-                global college_name, college_percentage, college_passedyear, college_degree, college_branch, college_country, college_city
-                college_name = request.POST["collegename"]
-                college_percentage = request.POST["collegepercentage"]
-                college_passedyear = request.POST["collegepassedyear"]
-                college_degree = request.POST["collegedegree"]
-                college_branch = request.POST["collegebranch"]
-                college_country = request.POST["collegecountry"]
-                college_city = request.POST["collegecity"]
-
-                if college_name == "":
-                    emptyMessage = ("emptyname", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                elif college_passedyear == "Passed Out Year*":
-                    emptyMessage = ("emptyyear", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                elif college_degree == "":
-                    emptyMessage = ("emptydegree", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                elif college_branch == "":
-                    emptyMessage = ("emptybranch", 0)
-                    return JsonResponse({"message": list(emptyMessage)})
-
-                else:
-                    successMessage = (
-                        "Notempty", 0)
-                    return JsonResponse({"message": list(successMessage)})
-
-    education_high_school = {
-        "school_name": school_name,
-        "school_percentage": school_percentage,
-        "school_passedyear": school_passedyear,
-        "school_country": school_country,
-        "school_city": school_city
-    }
-
-    education_college = {
-        "college_name": college_name,
-        "college_percentage": college_percentage,
-        "college_passedyear": college_passedyear,
-        "college_degree": college_degree,
-        "college_branch": college_branch,
-        "college_country": college_country,
-        "college_city": college_city,
-    }
-
-    return render(request, "education.html", {"countries": COUNTRIES_FILE, "years": years, "highschool": education_high_school, "college": education_college, "link": linkClick})
-
-
-def certifications(request):
-
-    global linkClick
-    if linkClick == "education":
-        linkClick = "certifications"
-
-    global previousURL
-    previousURL = "/resume-builder/certifications"
-
-    if request.method == "POST":
-
-        global certification_1, certification_2, certification_3, certification_4, certification_5, certification_6
-        certification_1 = request.POST["certification1"]
-        certification_2 = request.POST["certification2"]
-        certification_3 = request.POST["certification3"]
-        certification_4 = request.POST["certification4"]
-        certification_5 = request.POST["certification5"]
-        certification_6 = request.POST["certification6"]
-
-        if certification_1 == "" and certification_2 == "" and certification_3 == "" and certification_4 == "" and certification_5 == "" and certification_6 == "":
-            emptyMessage = ("Success", "/resume-builder/additional-skills")
+        if (name == ""):
+            emptyMessage = ("emptyname", form_name)
             return JsonResponse({"message": list(emptyMessage)})
 
-        elif certification_1 != "" and certification_2 == "" and certification_3 == "" and certification_4 == "" and certification_5 == "" and certification_6 == "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+        elif (passed_year == "Passed Out Year*"):
+            emptyMessage = ("emptyyear", form_name)
+            return JsonResponse({"message": list(emptyMessage)})
 
-        elif certification_1 != "" and certification_2 != "" and certification_3 == "" and certification_4 == "" and certification_5 == "" and certification_6 == "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+        elif (form_name == "highschool"):
 
-        elif certification_1 != "" and certification_2 != "" and certification_3 != "" and certification_4 == "" and certification_5 == "" and certification_6 == "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+            # Getting the values of College form
+            college = request.session["higherEducation"]["college"]
 
-        elif certification_1 != "" and certification_2 != "" and certification_3 != "" and certification_4 != "" and certification_5 == "" and certification_6 == "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+            # Updating the initial values of the highschool form present in current URL with user filled data
+            request.session["higherEducation"] = {
+                "highschool": {
+                    "name": name,
+                    "grade": grade,
+                    "passed_year": passed_year,
+                    "country": country,
+                    "city": city
+                },
+                "college": {
+                    "name": college["name"],
+                    "grade": college["grade"],
+                    "passed_year": college["passed_year"],
+                    "degree": college["degree"],
+                    "branch": college["branch"],
+                    "country": college["country"],
+                    "city": college["city"]
+                }
+            }
 
-        elif certification_1 != "" and certification_2 != "" and certification_3 != "" and certification_4 != "" and certification_5 != "" and certification_6 == "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+        elif (form_name == "college"):
 
-        elif certification_1 != "" and certification_2 != "" and certification_3 != "" and certification_4 != "" and certification_5 != "" and certification_6 != "":
-            successMessage = ("Success", "/resume-builder/additional-skills")
-            return JsonResponse({"message": list(successMessage)})
+            degree = request.POST["degree"]
+            branch = request.POST["branch"]
 
-        else:
-            errorMessage = ("Error", 0)
-            return JsonResponse({"message": list(errorMessage)})
+            if (degree == ""):
+                emptyMessage = ("emptydegree", form_name)
+                return JsonResponse({"message": list(emptyMessage)})
 
-    license_certifications = {
-        "certification_1": certification_1,
-        "certification_2": certification_2,
-        "certification_3": certification_3,
-        "certification_4": certification_4,
-        "certification_5": certification_5,
-        "certification_6": certification_6
-    }
+            elif (branch == ""):
+                emptyMessage = ("emptybranch", form_name)
+                return JsonResponse({"message": list(emptyMessage)})
 
-    return render(request, "certifications.html", {"certifications": license_certifications, "link": linkClick})
+            # Getting the values of HighSchool form
+            highschool = request.session["higherEducation"]["highschool"]
 
+            # Updating the initial values of the college form present in current URL with user filled data
+            request.session["higherEducation"] = {
+                "highschool": {
+                    "name": highschool["name"],
+                    "grade": highschool["grade"],
+                    "passed_year": highschool["passed_year"],
+                    "country": highschool["country"],
+                    "city": highschool["city"]
+                },
+                "college": {
+                    "name": name,
+                    "grade": grade,
+                    "passed_year": passed_year,
+                    "degree": degree,
+                    "branch": branch,
+                    "country": country,
+                    "city": city
+                }
+            }
 
-def skills(request):
-
-    global linkClick
-    if linkClick == "certifications":
-        linkClick = "skills"
-
-    global previousURL
-    previousURL = "/resume-builder/additional-skills"
-
-    if request.method == "POST":
-
-        global skill_1, skill_2, skill_3, skill_4, skill_5, skill_6, skill_7, skill_8, skill_9, skill_10, skill_11, skill_12, skill_13, skill_14, skill_15, skill_16
-        skill_1 = request.POST["skill1"]
-        skill_2 = request.POST["skill2"]
-        skill_3 = request.POST["skill3"]
-        skill_4 = request.POST["skill4"]
-        skill_5 = request.POST["skill5"]
-        skill_6 = request.POST["skill6"]
-        skill_7 = request.POST["skill7"]
-        skill_8 = request.POST["skill8"]
-        skill_9 = request.POST["skill9"]
-        skill_10 = request.POST["skill10"]
-        skill_11 = request.POST["skill11"]
-        skill_12 = request.POST["skill12"]
-        skill_13 = request.POST["skill13"]
-        skill_14 = request.POST["skill14"]
-        skill_15 = request.POST["skill15"]
-        skill_16 = request.POST["skill16"]
-
-        if skill_1 == "" or skill_2 == "" or skill_3 == "":
-            errorMessage = ("requiredError", 0)
-            return JsonResponse({"message": list(errorMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 == "" and skill_5 == "" and skill_6 == "" and skill_7 == "" and skill_8 == "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 == "" and skill_6 == "" and skill_7 == "" and skill_8 == "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 == "" and skill_7 == "" and skill_8 == "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 == "" and skill_8 == "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 == "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 == "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 == "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 == "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 == "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 != "" and skill_13 == "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 != "" and skill_13 != "" and skill_14 == "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 != "" and skill_13 != "" and skill_14 != "" and skill_15 == "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 != "" and skill_13 != "" and skill_14 != "" and skill_15 != "" and skill_16 == "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        elif skill_1 != "" and skill_2 != "" and skill_3 != "" and skill_4 != "" and skill_5 != "" and skill_6 != "" and skill_7 != "" and skill_8 != "" and skill_9 != "" and skill_10 != "" and skill_11 != "" and skill_12 != "" and skill_13 != "" and skill_14 != "" and skill_15 != "" and skill_16 != "":
-            successMessage = ("Success", "/resume-builder/career-objective")
-            return JsonResponse({"message": list(successMessage)})
-
-        else:
-            errorMessage = ("Error", 0)
-            return JsonResponse({"message": list(errorMessage)})
-
-    additional_skills = {
-        "skill_1": skill_1,
-        "skill_2": skill_2,
-        "skill_3": skill_3,
-        "skill_4": skill_4,
-        "skill_5": skill_5,
-        "skill_6": skill_6,
-        "skill_7": skill_7,
-        "skill_8": skill_8,
-        "skill_9": skill_9,
-        "skill_10": skill_10,
-        "skill_11": skill_11,
-        "skill_12": skill_12,
-        "skill_13": skill_13,
-        "skill_14": skill_14,
-        "skill_15": skill_15,
-        "skill_16": skill_16
-    }
-
-    return render(request, "skills.html", {"skills": additional_skills, "link": linkClick})
-
-
-def objective(request):
-
-    global linkClick
-    if linkClick == "skills":
-        linkClick = "objective"
-
-    global previousURL
-    previousURL = "/resume-builder/career-objective"
-
-    if request.method == "POST":
-
-        global career_objective
-        career_objective = request.POST["careerobjective"]
-
-        successMessage = ("Success", "/resume-builder/templates")
+        successMessage = ("Verified", 0)
         return JsonResponse({"message": list(successMessage)})
 
-    return render(request, "careerObjective.html", {"objectives": career_objective, "link": linkClick})
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
+
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["higherEducation"]):
+
+        # Setting the initial values for the form present in current URL
+        request.session["higherEducation"] = {
+            "highschool": {
+                "name": "",
+                "grade": "",
+                "passed_year": PLACEHOLDER_TEXT[5],
+                "country": PLACEHOLDER_TEXT[0],
+                "city": ""
+            },
+            "college": {
+                "name": "",
+                "grade": "",
+                "passed_year": PLACEHOLDER_TEXT[5],
+                "degree": "",
+                "branch": "",
+                "country": PLACEHOLDER_TEXT[0],
+                "city": ""
+            }
+        }
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "years-of-experience"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["higherEducation"]
+
+    return render(request, "higherEducation.html", tempDICT)
 
 
-def templates(request):
+# View to render the Certifications Page
+def certifications(request):
 
-    global linkClick
-    if linkClick == "objective":
-        linkClick = "templates"
+    INPUT_COUNT = 2
+    if (request.method == "POST"):
 
-    global previousURL
-    previousURL = "/resume-builder/templates"
+        # Getting all the certificates passed as a list
+        all_certificates = request.POST.getlist("skills[]")
 
-    templates = [
-        "Static/Assets/Template/template_01.docx",
-        "Static/Assets/Template/template_02.docx",
-        "Static/Assets/Template/template_03.docx",
-        "Static/Assets/Template/template_04.docx",
-        "Static/Assets/Template/template_05.docx",
-        "Static/Assets/Template/template_06.docx",
-        "Static/Assets/Template/template_07.docx",
-        "Static/Assets/Template/template_08.docx"
-    ]
-    x = 0
-    for template in templates:
+        newValues = []
+        for n, data in enumerate(all_certificates):
+            newValues.append({"name": data,
+                                "id": n + 1})
 
-        document = MailMerge(template)
+        # Filling a dummy value when the length is between '0-2'
+        val_length = len(all_certificates)
+        if (val_length >= 0 and val_length < 2):
 
-        # Merging new values to merge fields in the template file
-        document.merge(
-            first_name=first_name,
-            last_name=last_name,
-            current_email=current_email,
-            phone_number=phone_number,
-            current_address=current_address,
-            current_country=current_country,
-            current_city=current_city,
-            job_title=job_title,
-            company_name=company_name,
-            start_month=start_month,
-            start_year=start_year,
-            end_month=end_month,
-            end_year=end_year,
-            school_name=school_name,
-            school_percentage=school_percentage,
-            school_passedyear=school_passedyear,
-            school_country=school_country,
-            school_city=school_city,
-            college_name=college_name,
-            college_percentage=college_percentage,
-            college_passedyear=college_passedyear,
-            college_degree=college_degree,
-            college_branch=college_branch,
-            college_country=college_country,
-            college_city=college_city,
-            certification_1=certification_1,
-            certification_2=certification_2,
-            certification_3=certification_3,
-            certification_4=certification_4,
-            certification_5=certification_5,
-            certification_6=certification_6,
-            skill_1=skill_1,
-            skill_2=skill_2,
-            skill_3=skill_3,
-            skill_4=skill_4,
-            skill_5=skill_5,
-            career_objective=career_objective
-        )
-        x += 1
-        document.write("Static/temp/template_"+str(x)+".docx")
+            for n in range(val_length, INPUT_COUNT):
+                newValues.append({"name": "",
+                                    "id": n + 1})
 
-    return render(request, "templates.html", {"link": linkClick})
+        # Updating the initial values of the form present in current URL with user filled data
+        request.session["certifications"] = newValues
+
+        successMessage = ("Success", "/builder/additional-skills")
+        return JsonResponse({"message": list(successMessage)})
+
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
+
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["certifications"]):
+
+        defaultValues = []
+        for n in range(INPUT_COUNT):
+            defaultValues.append({"name": "",
+                                    "id": n + 1})
+
+        # Setting the initial values for the form present in current URL
+        request.session["certifications"] = defaultValues
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "higher-education"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["certifications"]
+
+    return render(request, "certifications.html", tempDICT)
 
 
-def downloadTemplate(request):
+# View to render the AdditionalSkills Page
+def additionalSkills(request):
 
-    if request.method == "POST":
+    INPUT_COUNT = 3
+    if (request.method == "POST"):
 
-        # Getting the value of parameter to perform some operation
+        # Getting all the skills passed as a list
+        all_skills = request.POST.getlist("skills[]")
+
+        newValues = []
+        for n, data in enumerate(all_skills):
+            newValues.append({"name": data,
+                                "id": n + 1})
+
+        # Updating the initial values of the form present in current URL with user filled data
+        request.session["additionalSkills"] = newValues
+
+        successMessage = ("Success", "/builder/career-objective")
+        return JsonResponse({"message": list(successMessage)})
+
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
+
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["additionalSkills"]):
+
+        defaultValues = []
+        for n in range(INPUT_COUNT):
+            defaultValues.append({"name": "",
+                                    "id": n + 1})
+
+        # Setting the initial values for the form present in current URL
+        request.session["additionalSkills"] = defaultValues
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "certifications"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["additionalSkills"]
+
+    return render(request, "additionalSkills.html", tempDICT)
+
+
+# View to render the CareerObjective Page
+def careerObjective(request):
+
+    if (request.method == "POST"):
+
+        # Getting all the values passed as a dict
+        career_objective = request.POST["careerobjective"]
+        show_objective = request.POST["showobjective"]
+
+        # Updating the initial values of the form present in current URL with user filled data
+        request.session["careerObjective"] = {
+            "objective": career_objective,
+            "include": True if (show_objective == "true") else False,
+        }
+
+        successMessage = ("Success", "/builder/choose-templates")
+        return JsonResponse({"message": list(successMessage)})
+
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
+
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["careerObjective"]):
+
+        # Setting the initial values for the form present in current URL
+        request.session["careerObjective"] = {
+            "objective": "",
+            "include": False,
+        }
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "additional-skills"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["careerObjective"]
+
+    return render(request, "careerObjective.html", tempDICT)
+
+
+# View to render the Templates Page
+def chooseTemplates(request):
+
+    # Assigning the variables to hold the path to all Templates & its previews
+    RESUME_TEMPLATES_DIR = "Static/Assets/Template"
+    TEMPLATES_PREVIEW = "Static/Assets/Images"
+
+    if (request.method == "POST"):
+
+        # Getting the value of the parameter to perform some operation
         data_holder = request.POST["dataholder"]
         if (data_holder == "convert"):
 
-            # Getting the name of the selected template
+            # Getting the Selected template name passed through request
             selected_template = request.POST["selectedtemplate"]
-            path_to_doc = os.path.join(TEMPLATES, f"{selected_template}.docx")
 
-            if os.path.exists(path_to_doc):
+            # Joining the selected template name to a valid path
+            template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
+                selected_template + ".docx")
 
-                # Converting the '.docx' to '.pdf' and saving it in the temporary path
-                pdfPath = os.path.join(TEMPLATES, "resume.pdf")
-                docxToPdf(path_to_doc, pdfPath)
+            if (template_path.exists()):
 
-                successMessage = ("Success", pdfPath)
+                # Creating new resume with data user provided and Storing the it's path in session object
+                path_to_resume = createResume(request, template_path)
+
+                successMessage = ("Success", path_to_resume)
                 return JsonResponse({"message": list(successMessage)})
 
-            else:
-                errormessage = ("Error", 0)
-                return JsonResponse({"message": list(errormessage)})
+            successMessage = ("Error", "Something went wrong, Try Again!")
+            return JsonResponse({"message": list(successMessage)})
 
         else:
             # Opening and reading the newly converted pdf and send as download response
             file = open(data_holder, "rb")
-            return FileResponse(file, as_attachment=True, filename="reSume.pdf")
+            file_name = "reSume." + data_holder.split(".")[-1]
+            return FileResponse(file, as_attachment=True, filename=file_name)
 
-    return redirect(previousURL)
+    # Updating the specific key's value in session object as current path
+    request.session["active_form"]["fromPATH"] = request.path
+
+    # Setting the initial values for the form present in current URL if only the key has no value
+    if (not request.session["chooseTemplates"]):
+
+        all_templates = []
+        for doc in Path(RESUME_TEMPLATES_DIR).glob("*.docx"):
+
+            # Removing the extension from template's name
+            image_name = doc.name.replace(".docx", "")
+
+            # Joining the template's preview image name to Images path
+            image_path = Path(TEMPLATES_PREVIEW).joinpath(
+                image_name + ".jpg")
+
+            if (image_path.exists()):
+
+                # Converting the image path to a working url
+                image_url = f"/{image_path}".replace("\\", "/")
+
+                # Creating a list with image path & name for template files to be used on current path
+                all_templates.append([image_url, image_name])
+
+        # Setting the initial values for the templates present in current URL
+        request.session["chooseTemplates"] = all_templates
+
+    # Adding new or Updating the existing key in the dictionary which passed to template
+    if (request.session["active_form"]["link"] == "career-objective"):
+        request.session["active_form"]["link"] = request.path.split(
+            "builder/")[1]
+
+    # Creating a python dictionary of data according to the requested URL
+    tempDICT = dataCollector(request)
+    tempDICT["formData"] = request.session["chooseTemplates"]
+
+    return render(request, "chooseTemplates.html", tempDICT)
 
 
-def contact(request):
+# View to validate and create new user using the credentials passed through request
+def createUser(request):
 
-    global previousURL
-    previousURL = "/contact"
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "active_form")]
 
-    if request.method == "POST":
+    # Getting the previous URL stored on the Cookies or Session object according to the condition
+    previousURL = valid_key[0]["fromPATH"] if (
+        valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
 
-        return HttpResponse("Your request has been received successfully")
-
-    return render(request, "contact.html")
-
-
-def signup(request):
-
-    if request.method == "POST":
+    if (request.method == "POST"):
 
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
         password2 = request.POST["password2"]
 
-        if username == "" or email == "" or password == "" or password2 == "":
+        if (username == "" or email == "" or password == "" or password2 == ""):
 
             emptyMessage = ("Fields can't be empty", 0)
             return JsonResponse({"message": list(emptyMessage)})
 
         else:
-
-            if User.objects.filter(username=username).exists():
+            if (User.objects.filter(username=username).exists()):
 
                 userExists = ("UserName already exists", 0)
                 return JsonResponse({"message": list(userExists)})
 
+            elif (User.objects.filter(email=email).exists()):
+
+                emailExists = ("Email Id already exists", 0)
+                return JsonResponse({"message": list(emailExists)})
+
             else:
-                if User.objects.filter(email=email).exists():
+                symbols = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
+                            "(", ")", "_", "-", "+" "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".", "?", "/"]
 
-                    emailExists = ("Email Id already exists", 0)
-                    return JsonResponse({"message": list(emailExists)})
+                if (password.isdigit()):
 
-                else:
-                    symbols = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
-                               "(", ")", "_", "-", "+" "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".", "?", "/"]
+                    passwordError = (
+                        "Password shouldn't have only numbers", 0)
+                    return JsonResponse({"message": list(passwordError)})
 
-                    if password.isdigit():
+                elif (password.isalpha()):
 
-                        passwordError = (
-                            "Password should n't have only numbers", 0)
-                        return JsonResponse({"message": list(passwordError)})
+                    passwordError = (
+                        "Password shouldn't have only alphabets", 0)
+                    return JsonResponse({"message": list(passwordError)})
 
-                    elif password.isalpha():
+                elif (password.isspace()):
 
-                        passwordError = (
-                            "Password should n't have only alphabets", 0)
-                        return JsonResponse({"message": list(passwordError)})
+                    passwordError = ("Password shouldn't have spaces", 0)
+                    return JsonResponse({"message": list(passwordError)})
 
-                    elif password.isspace():
+                uppercase = False
+                for char in password:
+                    if (char.isupper()):
+                        uppercase = True
+                        break
+                    else:
+                        uppercase = False
 
-                        passwordError = (
-                            "Password shouldn't have spaces", 0)
-                        return JsonResponse({"message": list(passwordError)})
+                if (uppercase):
 
-                    uppercase = ""
-                    for word in password:
-                        if word.isupper():
-                            uppercase = "true"
+                    hasSymbol = False
+                    for symbol in symbols:
+                        if (hasSymbol):
                             break
+
                         else:
-                            uppercase = "false"
+                            for char in password:
 
-                    if uppercase == "true":
-
-                        condition = ""
-                        for symbol in symbols:
-                            if condition == "success":
-                                break
-
-                            else:
-                                for value in password:
-
-                                    if value == symbol:
-                                        condition = "success"
-                                        break
-                                    else:
-                                        condition = "failed"
-
-                        if condition == "success":
-
-                            if len(password) < 8:
-
-                                passwordError = (
-                                    "Password must contain minimum 8 characters", 0)
-                                return JsonResponse({"message": list(passwordError)})
-
-                            else:
-                                if password == password2:
-
-                                    user = User.objects.create_user(
-                                        username=username, email=email, password=password)
-                                    user.save()
-
-                                    successMessage = (
-                                        "Success", previousURL)
-                                    return JsonResponse({"message": list(successMessage)})
-
+                                if (char == symbol):
+                                    hasSymbol = True
+                                    break
                                 else:
-                                    passwordError = (
-                                        "Passwords doesn't match", 0)
-                                    return JsonResponse({"message": list(passwordError)})
+                                    hasSymbol = False
 
-                        else:
+                    if (hasSymbol):
+
+                        if (len(password) < 8):
 
                             passwordError = (
-                                "Password must atleast have one symbol", 0)
+                                "Password must contain minimum 8 characters", 0)
                             return JsonResponse({"message": list(passwordError)})
 
-                    else:
+                        else:
+                            if password == password2:
 
+                                # Creating a new user with the credentials
+                                user = User.objects.create_user(username=username,
+                                                                email=email,
+                                                                password=password)
+                                user.save()
+
+                                successMessage = (
+                                    "Success", "Thanks for signing up. Welcome to our community")
+                                return JsonResponse({"message": list(successMessage)})
+
+                            else:
+                                passwordError = (
+                                    "Passwords doesn't match", 0)
+                                return JsonResponse({"message": list(passwordError)})
+
+                    else:
                         passwordError = (
-                            "Password must atleast contain one uppercase letter", 0)
+                            "Password must atleast have one symbol", 0)
                         return JsonResponse({"message": list(passwordError)})
 
-    else:
-        return redirect(previousURL)
+                else:
+                    passwordError = (
+                        "Password must atleast contain one uppercase letter", 0)
+                    return JsonResponse({"message": list(passwordError)})
+
+    return redirect(previousURL)
 
 
-def login(request):
+# View to authenticate the user credentials passed through request
+def authenticateUser(request):
 
-    if request.method == "POST":
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "active_form")]
+
+    # Getting the previous URL stored on the Cookies or Session object according to the condition
+    previousURL = valid_key[0]["fromPATH"] if (
+        valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
+
+    if (request.method == "POST"):
 
         user2name = request.POST["user2name"]
-        pass2word = request.POST['pass2word']
+        pass2word = request.POST["pass2word"]
 
-        if user2name == "" or pass2word == "":
+        if (user2name == "" or pass2word == ""):
 
             emptyMessage = ("Fields can't be empty", 0)
             return JsonResponse({"message": list(emptyMessage)})
 
-        # Checking the credentials in database
+        # Confirming the user credentials are a valid
         user = auth.authenticate(username=user2name, password=pass2word)
 
-        if user is not None:
+        if (user is not None):
+
+            # Authenticating the user as logged-in user
             auth.login(request, user)
 
-            # Getting the url of where login is called and creating a list with it
             successMessage = ("Success", previousURL)
             return JsonResponse({"message": list(successMessage)})
 
-        else:
-            invalidMessage = ("Credentials Invalid, please check", 0)
-            return JsonResponse({"message": list(invalidMessage)})
+        invalidMessage = ("Credentials Invalid, please check", 0)
+        return JsonResponse({"message": list(invalidMessage)})
 
     else:
         return redirect(previousURL)
 
 
-def logout(request):
+# View to logout the logged-in user
+def logoutUser(request):
 
-    auth.logout(request)
+    # Getting the previous URL stored on the Cookies
+    previousURL = request.COOKIES["previousurlpath"]
+
+    if (request.user.is_authenticated):
+        auth.logout(request)
+
     return redirect(previousURL)
 
-# -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Function for converting the collected data into a python dict, so it can be passed to HTML template
+def dataCollector(userRequest):
+
+    # Getting the current path
+    cPath = userRequest.path
+
+    # Getting the current year & Calculating a range of -80 years from now
+    running_year = TODAY.year
+
+    # Checking the current path is the parent path
+    display_footer = (cPath.count("/") == 1)
+
+    if (display_footer):
+
+        # Creating a list of key names which later used to stores some data
+        builderKeys = ["active_form",
+                       "personalDetails",
+                       "yearsOfExperience",
+                       "higherEducation",
+                       "certifications",
+                       "additionalSkills",
+                       "careerObjective",
+                       "chooseTemplates"]
+
+        # Iterating throw each item present in the session object
+        for key in builderKeys:
+
+            # Re-setting the value of item stored in the session object
+            userRequest.session[key] = {}
+
+        # Creating a python dictionary from the collected data so it can be passed to HTML template
+        dataDICT = {
+            "display_footer": display_footer,
+            "running_year": running_year
+        }
+
+    else:
+
+        # Calculating a range of -80 years from now
+        years = [year for year in range(running_year - 80, running_year + 1)]
+        years.sort(reverse=True)
+
+        # Creating a python dictionary from the collected data so it can be passed to HTML template
+        dataDICT = {
+            "display_footer": display_footer,
+            "activeLink": userRequest.session["active_form"]["link"],
+            "countries": COUNTRIES_LIST,
+            "months": [month_name[m] for m in range(1, 13)],
+            "years": years
+        }
+
+    return dataDICT
 
 
-def resetFormValue():
+# Function for converting the raw data into a '.docx' file
+def createResume(userRequest, templatePath):
 
-    # Resetting PersonalDetails Form Values
-    global first_name, last_name, current_email, phone_number, current_address, current_country, current_city, current_state, pin_code
-    first_name = ""
-    last_name = ""
-    current_email = ""
-    phone_number = ""
-    current_address = ""
-    current_country = "Country"
-    current_city = ""
-    current_state = ""
-    pin_code = ""
+    # Function to populate the defined variables in the template with user submitted values
+    def varPopulator(vars, formData, context, key):
 
-    # Resetting YearsOfExperience Form Values
-    global job_title, company_name, country_name, city_name, start_month, start_year, end_month, end_year
-    job_title = ""
-    company_name = ""
-    country_name = "Country"
-    city_name = ""
-    start_month = "Start Month"
-    start_year = "Start Year"
-    end_month = "End Month"
-    end_year = "End Year"
+        for k in formData.keys():
 
-    # Resetting HigherEducation - HighSchool Form values
-    global school_name, school_country, school_city, school_percentage, school_passedyear
-    school_name = ""
-    school_percentage = ""
-    school_passedyear = "Passed Out Year*"
-    school_country = "Country"
-    school_city = ""
+            if (k in ["highschool", "college"]):
+                context = varPopulator(vars, formData[k], context, k)
 
-    # Resetting HigherEducation - College Form values
-    global college_name, college_percentage, college_passedyear, college_degree, college_branch, college_country, college_city
-    college_name = ""
-    college_percentage = ""
-    college_passedyear = "Passed Out Year*"
-    college_degree = ""
-    college_branch = ""
-    college_country = "Country"
-    college_city = ""
+            elif (formData[k] not in PLACEHOLDER_TEXT):
 
-    # Resetting Certifications Form values
-    global certification_1, certification_2, certification_3, certification_4, certification_5, certification_6
-    certification_1 = ""
-    certification_2 = ""
-    certification_3 = ""
-    certification_4 = ""
-    certification_5 = ""
-    certification_6 = ""
+                # Creating a two letter id from the session key
+                id = key[0:2]
 
-    # Resetting Additional-Skills Form values
-    global skill_1, skill_2, skill_3, skill_4, skill_5, skill_6, skill_7, skill_8, skill_9, skill_10, skill_11, skill_12, skill_13, skill_14, skill_15, skill_16
-    skill_1 = ""
-    skill_2 = ""
-    skill_3 = ""
-    skill_4 = ""
-    skill_5 = ""
-    skill_6 = ""
-    skill_7 = ""
-    skill_8 = ""
-    skill_9 = ""
-    skill_10 = ""
-    skill_11 = ""
-    skill_12 = ""
-    skill_13 = ""
-    skill_14 = ""
-    skill_15 = ""
-    skill_16 = ""
+                # Populating the variables with their values
+                context[f"{id}_{k}"] = formData[k]
 
-    # Resetting Career-Objective Form values
-    global career_objective
-    career_objective = ""
+                # Creating uppercase keys for variables contain Uppercase values
+                kUpper = f"{id}_{k}".upper()
+                if (kUpper in vars):
+                    context[kUpper] = formData[k].upper()
 
-    # Deleting the temporary files
-    if not os.path.exists(TEMPLATES):
-        os.mkdir(TEMPLATES)
-    files = os.listdir(TEMPLATES)
+        return context
 
-    if len(files) != 0:
+    # Collecting the user-data stored in the session object
+    sessionKeys = ["personalDetails",
+                   "yearsOfExperience",
+                   "higherEducation",
+                   "certifications",
+                   "additionalSkills",
+                   "careerObjective"]
 
-        for file in files:
-            os.remove(os.path.join(TEMPLATES, file))
+    # Creating a new word document with the provided template
+    doc = DocxTemplate(templatePath)
+
+    # Getting the name of defined variables from the templates as list
+    variables = list(doc.get_undeclared_template_variables())
+
+    # Populating the variables in the template with values from the session object
+    varDICT = {}
+    for key in sessionKeys:
+
+        # Getting the data stored in the current key
+        data = userRequest.session[key]
+
+        if (type(data).__name__ == "list"):
+            varDICT[key] = data
+
+        else:
+            varDICT = varPopulator(
+                variables, userRequest.session[key], varDICT, key)
+
+    # Rendering the template with the values
+    doc.render(context=varDICT,
+               autoescape=True)
+
+    # Generating the path of user specific dir and Creating the dirs if not exists
+    USER_FILES = TEMP_DIR.joinpath(userRequest.COOKIES["sessionid"])
+    #
+    Path.mkdir(TEMP_DIR, exist_ok=True)
+    Path.mkdir(USER_FILES, exist_ok=True)
+
+    # Removing the old files from the user specific DIRS if does
+    for file in USER_FILES.iterdir():
+        file.unlink()
+
+    # Creating the path for the rendered template and Saving it
+    tempfile = USER_FILES.joinpath("resume.docx")
+    doc.save(tempfile)
+
+    # Converting the .docx -> .pdf 
+    pdffile = USER_FILES.joinpath("resume.pdf")
+    docxToPdf(tempfile, pdffile)
+
+    return str(pdffile)
+
+
+# ---------------------------------------------------------------------------------------------------------------
+
+# Assigning a variable to hold the current date & time
+TODAY = datetime.now()
+
+# Assigning a variable to hold the path to temporary files directory
+TEMP_DIR = Path(".temp")
+
+# Assigning a variable to hold the list of country names loaded from a JSON file
+COUNTRIES_LIST = load(open("Static/Assets/countries.json"))
+
+# Assigning a list to hold the placeholder text for dropdowns
+PLACEHOLDER_TEXT = ["Country",
+                    "Start Month",
+                    "Start Year",
+                    "End Month",
+                    "End Year",
+                    "Passed Out Year*"]

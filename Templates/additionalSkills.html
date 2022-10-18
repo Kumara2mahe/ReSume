@@ -1,0 +1,56 @@
+{% extends "builderTemplate.html" %}
+{% load static %}
+
+
+{% block formcontent %}
+
+<!-- Forms -Section -->
+<section class="forms-entry">
+
+    <!-- Forms Title -->
+    <h1>Add your <span class="mid-blue">Additional Skills</span> to display</h1>
+
+    <!-- Additional-Skills -Form -->
+    <form class="additional-skills-form" method="POST" autocomplete="on">
+
+        {% csrf_token %}
+
+        <!-- AdditionalSkills  -Inputs -->
+        <div class="skills-container">
+
+            {% for skill in formData %}
+            <input class="skill" type="text" value="{{ skill.name }}" placeholder="Additional Skill #{{ skill.id }}">
+            {% endfor %}
+
+        </div>
+
+        <!-- Add Skill -Button -->
+        <div class="add-more">
+            <a><img src="{% static 'Assets/Images/add.png' %}"> <span>Add &nbsp;Skill</span></a>
+        </div>
+
+        <!-- Button -Section -->
+        <div class="form-buttons">
+            <input type="button" class="back-button" value="Back">
+            <input type="submit" class="continue-button" value="Continue">
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}
+
+
+{% block tipscontent %}
+
+<!-- Tips -Content -->
+<ul>
+    <li>You should include specific skills including language, technology, equipment, software, and
+        other quantifiable abilites you've learned through your studies or previous work
+        experiences.</li>
+    <li>Always choose skills that are relevant to the job(s) that you're appling for.</li>
+    <li>We recommend adding 3-6 skills.</li>
+</ul>
+
+{% endblock %}

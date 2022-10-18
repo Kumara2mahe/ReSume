@@ -42,7 +42,7 @@
                 <!-- School Name -Section -->
                 <div class="name-section">
 
-                    <input class="school_name" type="text" name="schoolname" value="{{ highschool.school_name }}"
+                    <input class="school_name" type="text" name="schoolname" value="{{ formData.highschool.name }}"
                         placeholder="High School Name*">
 
                 </div>
@@ -50,15 +50,14 @@
                 <!-- Percentage & PassedYear -Section -->
                 <div class="grade-passedyear">
 
-                    <input class="percent_grade" type="text" name="percentgrade" value="{{ highschool.school_grade }}"
+                    <input class="percent_grade" type="text" name="percentgrade" value="{{ formData.highschool.grade }}"
                         placeholder="CGPA / Percentage">
 
                     <!-- PassedYear -Dropdown -->
                     <select class="passed_year" type="text" name="passedyear">
 
                         <!-- Default Option -->
-                        <option value="{{ highschool.school_passedyear }}" selected hidden>
-                            {{ highschool.school_passedyear }}</option>
+                        <option value="{{ formData.highschool.passed_year }}" selected hidden>{{ formData.highschool.passed_year }}</option>
 
                         {% for year in years %}
                         <option value="{{ year }}">{{ year }}</option>
@@ -75,8 +74,7 @@
                     <select class="country_name" type="text" name="countryname">
 
                         <!-- Default Option -->
-                        <option value="{{ highschool.school_country }}" selected hidden>{{ highschool.school_country }}
-                        </option>
+                        <option value="{{ formData.highschool.country }}" selected hidden>{{ formData.highschool.country }}</option>
 
                         {% for country in countries %}
                         <option value="{{ country.name }}">{{ country.name }}</option>
@@ -84,7 +82,7 @@
 
                     </select>
 
-                    <input class="city_name" type="text" name="cityname" value="{{ highschool.school_city }}"
+                    <input class="city_name" type="text" name="cityname" value="{{ formData.highschool.city }}"
                         placeholder="City">
 
                 </div>
@@ -93,7 +91,6 @@
                 <div class="form-buttons">
 
                     <input type="button" class="back-button" value="Back">
-
                     <input type="submit" class="continue-button" value="Continue">
 
                 </div>
@@ -109,7 +106,7 @@
                 <!-- College / University Name -Section -->
                 <div class="name-section">
 
-                    <input class="college_name" type="text" name="collegename" value="{{ college.college_name }}"
+                    <input class="college_name" type="text" name="collegename" value="{{ formData.college.name }}"
                         placeholder="College or University Name*">
 
                 </div>
@@ -117,15 +114,14 @@
                 <!-- Percentage & PassedYear -Section -->
                 <div class="grade-passedyear">
 
-                    <input class="percent_grade" type="text" name="percentgrade" value="{{ college.college_grade }}"
+                    <input class="percent_grade" type="text" name="percentgrade" value="{{ formData.college.grade }}"
                         placeholder="CGPA / Percentage">
 
                     <!-- PassedYear -Dropdown -->
                     <select class="passed_year" type="text" name="passedyear">
 
                         <!-- Default Option -->
-                        <option value="{{ college.college_passedyear }}" selected hidden>
-                            {{ college.college_passedyear }}</option>
+                        <option value="{{ formData.college.passed_year }}" selected hidden>{{ formData.college.passed_year }}</option>
 
                         {% for year in years %}
                         <option value="{{ year }}">{{ year }}</option>
@@ -138,7 +134,7 @@
                 <!-- Degree / Program -Section -->
                 <div class="college-degree">
 
-                    <input class="college_degree" type="text" name="collegedegree" value="{{ college.college_degree }}"
+                    <input class="college_degree" type="text" name="collegedegree" value="{{ formData.college.degree }}"
                         placeholder="Degree or Program*">
 
                 </div>
@@ -146,7 +142,7 @@
                 <!-- Field of Study -Section -->
                 <div class="college-branch">
 
-                    <input class="college_branch" type="text" name="collegebranch" value="{{ college.college_branch }}"
+                    <input class="college_branch" type="text" name="collegebranch" value="{{ formData.college.branch }}"
                         placeholder="Field of Study*">
 
                 </div>
@@ -158,8 +154,7 @@
                     <select class="country_name" type="text" name="countryname">
 
                         <!-- Default Option -->
-                        <option value="{{ college.college_country }}" selected hidden>{{ college.college_country }}
-                        </option>
+                        <option value="{{ formData.college.country }}" selected hidden>{{ formData.college.country }}</option>
 
                         {% for country in countries %}
                         <option value="{{ country.name }}">{{ country.name }}</option>
@@ -167,7 +162,7 @@
 
                     </select>
 
-                    <input class="city_name" type="text" name="cityname" value="{{ college.college_city }}"
+                    <input class="city_name" type="text" name="cityname" value="{{ formData.college.city }}"
                         placeholder="City">
 
                 </div>
@@ -176,7 +171,6 @@
                 <div class="form-buttons">
 
                     <input type="button" class="back-button" value="Back">
-
                     <input type="submit" class="continue-button" value="Continue">
 
                 </div>

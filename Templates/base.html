@@ -17,14 +17,14 @@
     {% if request.path == "/contact" %}
     <link rel="stylesheet" href="{% static 'Assets/CSS/contact.css' %}">
     <script type="module" src="{% static 'Assets/JavaScript/feedback.js' %}"></script>
-    {% elif request.path == "/resume-builder/getting-started" %}
+    {% elif request.path == "/builder" %}
     <link rel="stylesheet" href="{% static 'Assets/CSS/builder.css' %}">
     <script type="module" src="{% static 'Assets/JavaScript/progressbar.js' %}"></script>
-    {% elif request.path != "/" and request.path != "/about" and request.path != "/resume-builder/templates" %}
+    {% elif display_footer is False and request.path != "/builder/choose-templates" %}
     <link rel="stylesheet" href="{% static 'Assets/CSS/builderTemplate.css' %}">
     <script type="module" src="{% static 'Assets/JavaScript/sideNavbar.js' %}"></script>
     <script type="module" src="{% static 'Assets/JavaScript/tips_advice.js' %}"></script>
-    {% elif request.path != "/" and request.path != "/about" %}
+    {% elif display_footer is False %}
     <link rel="stylesheet" href="{% static 'Assets/CSS/templates.css' %}">
     <script type="module" src="{% static 'Assets/JavaScript/templateSlider.js' %}"></script>
     {% endif %}
@@ -54,10 +54,8 @@
                     <img src="{% static 'Assets/Images/logo.png' %}"
                         alt="Webpage's main logo represents the first three letters of resume as 'Res'">
                     <div class="menubar title">
-
                         <h2>Re-Sume</h2>
                         <p>Online Resume-Builder</p>
-
                     </div>
                 </a>
 
@@ -68,21 +66,19 @@
 
                 <h3><a href="{% url 'home' %}">Home</a></h3>
                 <h3><a href="{% url 'about' %}">About</a></h3>
-                <h3><a href="{% url 'getting-started' %}">Build</a></h3>
+                <h3><a href="{% url 'builder' %}">Build</a></h3>
                 <h3><a href="{% url 'contact' %}">Contact</a></h3>
 
                 {% if user.is_authenticated %}
-
                 <h3 class="user-profile">
                     <img src="{% static 'Assets/Images/profile.png' %}"
                         alt="showing image of a default profile picture for larger screens representing a person">&nbsp;<span>^</span>
                 </h3>
                 <div class="profile-options hide">
-                    <a href="{% url 'logout' %}">logout</a>
+                    <a href="{% url 'logout-user' %}">logout</a>
                 </div>
 
                 {% else %}
-
                 <h3><a class="sign-up">Sign Up</a></h3>
 
                 {% endif %}
@@ -201,10 +197,13 @@
             <!-- Close button & Profile -->
             <div class="top-container">
                 <a class="close-menu">&#88;</a>
+
+                {% if user.is_authenticated %}
                 <a class="user-profile">
                     <img src="{% static 'Assets/Images/profile.png' %}"
                         alt="showing image of a default profile picture for smaller screens representing a person">
                 </a>
+                {% endif %}
             </div>
 
             <!-- Page links -->
@@ -212,15 +211,13 @@
 
                 <a class="home-link inactive" href="{% url 'home' %}">Home</a>
                 <a class="about-link inactive" href="{% url 'about' %}">About</a>
-                <a class="builder-link inactive" href="{% url 'getting-started' %}">Build</a>
+                <a class="builder-link inactive" href="{% url 'builder' %}">Build</a>
                 <a class="contact-link inactive" href="{% url 'contact' %}">Contact</a>
 
                 {% if user.is_authenticated %}
-
-                <a class="logout-link inactive" href="{% url 'logout' %}">logout</a>
+                <a class="logout-link inactive" href="{% url 'logout-user' %}">logout</a>
 
                 {% else %}
-
                 <a class="signup-link inactive">Sign Up</a>
 
                 {% endif %}
@@ -234,11 +231,11 @@
 
     {% endblock %}
 
-    {% if request.path == "/" or request.path == "/about" or request.path == "/contact" or request.path == "/resume-builder/getting-started" %}
+    {% if display_footer %}
 
     <footer>
 
-        {% if request.path != "/resume-builder/getting-started" %}
+        {% if request.path != "/builder" %}
 
         <!-- Bottom-Info | Title-Logo -->
         <div class="bottom-info logo">
@@ -250,10 +247,8 @@
                 </figure>
 
                 <div class="bottom-logo-title">
-
                     <h2>Re-Sume</h2>
                     <p>Online Resume-Builder</p>
-
                 </div>
             </a>
 
@@ -306,7 +301,7 @@
         <!-- Bottom-Info | CopyRights -->
         <div class="bottom-info copyrights">
 
-            <p>&copy; |year| RES resume . All Rights Reserved</p>
+            <p>&copy; {{ running_year }} RES resume . All Rights Reserved</p>
             <div class="links">
 
                 <a href="{% url 'about' %}">About Us</a>
@@ -315,13 +310,6 @@
                 <a href="">Privacy</a>
 
             </div>
-
-            <script>
-                // Script for automatically changing the year in copyrights
-                let copyrights = document.querySelector("footer .bottom-info.copyrights p")
-                let currentYear = new Date().getFullYear()
-                copyrights.innerHTML = copyrights.innerHTML.replace("|year|", currentYear)
-            </script>
 
         </div>
 

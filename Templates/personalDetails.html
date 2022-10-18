@@ -18,10 +18,10 @@
         <!-- First & Last name -Section -->
         <div class="firstname-lastname">
 
-            <input class="first_name" type="text" name="firstname" value="{{ detail.first_name }}"
+            <input class="first_name" type="text" name="firstname" value="{{ formData.first_name }}"
                 placeholder="First Name*" autocomplete="name">
 
-            <input class="last_name" type="text" name="lastname" value="{{ detail.last_name }}" placeholder="Last Name*"
+            <input class="last_name" type="text" name="lastname" value="{{ formData.last_name }}" placeholder="Last Name*"
                 autocomplete="name">
 
         </div>
@@ -29,10 +29,10 @@
         <!-- Email & Phone -Section -->
         <div class="email-phone">
 
-            <input class="current_email" type="email" name="currentemail" value="{{ detail.current_email }}"
+            <input class="current_email" type="email" name="currentemail" value="{{ formData.current_email }}"
                 placeholder="Email*" autocomplete="email">
 
-            <input class="phone_number" type="tel" name="phonenumber" value="{{ detail.phone_number }}"
+            <input class="phone_number" type="tel" name="phonenumber" value="{{ formData.phone_number }}"
                 placeholder="Phone" autocomplete="mobile">
 
         </div>
@@ -41,7 +41,7 @@
         <div class="text-container physical-address">
 
             <textarea class="current_address" type="text" name="currentaddress" placeholder="Address"
-                autocomplete="street-address">{{ detail.current_address }}</textarea>
+                autocomplete="street-address">{{ formData.current_address }}</textarea>
 
         </div>
 
@@ -50,10 +50,9 @@
 
             <!-- Country -Dropdown -->
             <select class="current_country" type="text" name="currentcountry">
-                <!--#767270 => #918C89-->
 
                 <!-- Default Option -->
-                <option value="{{ detail.current_country }}" selected hidden>{{ detail.current_country }}</option>
+                <option value="{{ formData.current_country }}" selected hidden>{{ formData.current_country }}</option>
 
                 {% for country in countries %}
                 <option value="{{ country.name }}">{{ country.name }}</option>
@@ -61,7 +60,7 @@
 
             </select>
 
-            <input class="current_city" type="text" name="currentcity" value="{{ detail.current_city }}"
+            <input class="current_city" type="text" name="currentcity" value="{{ formData.current_city }}"
                 placeholder="City">
 
         </div>
@@ -69,10 +68,10 @@
         <!-- State Name & PinCode -Section -->
         <div class="state-pincode">
 
-            <input class="current_state" type="text" name="currentstate" value="{{ detail.current_state }}"
+            <input class="current_state" type="text" name="currentstate" value="{{ formData.current_state }}"
                 placeholder="State/Province">
 
-            <input class="pin_code" type="text" name="pincode" value="{{ detail.pin_code }}" placeholder="Pincode"
+            <input class="pin_code" type="text" name="pincode" value="{{ formData.pin_code }}" placeholder="Pincode"
                 autocomplete="postal-code">
 
         </div>

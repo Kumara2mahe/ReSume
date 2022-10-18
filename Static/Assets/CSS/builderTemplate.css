@@ -472,38 +472,6 @@ header .fixed-menubar {
 
 /* --- Add Option | Styles --- */
 
-
-.forms-content-section .forms-entry .certifications-form .add-more .warning,
-.forms-content-section .forms-entry .additional-skills-form .add-more .warning {
-    margin: 0 15px;
-    color: rgba(252, 25, 25, 0.7);
-}
-
-.forms-content-section .forms-entry .certifications-form .certification_2.hide,
-.forms-content-section .forms-entry .certifications-form .certification_3.hide,
-.forms-content-section .forms-entry .certifications-form .certification_4.hide,
-.forms-content-section .forms-entry .certifications-form .certification_5.hide,
-.forms-content-section .forms-entry .certifications-form .certification_6.hide,
-.forms-content-section .forms-entry .certifications-form .add-more a.hide,
-.forms-content-section .forms-entry .certifications-form .add-more .warning.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_4.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_5.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_6.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_7.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_8.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_9.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_10.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_11.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_12.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_13.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_14.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_15.hide,
-.forms-content-section .forms-entry .additional-skills-form .skill_16.hide,
-.forms-content-section .forms-entry .additional-skills-form .add-more a.hide,
-.forms-content-section .forms-entry .additional-skills-form .add-more .warning.hide {
-    display: none;
-}
-
 .forms-content-section .edit-container .add-education,
 .forms-content-section .forms-entry .certifications-form .add-more,
 .forms-content-section .forms-entry .additional-skills-form .add-more,

@@ -9,7 +9,7 @@ def main():
     """Run administrative tasks."""
     load_dotenv()
     if not os.getenv("DJANGO_SETTINGS_MODULE"):
-        os.environ["DJANGO_SETTINGS_MODULE"] = "mainApp.settings.local"
+        os.environ["DJANGO_SETTINGS_MODULE"] = "ReSume.settings.local"
 
     try:
         from django.core.management import execute_from_command_line

@@ -18,30 +18,15 @@
         <!-- Certifications -Inputs -->
         <div class="skills-container">
 
-            <input class="certification_1" type="text" name="certification1" value="{{certifications.certification_1}}"
-                placeholder="License / Certification #1">
-
-            <input class="certification_2 hide" type="text" name="certification2"
-                value="{{certifications.certification_2}}" placeholder="License / Certification #2">
-
-            <input class="certification_3 hide" type="text" name="certification3"
-                value="{{certifications.certification_3}}" placeholder="License / Certification #3">
-
-            <input class="certification_4 hide" type="text" name="certification4"
-                value="{{certifications.certification_4}}" placeholder="License / Certification #4">
-
-            <input class="certification_5 hide" type="text" name="certification5"
-                value="{{certifications.certification_5}}" placeholder="License / Certification #5">
-
-            <input class="certification_6 hide" type="text" name="certification6"
-                value="{{certifications.certification_6}}" placeholder="License / Certification #6">
+            {% for certi in formData %}
+            <input class="skill" type="text" value="{{ certi.name }}" placeholder="License / Certification #{{ certi.id }}">
+            {% endfor %}
 
         </div>
 
         <!-- Add Certification -Button -->
         <div class="add-more">
             <a><img src="{% static 'Assets/Images/add.png' %}"> <span>Add &nbsp;Licence / Certification</span></a>
-            <p class="warning hide">Only 6 certifications can be added</p>
         </div>
 
         <!-- Button -Section -->

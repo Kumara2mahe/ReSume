@@ -41,7 +41,8 @@
     <!-- BuilderPage (Begin) Button -->
     <section class="continue-button">
 
-        <form method="GET" action="{% url 'personal-details' %}">
+        <form method="POST" action="{% url 'builder' %}">
+            {% csrf_token %}
             <input type="submit" value="Let's Begin">
         </form>
 

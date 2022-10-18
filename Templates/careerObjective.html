@@ -31,14 +31,14 @@
             <div class="objective-container">
 
                 <textarea class="career_objective" type="text" name="careerobjective"
-                    placeholder="Add your Career Objective">{{ objectives }}</textarea>
+                    placeholder="Add your Career Objective">{{ formData.objective }}</textarea>
 
             </div>
 
             <!-- Show Career-Objective -CheckBox -->
             <div class="skip-or-show-objective">
 
-                {% if objectives %}
+                {% if formData.include %}
                 <label><input class="show_objective" type="checkbox" name="showobjective" checked>I want to include a
                     Career Objective on my resume</label>
 
