@@ -77,7 +77,8 @@ def builder(request):
 
         # Updating the specific key's value in session object
         request.session["active_form"] = {"fromPATH": request.path,
-                                          "link": None,}
+                                          "link": None,
+                                          "devicewidth": int(request.POST["screenwidth"])}
 
         return redirect("/builder/personal-details")
 
@@ -101,482 +102,570 @@ def personalDetails(request):
     valid_key = [request.session[key]
                  for key in request.session.keys() if (key == "active_form")]
 
-    if (request.method == "POST"):
+    statusCode = 403
+    if (valid_key and valid_key[0] and valid_key[0]["devicewidth"] > 677):
 
-        first_name = request.POST["firstname"]
-        last_name = request.POST["lastname"]
-        current_email = request.POST["currentemail"]
-        phone_number = request.POST["phonenumber"]
-        current_address = request.POST["currentaddress"]
-        current_country = request.POST.get("currentcountry")
-        current_city = request.POST["currentcity"]
-        current_state = request.POST["currentstate"]
-        pin_code = request.POST["pincode"]
+        if (request.method == "POST"):
 
-        if (first_name == ""):
-            emptyMessage = ("first_name", 0)
-            return JsonResponse({"message": list(emptyMessage)})
+            first_name = request.POST["firstname"]
+            last_name = request.POST["lastname"]
+            current_email = request.POST["currentemail"]
+            phone_number = request.POST["phonenumber"]
+            current_address = request.POST["currentaddress"]
+            current_country = request.POST.get("currentcountry")
+            current_city = request.POST["currentcity"]
+            current_state = request.POST["currentstate"]
+            pin_code = request.POST["pincode"]
 
-        elif (last_name == ""):
-            emptyMessage = ("last_name", 0)
-            return JsonResponse({"message": list(emptyMessage)})
+            if (first_name == ""):
+                emptyMessage = ("first_name", 0)
+                return JsonResponse({"message": list(emptyMessage)})
 
-        elif (current_email == ""):
-            emptyMessage = ("current_email", 0)
-            return JsonResponse({"message": list(emptyMessage)})
+            elif (last_name == ""):
+                emptyMessage = ("last_name", 0)
+                return JsonResponse({"message": list(emptyMessage)})
 
-        else:
+            elif (current_email == ""):
+                emptyMessage = ("current_email", 0)
+                return JsonResponse({"message": list(emptyMessage)})
 
-            # Updating the initial values of the form present in current URL with user filled data
+            else:
+
+                # Updating the initial values of the form present in current URL with user filled data
+                request.session["personalDetails"] = {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "current_email": current_email,
+                    "phone_number": phone_number,
+                    "current_address": current_address,
+                    "current_country": current_country,
+                    "current_city": current_city,
+                    "current_state": current_state,
+                    "pin_code": pin_code
+                }
+
+                successMessage = ("Verified", "/builder/years-of-experience")
+                return JsonResponse({"message": list(successMessage)})
+
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
+
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["personalDetails"]):
+
             request.session["personalDetails"] = {
-                "first_name": first_name,
-                "last_name": last_name,
-                "current_email": current_email,
-                "phone_number": phone_number,
-                "current_address": current_address,
-                "current_country": current_country,
-                "current_city": current_city,
-                "current_state": current_state,
-                "pin_code": pin_code
+                "first_name": "",
+                "last_name": "",
+                "current_email": "",
+                "phone_number": "",
+                "current_address": "",
+                "current_country": PLACEHOLDER_TEXT[0],
+                "current_city": "",
+                "current_state": "",
+                "pin_code": ""
             }
 
-            successMessage = ("Verified", "/builder/years-of-experience")
-            return JsonResponse({"message": list(successMessage)})
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (valid_key[0]["link"] is None):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["personalDetails"]
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["personalDetails"]):
+        return render(request, "personalDetails.html", tempDICT)
 
-        request.session["personalDetails"] = {
-            "first_name": "",
-            "last_name": "",
-            "current_email": "",
-            "phone_number": "",
-            "current_address": "",
-            "current_country": PLACEHOLDER_TEXT[0],
-            "current_city": "",
-            "current_state": "",
-            "pin_code": ""
-        }
+    elif (valid_key and valid_key[0] and valid_key[0]["devicewidth"] < 678):
+        statusCode = 400
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (valid_key[0]["link"] is None):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE, {"statuscode": statusCode})
+    response.status_code = statusCode
 
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["personalDetails"]
-
-    return render(request, "personalDetails.html", tempDICT)
+    return response
 
 
 # Views to render the YearOfExperience-Page
 def yearsofexperience(request):
 
-    if (request.method == "POST"):
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "personalDetails")]
 
-        job_title = request.POST["jobtitle"]
-        company_name = request.POST["companyname"]
-        country_name = request.POST["countryname"]
-        city_name = request.POST["cityname"]
-        start_month = request.POST["startmonth"]
-        start_year = request.POST["startyear"]
-        end_month = request.POST["endmonth"]
-        end_year = request.POST["endyear"]
+    if (valid_key and valid_key[0]):
 
-        if (job_title == "" or company_name == ""):
-            emptyMessage = ("Empty", "/builder/higher-education")
-            return JsonResponse({"message": list(emptyMessage)})
+        if (request.method == "POST"):
 
-        else:
+            job_title = request.POST["jobtitle"]
+            company_name = request.POST["companyname"]
+            country_name = request.POST["countryname"]
+            city_name = request.POST["cityname"]
+            start_month = request.POST["startmonth"]
+            start_year = request.POST["startyear"]
+            end_month = request.POST["endmonth"]
+            end_year = request.POST["endyear"]
 
-            # Updating the initial values of the form present in current URL with user filled data
+            if (job_title == "" or company_name == ""):
+                emptyMessage = ("Empty", "/builder/higher-education")
+                return JsonResponse({"message": list(emptyMessage)})
+
+            else:
+
+                # Updating the initial values of the form present in current URL with user filled data
+                request.session["yearsOfExperience"] = {
+                    "job_title": job_title,
+                    "company_name": company_name,
+                    "country_name": country_name,
+                    "city_name": city_name,
+                    "start_month": start_month,
+                    "start_year": start_year,
+                    "end_month": end_month,
+                    "end_year": end_year
+                }
+
+                successMessage = (
+                    "Notempty", "/builder/higher-education")
+                return JsonResponse({"message": list(successMessage)})
+
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
+
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["yearsOfExperience"]):
+
+            # Setting the initial values for the form present in current URL
             request.session["yearsOfExperience"] = {
-                "job_title": job_title,
-                "company_name": company_name,
-                "country_name": country_name,
-                "city_name": city_name,
-                "start_month": start_month,
-                "start_year": start_year,
-                "end_month": end_month,
-                "end_year": end_year
+                "job_title": "",
+                "company_name": "",
+                "country_name": PLACEHOLDER_TEXT[0],
+                "city_name": "",
+                "start_month": PLACEHOLDER_TEXT[1],
+                "start_year": PLACEHOLDER_TEXT[2],
+                "end_month": PLACEHOLDER_TEXT[3],
+                "end_year": PLACEHOLDER_TEXT[4]
             }
 
-            successMessage = (
-                "Notempty", "/builder/higher-education")
-            return JsonResponse({"message": list(successMessage)})
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "personal-details"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["yearsOfExperience"]
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["yearsOfExperience"]):
+        return render(request, "yearsofexperience.html", tempDICT)
 
-        # Setting the initial values for the form present in current URL
-        request.session["yearsOfExperience"] = {
-            "job_title": "",
-            "company_name": "",
-            "country_name": PLACEHOLDER_TEXT[0],
-            "city_name": "",
-            "start_month": PLACEHOLDER_TEXT[1],
-            "start_year": PLACEHOLDER_TEXT[2],
-            "end_month": PLACEHOLDER_TEXT[3],
-            "end_year": PLACEHOLDER_TEXT[4]
-        }
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "personal-details"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
-
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["yearsOfExperience"]
-
-    return render(request, "yearsofexperience.html", tempDICT)
+    return response
 
 
 # View to render the HigherEducation Page
 def higherEducation(request):
 
-    if (request.method == "POST"):
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "yearsOfExperience")]
 
-        form_name = request.POST["formname"]
-        name = request.POST["name"]
-        grade = request.POST["grade"]
-        passed_year = request.POST["passedyear"]
-        country = request.POST["country"]
-        city = request.POST["city"]
+    if (valid_key and valid_key[0]):
 
-        if (name == ""):
-            emptyMessage = ("emptyname", form_name)
-            return JsonResponse({"message": list(emptyMessage)})
+        if (request.method == "POST"):
 
-        elif (passed_year == "Passed Out Year*"):
-            emptyMessage = ("emptyyear", form_name)
-            return JsonResponse({"message": list(emptyMessage)})
+            form_name = request.POST["formname"]
+            name = request.POST["name"]
+            grade = request.POST["grade"]
+            passed_year = request.POST["passedyear"]
+            country = request.POST["country"]
+            city = request.POST["city"]
 
-        elif (form_name == "highschool"):
+            if (name == ""):
+                emptyMessage = ("emptyname", form_name)
+                return JsonResponse({"message": list(emptyMessage)})
 
-            # Getting the values of College form
-            college = request.session["higherEducation"]["college"]
+            elif (passed_year == "Passed Out Year*"):
+                emptyMessage = ("emptyyear", form_name)
+                return JsonResponse({"message": list(emptyMessage)})
 
-            # Updating the initial values of the highschool form present in current URL with user filled data
+            elif (form_name == "highschool"):
+
+                # Getting the values of College form
+                college = request.session["higherEducation"]["college"]
+
+                # Updating the initial values of the highschool form present in current URL with user filled data
+                request.session["higherEducation"] = {
+                    "highschool": {
+                        "name": name,
+                        "grade": grade,
+                        "passed_year": passed_year,
+                        "country": country,
+                        "city": city
+                    },
+                    "college": {
+                        "name": college["name"],
+                        "grade": college["grade"],
+                        "passed_year": college["passed_year"],
+                        "degree": college["degree"],
+                        "branch": college["branch"],
+                        "country": college["country"],
+                        "city": college["city"]
+                    }
+                }
+
+            elif (form_name == "college"):
+
+                degree = request.POST["degree"]
+                branch = request.POST["branch"]
+
+                if (degree == ""):
+                    emptyMessage = ("emptydegree", form_name)
+                    return JsonResponse({"message": list(emptyMessage)})
+
+                elif (branch == ""):
+                    emptyMessage = ("emptybranch", form_name)
+                    return JsonResponse({"message": list(emptyMessage)})
+
+                # Getting the values of HighSchool form
+                highschool = request.session["higherEducation"]["highschool"]
+
+                # Updating the initial values of the college form present in current URL with user filled data
+                request.session["higherEducation"] = {
+                    "highschool": {
+                        "name": highschool["name"],
+                        "grade": highschool["grade"],
+                        "passed_year": highschool["passed_year"],
+                        "country": highschool["country"],
+                        "city": highschool["city"]
+                    },
+                    "college": {
+                        "name": name,
+                        "grade": grade,
+                        "passed_year": passed_year,
+                        "degree": degree,
+                        "branch": branch,
+                        "country": country,
+                        "city": city
+                    }
+                }
+
+            successMessage = ("Verified", 0)
+            return JsonResponse({"message": list(successMessage)})
+
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
+
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["higherEducation"]):
+
+            # Setting the initial values for the form present in current URL
             request.session["higherEducation"] = {
                 "highschool": {
-                    "name": name,
-                    "grade": grade,
-                    "passed_year": passed_year,
-                    "country": country,
-                    "city": city
+                    "name": "",
+                    "grade": "",
+                    "passed_year": PLACEHOLDER_TEXT[5],
+                    "country": PLACEHOLDER_TEXT[0],
+                    "city": ""
                 },
                 "college": {
-                    "name": college["name"],
-                    "grade": college["grade"],
-                    "passed_year": college["passed_year"],
-                    "degree": college["degree"],
-                    "branch": college["branch"],
-                    "country": college["country"],
-                    "city": college["city"]
+                    "name": "",
+                    "grade": "",
+                    "passed_year": PLACEHOLDER_TEXT[5],
+                    "degree": "",
+                    "branch": "",
+                    "country": PLACEHOLDER_TEXT[0],
+                    "city": ""
                 }
             }
 
-        elif (form_name == "college"):
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "years-of-experience"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
 
-            degree = request.POST["degree"]
-            branch = request.POST["branch"]
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["higherEducation"]
 
-            if (degree == ""):
-                emptyMessage = ("emptydegree", form_name)
-                return JsonResponse({"message": list(emptyMessage)})
+        return render(request, "higherEducation.html", tempDICT)
 
-            elif (branch == ""):
-                emptyMessage = ("emptybranch", form_name)
-                return JsonResponse({"message": list(emptyMessage)})
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
 
-            # Getting the values of HighSchool form
-            highschool = request.session["higherEducation"]["highschool"]
-
-            # Updating the initial values of the college form present in current URL with user filled data
-            request.session["higherEducation"] = {
-                "highschool": {
-                    "name": highschool["name"],
-                    "grade": highschool["grade"],
-                    "passed_year": highschool["passed_year"],
-                    "country": highschool["country"],
-                    "city": highschool["city"]
-                },
-                "college": {
-                    "name": name,
-                    "grade": grade,
-                    "passed_year": passed_year,
-                    "degree": degree,
-                    "branch": branch,
-                    "country": country,
-                    "city": city
-                }
-            }
-
-        successMessage = ("Verified", 0)
-        return JsonResponse({"message": list(successMessage)})
-
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
-
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["higherEducation"]):
-
-        # Setting the initial values for the form present in current URL
-        request.session["higherEducation"] = {
-            "highschool": {
-                "name": "",
-                "grade": "",
-                "passed_year": PLACEHOLDER_TEXT[5],
-                "country": PLACEHOLDER_TEXT[0],
-                "city": ""
-            },
-            "college": {
-                "name": "",
-                "grade": "",
-                "passed_year": PLACEHOLDER_TEXT[5],
-                "degree": "",
-                "branch": "",
-                "country": PLACEHOLDER_TEXT[0],
-                "city": ""
-            }
-        }
-
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "years-of-experience"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
-
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["higherEducation"]
-
-    return render(request, "higherEducation.html", tempDICT)
+    return response
 
 
 # View to render the Certifications Page
 def certifications(request):
 
-    INPUT_COUNT = 2
-    if (request.method == "POST"):
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "higherEducation")]
 
-        # Getting all the certificates passed as a list
-        all_certificates = request.POST.getlist("skills[]")
+    if (valid_key and valid_key[0]):
 
-        newValues = []
-        for n, data in enumerate(all_certificates):
-            newValues.append({"name": data,
-                                "id": n + 1})
+        INPUT_COUNT = 2
+        if (request.method == "POST"):
 
-        # Filling a dummy value when the length is between '0-2'
-        val_length = len(all_certificates)
-        if (val_length >= 0 and val_length < 2):
+            # Getting all the certificates passed as a list
+            all_certificates = request.POST.getlist("skills[]")
 
-            for n in range(val_length, INPUT_COUNT):
-                newValues.append({"name": "",
-                                    "id": n + 1})
+            newValues = []
+            for n, data in enumerate(all_certificates):
+                newValues.append({"name": data,
+                                  "id": n + 1})
 
-        # Updating the initial values of the form present in current URL with user filled data
-        request.session["certifications"] = newValues
+            # Filling a dummy value when the length is between '0-2'
+            val_length = len(all_certificates)
+            if (val_length >= 0 and val_length < 2):
 
-        successMessage = ("Success", "/builder/additional-skills")
-        return JsonResponse({"message": list(successMessage)})
+                for n in range(val_length, INPUT_COUNT):
+                    newValues.append({"name": "",
+                                      "id": n + 1})
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+            # Updating the initial values of the form present in current URL with user filled data
+            request.session["certifications"] = newValues
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["certifications"]):
+            successMessage = ("Success", "/builder/additional-skills")
+            return JsonResponse({"message": list(successMessage)})
 
-        defaultValues = []
-        for n in range(INPUT_COUNT):
-            defaultValues.append({"name": "",
-                                    "id": n + 1})
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
 
-        # Setting the initial values for the form present in current URL
-        request.session["certifications"] = defaultValues
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["certifications"]):
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "higher-education"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
+            defaultValues = []
+            for n in range(INPUT_COUNT):
+                defaultValues.append({"name": "",
+                                      "id": n + 1})
 
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["certifications"]
+            # Setting the initial values for the form present in current URL
+            request.session["certifications"] = defaultValues
 
-    return render(request, "certifications.html", tempDICT)
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "higher-education"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
+
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["certifications"]
+
+        return render(request, "certifications.html", tempDICT)
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
+
+    return response
 
 
 # View to render the AdditionalSkills Page
 def additionalSkills(request):
 
-    INPUT_COUNT = 3
-    if (request.method == "POST"):
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "certifications")]
 
-        # Getting all the skills passed as a list
-        all_skills = request.POST.getlist("skills[]")
+    if (valid_key and valid_key[0]):
 
-        newValues = []
-        for n, data in enumerate(all_skills):
-            newValues.append({"name": data,
-                                "id": n + 1})
+        INPUT_COUNT = 3
+        if (request.method == "POST"):
 
-        # Updating the initial values of the form present in current URL with user filled data
-        request.session["additionalSkills"] = newValues
+            # Getting all the skills passed as a list
+            all_skills = request.POST.getlist("skills[]")
 
-        successMessage = ("Success", "/builder/career-objective")
-        return JsonResponse({"message": list(successMessage)})
+            newValues = []
+            for n, data in enumerate(all_skills):
+                newValues.append({"name": data,
+                                  "id": n + 1})
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+            # Updating the initial values of the form present in current URL with user filled data
+            request.session["additionalSkills"] = newValues
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["additionalSkills"]):
+            successMessage = ("Success", "/builder/career-objective")
+            return JsonResponse({"message": list(successMessage)})
 
-        defaultValues = []
-        for n in range(INPUT_COUNT):
-            defaultValues.append({"name": "",
-                                    "id": n + 1})
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
 
-        # Setting the initial values for the form present in current URL
-        request.session["additionalSkills"] = defaultValues
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["additionalSkills"]):
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "certifications"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
+            defaultValues = []
+            for n in range(INPUT_COUNT):
+                defaultValues.append({"name": "",
+                                      "id": n + 1})
 
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["additionalSkills"]
+            # Setting the initial values for the form present in current URL
+            request.session["additionalSkills"] = defaultValues
 
-    return render(request, "additionalSkills.html", tempDICT)
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "certifications"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
+
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["additionalSkills"]
+
+        return render(request, "additionalSkills.html", tempDICT)
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
+
+    return response
 
 
 # View to render the CareerObjective Page
 def careerObjective(request):
 
-    if (request.method == "POST"):
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "additionalSkills")]
 
-        # Getting all the values passed as a dict
-        career_objective = request.POST["careerobjective"]
-        show_objective = request.POST["showobjective"]
+    if (valid_key and valid_key[0]):
 
-        # Updating the initial values of the form present in current URL with user filled data
-        request.session["careerObjective"] = {
-            "objective": career_objective,
-            "include": True if (show_objective == "true") else False,
-        }
+        if (request.method == "POST"):
 
-        successMessage = ("Success", "/builder/choose-templates")
-        return JsonResponse({"message": list(successMessage)})
+            # Getting all the values passed as a dict
+            career_objective = request.POST["careerobjective"]
+            show_objective = request.POST["showobjective"]
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+            # Updating the initial values of the form present in current URL with user filled data
+            request.session["careerObjective"] = {
+                "objective": career_objective,
+                "include": True if (show_objective == "true") else False,
+            }
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["careerObjective"]):
+            successMessage = ("Success", "/builder/choose-templates")
+            return JsonResponse({"message": list(successMessage)})
 
-        # Setting the initial values for the form present in current URL
-        request.session["careerObjective"] = {
-            "objective": "",
-            "include": False,
-        }
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "additional-skills"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["careerObjective"]):
 
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["careerObjective"]
+            # Setting the initial values for the form present in current URL
+            request.session["careerObjective"] = {
+                "objective": "",
+                "include": False,
+            }
 
-    return render(request, "careerObjective.html", tempDICT)
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "additional-skills"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
+
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["careerObjective"]
+
+        return render(request, "careerObjective.html", tempDICT)
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
+
+    return response
 
 
 # View to render the Templates Page
 def chooseTemplates(request):
 
-    # Assigning the variables to hold the path to all Templates & its previews
-    RESUME_TEMPLATES_DIR = "Static/Assets/Template"
-    TEMPLATES_PREVIEW = "Static/Assets/Images"
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "careerObjective")]
 
-    if (request.method == "POST"):
+    statusCode = 404
+    if (valid_key and valid_key[0]):
 
-        # Getting the value of the parameter to perform some operation
-        data_holder = request.POST["dataholder"]
-        if (data_holder == "convert"):
+        # Assigning the variables to hold the path to all Templates & its previews
+        RESUME_TEMPLATES_DIR = "Static/Assets/Template"
+        TEMPLATES_PREVIEW = "Static/Assets/Images"
 
-            # Getting the Selected template name passed through request
-            selected_template = request.POST["selectedtemplate"]
+        if (request.method == "POST"):
 
-            # Joining the selected template name to a valid path
-            template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
-                selected_template + ".docx")
+            # Getting the value of the parameter to perform some operation
+            data_holder = request.POST["dataholder"]
+            if (data_holder == "convert"):
 
-            if (template_path.exists()):
+                # Getting the Selected template name passed through request
+                selected_template = request.POST["selectedtemplate"]
 
-                # Creating new resume with data user provided and Storing the it's path in session object
-                path_to_resume = createResume(request, template_path)
+                # Joining the selected template name to a valid path
+                template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
+                    selected_template + ".docx")
 
-                successMessage = ("Success", path_to_resume)
+                if (template_path.exists()):
+
+                    # Creating new resume with data user provided and Storing the it's path in session object
+                    path_to_resume = createResume(request, template_path)
+
+                    successMessage = ("Success", path_to_resume)
+                    return JsonResponse({"message": list(successMessage)})
+
+                successMessage = ("Error", "Something went wrong, Try Again!")
                 return JsonResponse({"message": list(successMessage)})
 
-            successMessage = ("Error", "Something went wrong, Try Again!")
-            return JsonResponse({"message": list(successMessage)})
+            else:
+                # Opening and reading the newly converted pdf and send as download response
+                file = open(data_holder, "rb")
+                file_name = "reSume." + data_holder.split(".")[-1]
+                return FileResponse(file, as_attachment=True, filename=file_name)
 
-        else:
-            # Opening and reading the newly converted pdf and send as download response
-            file = open(data_holder, "rb")
-            file_name = "reSume." + data_holder.split(".")[-1]
-            return FileResponse(file, as_attachment=True, filename=file_name)
+        # Updating the specific key's value in session object as current path
+        request.session["active_form"]["fromPATH"] = request.path
 
-    # Updating the specific key's value in session object as current path
-    request.session["active_form"]["fromPATH"] = request.path
+        # Setting the initial values for the form present in current URL if only the key has no value
+        if (not request.session["chooseTemplates"]):
 
-    # Setting the initial values for the form present in current URL if only the key has no value
-    if (not request.session["chooseTemplates"]):
+            all_templates = []
+            for doc in Path(RESUME_TEMPLATES_DIR).glob("*.docx"):
 
-        all_templates = []
-        for doc in Path(RESUME_TEMPLATES_DIR).glob("*.docx"):
+                # Removing the extension from template's name
+                image_name = doc.name.replace(".docx", "")
 
-            # Removing the extension from template's name
-            image_name = doc.name.replace(".docx", "")
+                # Joining the template's preview image name to Images path
+                image_path = Path(TEMPLATES_PREVIEW).joinpath(
+                    image_name + ".jpg")
 
-            # Joining the template's preview image name to Images path
-            image_path = Path(TEMPLATES_PREVIEW).joinpath(
-                image_name + ".jpg")
+                if (image_path.exists()):
 
-            if (image_path.exists()):
+                    # Converting the image path to a working url
+                    image_url = f"/{image_path}".replace("\\", "/")
 
-                # Converting the image path to a working url
-                image_url = f"/{image_path}".replace("\\", "/")
+                    # Creating a list with image path & name for template files to be used on current path
+                    all_templates.append([image_url, image_name])
 
-                # Creating a list with image path & name for template files to be used on current path
-                all_templates.append([image_url, image_name])
+            # Setting the initial values for the templates present in current URL
+            request.session["chooseTemplates"] = all_templates
 
-        # Setting the initial values for the templates present in current URL
-        request.session["chooseTemplates"] = all_templates
+        # Adding new or Updating the existing key in the dictionary which passed to template
+        if (request.session["active_form"]["link"] == "career-objective"):
+            request.session["active_form"]["link"] = request.path.split(
+                "builder/")[1]
 
-    # Adding new or Updating the existing key in the dictionary which passed to template
-    if (request.session["active_form"]["link"] == "career-objective"):
-        request.session["active_form"]["link"] = request.path.split(
-            "builder/")[1]
+        # Creating a python dictionary of data according to the requested URL
+        tempDICT = dataCollector(request)
+        tempDICT["formData"] = request.session["chooseTemplates"]
 
-    # Creating a python dictionary of data according to the requested URL
-    tempDICT = dataCollector(request)
-    tempDICT["formData"] = request.session["chooseTemplates"]
+        if (tempDICT["formData"]):
+            return render(request, "chooseTemplates.html", tempDICT)
 
-    return render(request, "chooseTemplates.html", tempDICT)
+        statusCode = 500
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE, {"statuscode": statusCode})
+    response.status_code = statusCode
+
+    return response
 
 
 # View to validate and create new user using the credentials passed through request
@@ -586,115 +675,123 @@ def createUser(request):
     valid_key = [request.session[key]
                  for key in request.session.keys() if (key == "active_form")]
 
-    # Getting the previous URL stored on the Cookies or Session object according to the condition
-    previousURL = valid_key[0]["fromPATH"] if (
-        valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
+    if (valid_key):
 
-    if (request.method == "POST"):
+        # Getting the previous URL stored on the Cookies or Session object according to the condition
+        previousURL = valid_key[0]["fromPATH"] if (
+            valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
 
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
-        password2 = request.POST["password2"]
+        if (request.method == "POST"):
 
-        if (username == "" or email == "" or password == "" or password2 == ""):
+            username = request.POST["username"]
+            email = request.POST["email"]
+            password = request.POST["password"]
+            password2 = request.POST["password2"]
 
-            emptyMessage = ("Fields can't be empty", 0)
-            return JsonResponse({"message": list(emptyMessage)})
+            if (username == "" or email == "" or password == "" or password2 == ""):
 
-        else:
-            if (User.objects.filter(username=username).exists()):
-
-                userExists = ("UserName already exists", 0)
-                return JsonResponse({"message": list(userExists)})
-
-            elif (User.objects.filter(email=email).exists()):
-
-                emailExists = ("Email Id already exists", 0)
-                return JsonResponse({"message": list(emailExists)})
+                emptyMessage = ("Fields can't be empty", 0)
+                return JsonResponse({"message": list(emptyMessage)})
 
             else:
-                symbols = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
-                            "(", ")", "_", "-", "+" "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".", "?", "/"]
+                if (User.objects.filter(username=username).exists()):
 
-                if (password.isdigit()):
+                    userExists = ("UserName already exists", 0)
+                    return JsonResponse({"message": list(userExists)})
 
-                    passwordError = (
-                        "Password shouldn't have only numbers", 0)
-                    return JsonResponse({"message": list(passwordError)})
+                elif (User.objects.filter(email=email).exists()):
 
-                elif (password.isalpha()):
+                    emailExists = ("Email Id already exists", 0)
+                    return JsonResponse({"message": list(emailExists)})
 
-                    passwordError = (
-                        "Password shouldn't have only alphabets", 0)
-                    return JsonResponse({"message": list(passwordError)})
+                else:
+                    symbols = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
+                               "(", ")", "_", "-", "+" "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".", "?", "/"]
 
-                elif (password.isspace()):
+                    if (password.isdigit()):
 
-                    passwordError = ("Password shouldn't have spaces", 0)
-                    return JsonResponse({"message": list(passwordError)})
+                        passwordError = (
+                            "Password shouldn't have only numbers", 0)
+                        return JsonResponse({"message": list(passwordError)})
 
-                uppercase = False
-                for char in password:
-                    if (char.isupper()):
-                        uppercase = True
-                        break
-                    else:
-                        uppercase = False
+                    elif (password.isalpha()):
 
-                if (uppercase):
+                        passwordError = (
+                            "Password shouldn't have only alphabets", 0)
+                        return JsonResponse({"message": list(passwordError)})
 
-                    hasSymbol = False
-                    for symbol in symbols:
-                        if (hasSymbol):
+                    elif (password.isspace()):
+
+                        passwordError = ("Password shouldn't have spaces", 0)
+                        return JsonResponse({"message": list(passwordError)})
+
+                    uppercase = False
+                    for char in password:
+                        if (char.isupper()):
+                            uppercase = True
                             break
-
                         else:
-                            for char in password:
+                            uppercase = False
 
-                                if (char == symbol):
-                                    hasSymbol = True
-                                    break
-                                else:
-                                    hasSymbol = False
+                    if (uppercase):
 
-                    if (hasSymbol):
-
-                        if (len(password) < 8):
-
-                            passwordError = (
-                                "Password must contain minimum 8 characters", 0)
-                            return JsonResponse({"message": list(passwordError)})
-
-                        else:
-                            if password == password2:
-
-                                # Creating a new user with the credentials
-                                user = User.objects.create_user(username=username,
-                                                                email=email,
-                                                                password=password)
-                                user.save()
-
-                                successMessage = (
-                                    "Success", "Thanks for signing up. Welcome to our community")
-                                return JsonResponse({"message": list(successMessage)})
+                        hasSymbol = False
+                        for symbol in symbols:
+                            if (hasSymbol):
+                                break
 
                             else:
+                                for char in password:
+
+                                    if (char == symbol):
+                                        hasSymbol = True
+                                        break
+                                    else:
+                                        hasSymbol = False
+
+                        if (hasSymbol):
+
+                            if (len(password) < 8):
+
                                 passwordError = (
-                                    "Passwords doesn't match", 0)
+                                    "Password must contain minimum 8 characters", 0)
                                 return JsonResponse({"message": list(passwordError)})
+
+                            else:
+                                if password == password2:
+
+                                    # Creating a new user with the credentials
+                                    user = User.objects.create_user(username=username,
+                                                                    email=email,
+                                                                    password=password)
+                                    user.save()
+
+                                    successMessage = (
+                                        "Success", "Thanks for signing up. Welcome to our community")
+                                    return JsonResponse({"message": list(successMessage)})
+
+                                else:
+                                    passwordError = (
+                                        "Passwords doesn't match", 0)
+                                    return JsonResponse({"message": list(passwordError)})
+
+                        else:
+                            passwordError = (
+                                "Password must atleast have one symbol", 0)
+                            return JsonResponse({"message": list(passwordError)})
 
                     else:
                         passwordError = (
-                            "Password must atleast have one symbol", 0)
+                            "Password must atleast contain one uppercase letter", 0)
                         return JsonResponse({"message": list(passwordError)})
 
-                else:
-                    passwordError = (
-                        "Password must atleast contain one uppercase letter", 0)
-                    return JsonResponse({"message": list(passwordError)})
+        return redirect(previousURL)
 
-    return redirect(previousURL)
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE, {"statuscode": 403})
+    response.status_code = 403
+
+    return response
 
 
 # View to authenticate the user credentials passed through request
@@ -704,48 +801,68 @@ def authenticateUser(request):
     valid_key = [request.session[key]
                  for key in request.session.keys() if (key == "active_form")]
 
-    # Getting the previous URL stored on the Cookies or Session object according to the condition
-    previousURL = valid_key[0]["fromPATH"] if (
-        valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
+    if (valid_key):
 
-    if (request.method == "POST"):
+        # Getting the previous URL stored on the Cookies or Session object according to the condition
+        previousURL = valid_key[0]["fromPATH"] if (
+            valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
 
-        user2name = request.POST["user2name"]
-        pass2word = request.POST["pass2word"]
+        if (request.method == "POST"):
 
-        if (user2name == "" or pass2word == ""):
+            user2name = request.POST["user2name"]
+            pass2word = request.POST["pass2word"]
 
-            emptyMessage = ("Fields can't be empty", 0)
-            return JsonResponse({"message": list(emptyMessage)})
+            if (user2name == "" or pass2word == ""):
 
-        # Confirming the user credentials are a valid
-        user = auth.authenticate(username=user2name, password=pass2word)
+                emptyMessage = ("Fields can't be empty", 0)
+                return JsonResponse({"message": list(emptyMessage)})
 
-        if (user is not None):
+            # Confirming the user credentials are a valid
+            user = auth.authenticate(username=user2name, password=pass2word)
 
-            # Authenticating the user as logged-in user
-            auth.login(request, user)
+            if (user is not None):
 
-            successMessage = ("Success", previousURL)
-            return JsonResponse({"message": list(successMessage)})
+                # Authenticating the user as logged-in user
+                auth.login(request, user)
 
-        invalidMessage = ("Credentials Invalid, please check", 0)
-        return JsonResponse({"message": list(invalidMessage)})
+                successMessage = ("Success", previousURL)
+                return JsonResponse({"message": list(successMessage)})
 
-    else:
-        return redirect(previousURL)
+            invalidMessage = ("Credentials Invalid, please check", 0)
+            return JsonResponse({"message": list(invalidMessage)})
+
+        else:
+            return redirect(previousURL)
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE, {"statuscode": 403})
+    response.status_code = 403
+
+    return response
 
 
 # View to logout the logged-in user
 def logoutUser(request):
 
-    # Getting the previous URL stored on the Cookies
-    previousURL = request.COOKIES["previousurlpath"]
+    # Getting the value of a particular key from the Cookies
+    valid_cookie = [request.COOKIES[key]
+                    for key in request.COOKIES.keys() if (key == "previousurlpath")]
 
-    if (request.user.is_authenticated):
-        auth.logout(request)
+    if (valid_cookie):
 
-    return redirect(previousURL)
+        # Getting the previous URL stored on the Cookies
+        previousURL = request.COOKIES["previousurlpath"]
+
+        if (request.user.is_authenticated):
+            auth.logout(request)
+
+        return redirect(previousURL)
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(request, ERROR_TEMPLATE)
+    response.status_code = 404
+
+    return response
 
 
 # Function for converting the collected data into a python dict, so it can be passed to HTML template
@@ -882,6 +999,9 @@ def createResume(userRequest, templatePath):
 
 
 # ---------------------------------------------------------------------------------------------------------------
+
+# Assigning a variable to hold the Error Template name
+ERROR_TEMPLATE = "errorpage.html"
 
 # Assigning a variable to hold the current date & time
 TODAY = datetime.now()

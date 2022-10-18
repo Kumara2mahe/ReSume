@@ -43,6 +43,7 @@
 
         <form method="POST" action="{% url 'builder' %}">
             {% csrf_token %}
+            <input type="text" name="screenwidth" hidden>
             <input type="submit" value="Let's Begin">
         </form>
 

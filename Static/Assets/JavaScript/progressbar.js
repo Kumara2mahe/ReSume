@@ -100,6 +100,9 @@ if (progressSlider != null && beginForm != null) {
         // Preventing the page from reloading
         e.preventDefault()
 
+        // Getting the screen width and setting it as value of input
+        beginForm.children[1].value = window.outerWidth
+
         // Setting the height of Progress-bar
         progressSlider.parentElement.parentElement.style.height = `${beginContainHeight}px`
 
