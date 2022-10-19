@@ -205,7 +205,7 @@ if (builderTemplate != null) {
     if (currentForm.classList[0] == "personal-details-form") {
 
         // ---- Script for submitting the data filled in the form through AJAX to validate ------------------- //
-        const validatingPersonalDetails = (event, firstTime = false) => {
+        const validatingPersonalDetails = (event, isFirst = false) => {
 
             // Preventing the page from reload
             event.preventDefault()
@@ -232,7 +232,7 @@ if (builderTemplate != null) {
 
                 success: (data) => {
 
-                    if (data.message[0] == "Verified" && firstTime) {
+                    if (data.message[0] == "Verified" && isFirst) {
 
                         // Opening the SignUp Window with pre-filled email
                         popSignUp(event, currentForm.querySelector(".current_email").value, data.message[1])
@@ -282,11 +282,16 @@ if (builderTemplate != null) {
             // Progress Bar Percentage
             newWidth = "7%"
 
-            // Re-assigning the validator function with some arguments to change the default behaviour of current form
-            currentForm.removeEventListener("submit", validatingPersonalDetails)
-            currentForm.addEventListener("submit", (event) => {
-                validatingPersonalDetails(event, true)
-            })
+            // Getting the element of Sign-Up button from the Menu-bar
+            let isSignUpBtn = document.querySelector("header .menubar.nav-links .sign-up")
+            if (isSignUpBtn != null) {
+
+                // Re-assigning the validator function with some arguments to change the default behaviour of current form
+                currentForm.removeEventListener("submit", validatingPersonalDetails)
+                currentForm.addEventListener("submit", (event) => {
+                    validatingPersonalDetails(event, true)
+                })
+            }
         }
         else if (sideNavBar.previousElementSibling.value == "years-of-experience") {
 

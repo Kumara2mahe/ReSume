@@ -28,7 +28,7 @@ const enableScrollBars = () => {
 }
 
 // ----- Script for showing SignUp window with blured background ------------------------------------------------ //
-const popSignUp = (event, emailID = null, redirectUrl = null) => {
+const popSignUp = (event, emailID = null, pathToGo = null) => {
 
     // ----- Script for hiding SignUp window and blured background ----------------------------- //
     const removeSignUp = () => {
@@ -48,8 +48,8 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
         // Removing the 'Esc' key to close functionality from SignUp window
         window.removeEventListener("keydown", closeSignUp)
 
-        if (redirectUrl != null) {
-            window.location.pathname = redirectUrl
+        if (pathToGo != null) {
+            window.location.pathname = pathToGo
         }
     }
 
@@ -65,7 +65,7 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
     const popLogIn = () => {
 
         // ----- Script for removing logIn window and blured background ----- //
-        const removeLogIn = () => {
+        const removeLogIn = (event = null) => {
 
             // Hiding the LogIn window
             logInParent.classList.toggle("active")
@@ -85,8 +85,8 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
             // Removing the 'Esc' key to close functionality from LogIn window
             window.removeEventListener("keydown", closeLogIn)
 
-            if (redirectUrl != null) {
-                window.location.pathname = redirectUrl
+            if (event != null && pathToGo != null) {
+                window.location.pathname = pathToGo
             }
         }
 
@@ -101,7 +101,7 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
         // ----- Script for removing logIn window and popup signUp window ---- //
         const popSignUpAgain = () => {
             removeLogIn()
-            popSignUp()
+            popSignUp(event, emailID, pathToGo)
         }
 
         // Removing the SignUp window from screen with the CSS stylesheet
@@ -215,8 +215,12 @@ const popSignUp = (event, emailID = null, redirectUrl = null) => {
                 },
                 success: (data) => {
 
-                    if (data.message[0] == "Success") {
+                    if (data.message[0] == "Success" && pathToGo != null) {
+                        // Directing to the URL passed through script call
+                        window.location.pathname = pathToGo
 
+                    }
+                    else if (data.message[0] == "Success") {
                         // Redirecting to the URL return through JSONresponse
                         window.location.pathname = data.message[1]
                     }
