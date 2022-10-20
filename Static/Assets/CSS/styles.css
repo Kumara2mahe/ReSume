@@ -1041,13 +1041,35 @@ header {
 .middle-imageslider .images-section {
     display: flex;
     justify-content: center;
+    height: 18rem;
+    padding: 1rem 0;
 }
 
-.middle-imageslider .images-section img {
+.middle-imageslider .images-section .thumb-container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.middle-imageslider .images-section .thumb-container img {
     width: 13rem;
-    height: 280px;
-    margin: 0 15px;
+    height: inherit;
+    margin: 0;
     border: 1.5px solid var(--platinum);
+    opacity: 0;
+    -webkit-transition: 450ms;
+    -moz-transition: 450ms;
+    -o-transition: 450ms;
+    transition: 450ms;
+}
+
+.middle-imageslider .images-section .thumb-container img.show {
+    background-color: rgba(234, 234, 234, 0.7);
+    opacity: 1;
+    margin: 0 15px;
 }
 
 /* -------- Previous & Next Button | Styles -------- */

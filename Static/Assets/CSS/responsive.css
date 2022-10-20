@@ -212,9 +212,15 @@
     /* ------------- Middle - ImageSlider (Images) | Styles
 ------------------------------------------------------------------- */
 
-    .middle-imageslider .images-section img {
+    .middle-imageslider .images-section {
+        height: 17.5rem;
+    }
+
+    .middle-imageslider .images-section .thumb-container img {
         width: 12rem;
-        height: 265px;
+    }
+
+    .middle-imageslider .images-section .thumb-container img.show {
         margin: 0 13px;
     }
 
@@ -565,14 +571,16 @@
     /* ------------- Middle - ImageSlider (Images) | Styles
 ------------------------------------------------------------------- */
 
-    .middle-imageslider .images-section img {
-        width: 11rem;
-        height: 250px;
-        margin: 0 11px;
+    .middle-imageslider .images-section {
+        height: 16rem;
     }
 
-    .middle-imageslider .images-section img.fourth {
-        display: none;
+    .middle-imageslider .images-section .thumb-container img {
+        width: 11rem;
+    }
+
+    .middle-imageslider .images-section .thumb-container img.show {
+        margin: 0 11px;
     }
 
     /* -------- Previous & Next Button | Styles -------- */
@@ -921,15 +929,16 @@
     /* ------------- Middle - ImageSlider (Images) | Styles
 ------------------------------------------------------------------- */
 
-    .middle-imageslider .images-section img {
-        width: 10rem;
-        height: 235px;
-        margin: 0 9px;
+    .middle-imageslider .images-section {
+        height: 14.5rem;
     }
 
-    .middle-imageslider .images-section img.fourth,
-    .middle-imageslider .images-section img.third {
-        display: none;
+    .middle-imageslider .images-section .thumb-container img {
+        width: 10rem;
+    }
+
+    .middle-imageslider .images-section .thumb-container img.show {
+        margin: 0 9px;
     }
 
     /* -------- Previous & Next Button | Styles -------- */
@@ -1335,16 +1344,16 @@
     /* ------------- Middle - ImageSlider (Images) | Styles
 ------------------------------------------------------------------- */
 
-    .middle-imageslider .images-section img {
-        width: 9rem;
-        height: 220px;
-        margin: 0 7px;
+    .middle-imageslider .images-section {
+        height: 13rem;
     }
 
-    .middle-imageslider .images-section img.fourth,
-    .middle-imageslider .images-section img.third,
-    .middle-imageslider .images-section img.second {
-        display: none;
+    .middle-imageslider .images-section .thumb-container img {
+        width: 9rem;
+    }
+
+    .middle-imageslider .images-section .thumb-container img.show {
+        margin: 0 7px;
     }
 
     /* -------- Previous & Next Button | Styles -------- */
