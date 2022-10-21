@@ -42,30 +42,36 @@ const sendUserFeedback = (e) => {
             },
             success: (data) => {
 
-                // Populating and showing the message container with a success message
-                autoHidMsg.innerHTML = `${data}`
-                autoHidMsg.classList.add("show")
-                autoHidMsg.style.color = "rgb(41, 191, 18)"
+                if (data.message[0] == "Sent") {
 
-                // Clearing the all the inputs in Feedback form
-                formInputs[1].value = ""
-                formInputs[2].value = ""
-                messageBox.value = ""
+                    // Populating and showing the message container with a success message
+                    autoHidMsg.innerHTML = `${data.message[1]}`
+                    autoHidMsg.classList.add("show")
+                    autoHidMsg.style.color = "rgb(41, 191, 18)"
 
-                // Hiding the element which displays some kind of message
-                setTimeout(() => {
-                    autoHidMsg.classList.remove("show")
-                    autoHidMsg.innerHTML = "404 : Try Again"
+                    // Clearing the all the inputs in Feedback form
+                    formInputs[1].value = ""
+                    formInputs[2].value = ""
+                    messageBox.value = ""
 
-                    // Re-enabling back all input elements
-                    formInputs.forEach((input) => {
-                        input.disabled = false
-                    })
-                    messageBox.disabled = false
+                    // Hiding the element which displays some kind of message
+                    setTimeout(() => {
+                        autoHidMsg.classList.remove("show")
+                        autoHidMsg.innerHTML = "404 : Try Again"
 
-                    // Re-setting the Feedback form's mouse pointer
-                    feedbackForm.classList.remove("processing")
-                }, 2000)
+                        // Re-enabling back all input elements
+                        formInputs.forEach((input) => {
+                            input.disabled = false
+                        })
+                        messageBox.disabled = false
+
+                        // Re-setting the Feedback form's mouse pointer
+                        feedbackForm.classList.remove("processing")
+                    }, 2000)
+                }
+                else {
+                    window.location.reload()
+                }
             },
             error: () => {
                 window.location.reload()

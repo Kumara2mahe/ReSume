@@ -18,7 +18,14 @@ SECURE_PROXY_SSL_HEADER = toTuple("SECURE_PROXY_SSL_HEADER")
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # Serving static files for production
-STATIC_ROOT = (os.path.join(BASE_DIR, "staticfiles"))
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Compressing and Caching static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = toInt("EMAIL_PORT")
+EMAIL_USE_TLS = toBool("EMAIL_USE_TLS")

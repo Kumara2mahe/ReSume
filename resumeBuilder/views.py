@@ -1,18 +1,26 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse, FileResponse
+from django.http import JsonResponse, FileResponse
 
 # Importing some built-in modules to authenticate users
 from django.contrib.auth.models import User
 from django.contrib import auth
 
-# Importing the required functionality from json and calendar modules
-from json import load
-from calendar import month_name
+# Importing some built-in modules to format and send emails
+import re
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives, BadHeaderError
+
+# Importing some built-in modules to work with Path and datetime objects
 from datetime import datetime
 from pathlib import Path
 
+# Importing some functionality from built-in modules to load the json data and getting the list of month names
+from json import load
+from calendar import month_name
+
 # Importing some constant variables from custom modules in this app
-from ReSume.settings.base import SESSION_COOKIE_SECURE
+from ReSume.settings.base import SESSION_COOKIE_SECURE, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER
 
 # Importing some third party libraries to work with '.docx' & '.pdf' files
 from docxtpl import DocxTemplate
@@ -55,8 +63,49 @@ def about(request):
 # View to render the Contact-Page
 def contact(request):
 
-    if request.method == "POST":
-        return HttpResponse("Your request has been received successfully")
+    # Function to convert HTML version to plain TEXT version
+    def render_to_plain(html):
+
+        # Remove all html tags and continuous whitespaces
+        plainText = re.sub("[ \t]+", " ", strip_tags(html))
+
+        # Strip single spaces in the beginning of each line
+        return plainText.replace("\n ", "\n").strip()
+
+    if (request.method == "POST"):
+
+        # Getting the values from the Feedback form
+        c_name = request.POST["customername"].title()
+        c_email = request.POST["customeremail"]
+        c_feedback = request.POST["customerfeedback"].capitalize()
+
+        # Rendering the html template to a plain string to send as HTML version
+        plainHTML = render_to_string("mail.html", {"name": c_name,
+                                                   "email": c_email,
+                                                   "feedback": c_feedback})
+
+        # Converting the rendered HTML version to a plain Text version for users who can't view mails in HTML version
+        plainTEXT = render_to_plain(plainHTML)
+
+        try:
+            # Sending HTML version as a E-mail with reply emails
+            mail = EmailMultiAlternatives(subject=f"Got a Feedback - {c_name}",
+                                          body=plainTEXT,
+                                          from_email=f"Re-Sume {DEFAULT_FROM_EMAIL}",
+                                          to=[EMAIL_HOST_USER],
+                                          alternatives=[
+                                              (plainHTML, "text/html")
+                                          ],
+                                          reply_to=[c_email])
+            mail.send()
+
+            statusMessage = ("Sent",
+                             "Thank you we got your feedback, will respond to you shortly")
+
+        except BadHeaderError:
+            statusMessage = ("failed", "Invalid Header Found!")
+
+        return JsonResponse({"message": list(statusMessage)})
 
     # Creating a python dictionary of data according to the requested URL
     tempDICT = dataCollector(request)

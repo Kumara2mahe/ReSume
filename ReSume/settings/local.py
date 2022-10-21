@@ -11,3 +11,7 @@ if not DEBUG and not ALLOWED_HOSTS:
 elif not DEBUG:
     print(
         f"!! INFO: DEBUG Mode is set to {DEBUG}, so Django can't serve static files")
+
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

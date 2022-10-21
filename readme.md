@@ -49,11 +49,13 @@ You can now run the development server:
 
 - Included own CSS and JavaScript files to make it more responsive and interactive
 
-- Has a custom python module to type cast the values of enviromental variables to bool or tuple or int, according to the function called.
+- Has a custom python module(envCast) to type cast the values of enviromental variables to (bool | tuple | int | str), according to the function called.
+
+- Another custom python module(datDump) to clear the in-active user data stored in the server whenever it starts or reloads. Particularly the data(files & folders) not being active for more than 10 days got deleted from the server.
+
+- Custom HTML templates for showing error message and also for receiving customer feedback as emails.
 
 - To convert '.docx' to '.pdf' a third party API named [PSPDFKit API](https://pspdfkit.com/api/) is used
-
-- Another custom module(datDump) to clear the in-active user data stored in the server whenever it starts or reloads. Particularly the data(files & folders) not being active for more than 10 days got deleted from the server.
 
 <br>
 

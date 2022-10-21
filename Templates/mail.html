@@ -1,0 +1,30 @@
+<!-- Mail Template for structure the data send throw User Feedback -->
+
+
+<body style="background-color: #EAEAEA; padding: 2% 0;">
+    <article style="font-size: 0.85rem; background-color: #FFFFFF; width: 80%; margin: 2% auto; padding: 2%;">
+
+        <table cellspacing="10" style="width:100%; margin-left: auto; font-size: 0.9rem;">
+            <tbody>
+                <tr>
+                    <td style="width: 5rem;">
+                        <img src="https://raw.githubusercontent.com/Kumara2mahe/ReSume/main/Static/Assets/Images/logo.png"
+                            alt="Re-Sume main logo" style="width: 100%;">
+                    </td>
+                    <td style="text-align:right;vertical-align: top;font-size: 0.6rem;">By: </td>
+                    <td style="width: 40%;">
+                        <h4>{{name}}</h4>
+                        <h4><a href="mailto:{{ email }}" target="_blank">{{ email }}</a></h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <section style="text-align: justify; margin: 1rem;">
+            <p><b style="display: inline-block; width: 1rem;"></b>{{ feedback }}</p>
+        </section>
+
+    </article>
+</body>

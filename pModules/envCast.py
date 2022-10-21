@@ -30,6 +30,16 @@ def toInt(key: str) -> int:
     return 0
 
 
+def toStr(key: str) -> str:
+    """
+        Function which converts the value of environment variable to python's (str)-datatype
+        and it takes one required argument as the key to a environment variable
+    """
+
+    value = os.getenv(key)
+    return str(value)
+
+
 def toTuple(key: str):
     """
         Function which converts the value of environment variable to python's (tuple)-datatype
