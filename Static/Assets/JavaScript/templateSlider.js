@@ -239,6 +239,7 @@ if (templateArticle != null) {
                 if (preSelectedFormat != null) {
                     preSelectedFormat.checked = false
                     preSelectedFormat.parentElement.removeAttribute("style")
+                    formatDialogForm.removeEventListener("submit", downloadResume)
                 }
                 formatToSelect.querySelector("input").checked = true
                 formatToSelect.style.cursor = "not-allowed"
@@ -247,13 +248,22 @@ if (templateArticle != null) {
                 let formatToSelectName = formatToSelect.querySelector("label")
                 let downloadButton = formatDialog.querySelector(".download-button")
                 //
-                if (formatToSelectName.innerText == "Word") {
+                downloadButton.disabled = false
+                downloadButton.value = "Download"
+
+                if (formatToSelectName.innerText == "Word" && isNotUser != null) {
                     downloadButton.value = "Login & Download"
+                    downloadButton.disabled = true
+                    formatDialogForm.removeEventListener("submit", downloadResume)
                 }
                 else {
-                    downloadButton.value = "Download"
+                    formatDialogForm.addEventListener("submit", downloadResume)
                 }
             }
+
+            // Changing the page title to next step
+            let pageTitle = document.documentElement.querySelector("head title")
+            pageTitle.innerHTML = "Step 3 : Download your Resume | ReSume Builder"
 
             // Getting the element of Format-Selection Dialog
             const formatDialog = templateArticle.querySelector(".selection-wrapper")
@@ -262,6 +272,9 @@ if (templateArticle != null) {
             formatDialog.addEventListener("click", (event) => {
                 let container = event.target
                 if (container.classList[0] == "selection-wrapper") {
+
+                    // Changing the page title to default
+                    pageTitle.innerHTML = pageDefaultTitle
 
                     // Removing the Format-Selection Dialog when not being clicked
                     container.classList.remove("show")
@@ -274,6 +287,9 @@ if (templateArticle != null) {
             previewThumb.setAttribute("src", selectedImage)
             formatDialog.children[0].prepend(previewThumb)
 
+            // Getting the element of form in the Format-Selection Dialog
+            const formatDialogForm = formatDialog.querySelector(".format-selection")
+
             // Setting the 'pdf' option as default
             optStyler(null, formatDialog.querySelector("input.pdf").parentElement)
 
@@ -281,10 +297,6 @@ if (templateArticle != null) {
             formatDialog.querySelectorAll(".format").forEach((option) => {
                 option.addEventListener("click", optStyler)
             })
-
-            // Getting the element of form in the Format-Selection Dialog
-            const formatDialogForm = formatDialog.querySelector(".format-selection")
-            formatDialogForm.addEventListener("submit", downloadResume)
         }
 
         // ----- Script for validating and submitting the selected format of resume as a JSON data -------------- //
@@ -335,7 +347,7 @@ if (templateArticle != null) {
             // Getting the name of the selected option
             let selectedFormat = form.querySelector("input:checked~label")
             //
-            if (selectedFormat != null) {
+            if (selectedFormat != null && ((selectedFormat.innerText == "Word" && isNotUser == null) || selectedFormat.innerText != "Word")) {
 
                 // Showing current status as message
                 autoHidMsg.innerHTML = `Converting resume to ${selectedFormat.innerText} format...`
@@ -381,6 +393,19 @@ if (templateArticle != null) {
                     submitData("docx", autoHidMsg)
                 }
             }
+            else if (selectedFormat != null && (selectedFormat.innerText == "Word" && isNotUser != null)) {
+
+                // Changing the status message to show error
+                autoHidMsg.innerHTML = "Invalid download request, authenticate and Try Again!"
+
+                setTimeout(() => {
+
+                    // Enabling the Submit button again
+                    button.disabled = false
+                    autoHidMsg.remove()
+                    form.parentElement.click()
+                }, 2000)
+            }
             else {
                 // Changing the status message to show error
                 autoHidMsg.innerHTML = "Invalid file format, reloading in few seconds.."
@@ -401,6 +426,11 @@ if (templateArticle != null) {
         let autoHidMsg = document.createElement("h4")
         autoHidMsg.classList.add("status")
         templatesSlider.before(autoHidMsg)
+
+        // Getting the element of Sign-Up button from the Menu-bar
+        const isNotUser = document.querySelector("header .menubar.nav-links .sign-up")
+
+        const pageDefaultTitle = document.documentElement.querySelector("head title").innerHTML
         const errorMsg = "Something went wrong, reloading in few seconds.."
 
         // Getting the name of template which has the focus

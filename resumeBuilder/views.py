@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, FileResponse
+from django.utils.datastructures import MultiValueDictKeyError
 
 # Importing some built-in modules to authenticate users
 from django.contrib.auth.models import User
@@ -643,60 +644,78 @@ def chooseTemplates(request):
 
         if (request.method == "POST"):
 
-            # Getting the task passed through arguments as a JSON
-            taskToDo = loads(request.POST["tasktodo"])
+            try:
 
-            if (taskToDo["name"] == "render"):
+                # Getting the task passed through arguments as a JSON
+                taskToDo = loads(request.POST["tasktodo"])
 
-                # Getting the Selected template name passed through request
-                selected_template = taskToDo["selectedtemplate"]
+                if (taskToDo["name"] == "render"):
 
-                # Joining the selected template name to a valid path
-                template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
-                    selected_template + ".docx")
+                    # Getting the Selected template name passed through request
+                    selected_template = taskToDo["selectedtemplate"]
 
-                if (template_path.exists()):
+                    # Joining the selected template name to a valid path
+                    template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
+                        selected_template + ".docx")
 
-                    # Creating new resume with data user provided
-                    path_to_docx = createResume(request, template_path)
+                    if (template_path.exists()):
 
-                    # Storing the document's path in session object
-                    old_data = request.session["active_form"]
-                    old_data["pathtodocx"] = path_to_docx
-                    request.session["active_form"] = old_data
+                        # Creating new resume with data user provided
+                        path_to_docx = createResume(request, template_path)
+
+                        # Storing the document's path in session object
+                        old_data = request.session["active_form"]
+                        old_data["pathtodocx"] = path_to_docx
+                        request.session["active_form"] = old_data
+
+                        return JsonResponse({"message": "Success"})
+
+                elif (taskToDo["name"] == "convert"):
+
+                    # Getting path to the newly generated resume in '.docx' format
+                    path_to_docx = request.session["active_form"]["pathtodocx"]
+
+                    # Converting the .docx -> .pdf
+                    docxToPdf(f"{path_to_docx}.docx", f"{path_to_docx}.pdf")
 
                     return JsonResponse({"message": "Success"})
 
-            elif (taskToDo["name"] == "convert"):
+                elif (taskToDo["name"] == "download"):
 
-                # Getting path to the newly generated resume in '.docx' format
-                path_to_docx = request.session["active_form"]["pathtodocx"]
+                    # Getting the format which user requested
+                    format = taskToDo["fileformat"].lower()
 
-                # Converting the .docx -> .pdf
-                docxToPdf(f"{path_to_docx}.docx", f"{path_to_docx}.pdf")
+                    if ((format == "docx" and request.user.is_authenticated) or format == "pdf"):
 
-                return JsonResponse({"message": "Success"})
+                        # Getting the path to the newly generated resume as the requested format
+                        path_to_resume = f"{request.session['active_form']['pathtodocx']}.{format}"
 
-            elif (taskToDo["name"] == "download"):
+                    else:
+                        statusCode = 403
 
-                # Getting the format which user requested
-                format = taskToDo["fileformat"].lower()
+                        # Rendering the Error-Page as a response and also updating the status code of it
+                        response = render(request, ERROR_TEMPLATE,
+                                          {"statuscode": statusCode})
+                        response.status_code = statusCode
+                        return response
 
-                if (format == "docx" or format == "pdf"):
+                    # Opening and reading data from the newly generated resume
+                    file = open(path_to_resume, "rb")
 
-                    # Getting the path to the newly generated resume as the requested format
-                    path_to_resume = f"{request.session['active_form']['pathtodocx']}.{format}"
+                    # Sending the resume as download response
+                    return FileResponse(file, as_attachment=True, filename=f"reSume.{format}")
 
-                else:
-                    return redirect(request.session["active_form"]["fromPATH"])
+                return JsonResponse({"message": "Error"})
 
-                # Opening and reading data from the newly generated resume
-                file = open(path_to_resume, "rb")
+            except MultiValueDictKeyError:
 
-                # Sending the resume as download response
-                return FileResponse(file, as_attachment=True, filename=f"reSume.{format}")
+                statusCode = 403
 
-            return JsonResponse({"message": "Error"})
+                # Rendering the Error-Page as a response and also updating the status code of it
+                response = render(request, ERROR_TEMPLATE,
+                                  {"statuscode": statusCode})
+                response.status_code = statusCode
+                return response
 
         # Updating the specific key's value in session object as current path
         request.session["active_form"]["fromPATH"] = request.path

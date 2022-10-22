@@ -338,6 +338,7 @@ header .fixed-menubar {
 }
 
 .templates .selection-wrapper .format-selection .form-buttons input:disabled {
+    text-decoration: line-through;
     scale: 1;
     cursor: not-allowed;
 }
