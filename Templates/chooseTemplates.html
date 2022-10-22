@@ -29,11 +29,34 @@ professional designs{% endblock %}
 
     </section>
 
+    <!-- Format-Selection Dialog -->
+    <section class="selection-wrapper">
+        <form class="format-selection" action="{% url 'choose-templates' %}" method="POST">
+
+            {% csrf_token %}
+
+            <!-- FormatSelection -Section -->
+            <div class="avail-formats">
+                <div class="format">
+                    <input type="radio" class="word"><span></span>&nbsp;<label>Word</label>
+                </div>
+                <div class="format">
+                    <input type="radio" class="pdf"><span></span>&nbsp;<label>Pdf</label>
+                </div>
+            </div>
+
+            <!-- Button -Section -->
+            <div class="form-buttons">
+                <input type="submit" class="download-button" value="Download">
+            </div>
+        </form>
+    </section>
+
     <!-- Message Container -->
     <h4 class="error-message">error: 404</h4>
 
     <!-- Templates-Toolbar -->
-    <form class="template-toolbar" action="{% url 'choose-templates' %}" method="POST">
+    <form class="template-toolbar" method="POST">
 
         {% csrf_token %}
 
@@ -47,7 +70,7 @@ professional designs{% endblock %}
         <label class="download-button">
             <input class="submit-button" type="submit" hidden>
             <img src="{% static 'Assets/Images/download.png' %}">
-            <span>&ensp;Save & Download</span>
+            <span>&ensp;Convert & Save</span>
         </label>
 
     </form>

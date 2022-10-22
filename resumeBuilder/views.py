@@ -16,7 +16,7 @@ from datetime import datetime
 from pathlib import Path
 
 # Importing some functionality from built-in modules to load the json data and getting the list of month names
-from json import load
+from json import load, loads
 from calendar import month_name
 
 # Importing some constant variables from custom modules in this app
@@ -128,7 +128,8 @@ def builder(request):
         # Updating the specific key's value in session object
         request.session["active_form"] = {"fromPATH": request.path,
                                           "link": None,
-                                          "devicewidth": int(request.POST["screenwidth"])}
+                                          "devicewidth": int(request.POST["screenwidth"]),
+                                          "pathtodocx": None}
 
         return redirect("/builder/personal-details")
 
@@ -642,12 +643,13 @@ def chooseTemplates(request):
 
         if (request.method == "POST"):
 
-            # Getting the value of the parameter to perform some operation
-            data_holder = request.POST["dataholder"]
-            if (data_holder == "convert"):
+            # Getting the task passed through arguments as a JSON
+            taskToDo = loads(request.POST["tasktodo"])
+
+            if (taskToDo["name"] == "render"):
 
                 # Getting the Selected template name passed through request
-                selected_template = request.POST["selectedtemplate"]
+                selected_template = taskToDo["selectedtemplate"]
 
                 # Joining the selected template name to a valid path
                 template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
@@ -655,23 +657,50 @@ def chooseTemplates(request):
 
                 if (template_path.exists()):
 
-                    # Creating new resume with data user provided and Storing the it's path in session object
-                    path_to_resume = createResume(request, template_path)
+                    # Creating new resume with data user provided
+                    path_to_docx = createResume(request, template_path)
 
-                    successMessage = ("Success", path_to_resume)
-                    return JsonResponse({"message": list(successMessage)})
+                    # Storing the document's path in session object
+                    old_data = request.session["active_form"]
+                    old_data["pathtodocx"] = path_to_docx
+                    request.session["active_form"] = old_data
 
-                successMessage = ("Error", "Something went wrong, Try Again!")
-                return JsonResponse({"message": list(successMessage)})
+                    return JsonResponse({"message": "Success"})
 
-            else:
-                # Opening and reading the newly converted pdf and send as download response
-                file = open(data_holder, "rb")
-                file_name = "reSume." + data_holder.split(".")[-1]
-                return FileResponse(file, as_attachment=True, filename=file_name)
+            elif (taskToDo["name"] == "convert"):
+
+                # Getting path to the newly generated resume in '.docx' format
+                path_to_docx = request.session["active_form"]["pathtodocx"]
+
+                # Converting the .docx -> .pdf
+                docxToPdf(f"{path_to_docx}.docx", f"{path_to_docx}.pdf")
+
+                return JsonResponse({"message": "Success"})
+
+            elif (taskToDo["name"] == "download"):
+
+                # Getting the format which user requested
+                format = taskToDo["fileformat"].lower()
+
+                if (format == "docx" or format == "pdf"):
+
+                    # Getting the path to the newly generated resume as the requested format
+                    path_to_resume = f"{request.session['active_form']['pathtodocx']}.{format}"
+
+                else:
+                    return redirect(request.session["active_form"]["fromPATH"])
+
+                # Opening and reading data from the newly generated resume
+                file = open(path_to_resume, "rb")
+
+                # Sending the resume as download response
+                return FileResponse(file, as_attachment=True, filename=f"reSume.{format}")
+
+            return JsonResponse({"message": "Error"})
 
         # Updating the specific key's value in session object as current path
         request.session["active_form"]["fromPATH"] = request.path
+        request.session["active_form"]["pathtodocx"] = None
 
         # Setting the initial values for the form present in current URL if only the key has no value
         if (not request.session["chooseTemplates"]):
@@ -1039,11 +1068,7 @@ def createResume(userRequest, templatePath):
     tempfile = USER_FILES.joinpath("resume.docx")
     doc.save(tempfile)
 
-    # Converting the .docx -> .pdf
-    pdffile = USER_FILES.joinpath("resume.pdf")
-    docxToPdf(tempfile, pdffile)
-
-    return str(pdffile)
+    return str(tempfile).removesuffix(".docx")
 
 
 # ---------------------------------------------------------------------------------------------------------------

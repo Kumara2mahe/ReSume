@@ -218,6 +218,178 @@ if (templateArticle != null) {
             }
         }
 
+        // ---- Script for showing and setting the Format-Selection Dialog --------------- //
+        const popFormatSelection = (selectedImage) => {
+
+            // --- Script for styling the selected option --------- //
+            const optStyler = (event, defaultFormat = null) => {
+
+                let formatToSelect
+                if (event == null) {
+                    formatToSelect = defaultFormat
+                }
+                else {
+                    formatToSelect = event.target
+                    if (formatToSelect.nodeName != "DIV") {
+                        formatToSelect = formatToSelect.parentElement
+                    }
+                }
+                // Getting the element of pre-selected input, if has one un-selecting it
+                let preSelectedFormat = formatToSelect.parentElement.querySelector("input:checked")
+                if (preSelectedFormat != null) {
+                    preSelectedFormat.checked = false
+                    preSelectedFormat.parentElement.removeAttribute("style")
+                }
+                formatToSelect.querySelector("input").checked = true
+                formatToSelect.style.cursor = "not-allowed"
+
+                // Getting the name of the selected option and the element of download button
+                let formatToSelectName = formatToSelect.querySelector("label")
+                let downloadButton = formatDialog.querySelector(".download-button")
+                //
+                if (formatToSelectName.innerText == "Word") {
+                    downloadButton.value = "Login & Download"
+                }
+                else {
+                    downloadButton.value = "Download"
+                }
+            }
+
+            // Getting the element of Format-Selection Dialog
+            const formatDialog = templateArticle.querySelector(".selection-wrapper")
+            formatDialog.classList.add("show")
+            //
+            formatDialog.addEventListener("click", (event) => {
+                let container = event.target
+                if (container.classList[0] == "selection-wrapper") {
+
+                    // Removing the Format-Selection Dialog when not being clicked
+                    container.classList.remove("show")
+                    let preview = container.querySelector("img")
+                    if (preview != null) preview.remove()
+                }
+            })
+            // Creating 'img' element to show the selected template as a preview
+            let previewThumb = document.createElement("img")
+            previewThumb.setAttribute("src", selectedImage)
+            formatDialog.children[0].prepend(previewThumb)
+
+            // Setting the 'pdf' option as default
+            optStyler(null, formatDialog.querySelector("input.pdf").parentElement)
+
+            // Getting all the elements of format options and Setting a click functionality to it
+            formatDialog.querySelectorAll(".format").forEach((option) => {
+                option.addEventListener("click", optStyler)
+            })
+
+            // Getting the element of form in the Format-Selection Dialog
+            const formatDialogForm = formatDialog.querySelector(".format-selection")
+            formatDialogForm.addEventListener("submit", downloadResume)
+        }
+
+        // ----- Script for validating and submitting the selected format of resume as a JSON data -------------- //
+        const downloadResume = (event) => {
+
+            // --- Script for submitting the JSON data to download resume ---------- //
+            const submitData = (fileformat, status) => {
+
+                // Creating a new Input element to hold JSON data
+                let taskHolder = document.createElement("input")
+                form.children[0].after(taskHolder)
+
+                // Assigning the attributes and their values as the task to do
+                taskHolder.value = JSON.stringify(
+                    {
+                        "name": "download",
+                        "fileformat": fileformat
+                    }
+                )
+                Object.assign(taskHolder, { name: "tasktodo", type: "text", hidden: true })
+
+                // Submitting and Sending the new task as a JSON data
+                form.submit()
+                taskHolder.remove()
+
+                setTimeout(() => {
+
+                    // Enabling the Submit button again
+                    button.disabled = false
+                    status.remove()
+                    form.parentElement.click()
+                }, 800)
+            }
+
+            // Preventing the page from reload
+            event.preventDefault()
+
+            // Disabling the submit button after clicked
+            const form = event.target
+            let button = form.querySelector(".download-button")
+            button.disabled = true
+
+            // Creating a new element to show the status as message
+            let autoHidMsg = document.createElement("h4")
+            autoHidMsg.classList.add("status")
+            templatesSlider.before(autoHidMsg)
+
+            // Getting the name of the selected option
+            let selectedFormat = form.querySelector("input:checked~label")
+            //
+            if (selectedFormat != null) {
+
+                // Showing current status as message
+                autoHidMsg.innerHTML = `Converting resume to ${selectedFormat.innerText} format...`
+
+                // Coverting the name of the selected format to their extentions
+                selectedFormat = selectedFormat.innerText.toLowerCase()
+
+                if (selectedFormat == "pdf") {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/builder/choose-templates",
+                        data: {
+                            tasktodo: JSON.stringify({
+                                name: "convert"
+                            }),
+                            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                        },
+                        success: (data) => {
+
+                            if (data.message == "Success") {
+
+                                // Changing the status message to show success and submitting the download request
+                                autoHidMsg.innerHTML = "Done converting."
+                                submitData(selectedFormat, autoHidMsg)
+                            }
+                            else {
+                                // Changing the status message to show error
+                                autoHidMsg.innerHTML = errorMsg
+                                sec = 2000
+
+                                // Reloading the page
+                                pageReload(true, sec)
+                            }
+                        },
+                        error: () => {
+                            // Reloading the page
+                            pageReload(true, 10)
+                        }
+                    })
+                }
+                else {
+                    submitData("docx", autoHidMsg)
+                }
+            }
+            else {
+                // Changing the status message to show error
+                autoHidMsg.innerHTML = "Invalid file format, reloading in few seconds.."
+
+                // Reloading the page
+                pageReload(true, 2000)
+            }
+        }
+
         // Preventing the page from reload
         event.preventDefault()
 
@@ -238,36 +410,31 @@ if (templateArticle != null) {
 
             // Showing current status as message
             autoHidMsg.innerHTML = "Rendering template with provided data..."
-    
+
             $.ajax({
                 type: "POST",
                 url: "/builder/choose-templates",
                 data: {
-                    selectedtemplate: templateChoosen.classList[0],
-                    dataholder: "convert",
+                    tasktodo: JSON.stringify({
+                        name: "render",
+                        selectedtemplate: templateChoosen.classList[0]
+                    }),
                     csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                 },
                 success: (data) => {
-    
+
                     let sec
-                    if (data.message[0] == "Success") {
-    
+                    if (data.message == "Success") {
+
                         // Changing the status message to show success
                         autoHidMsg.innerHTML = "Process complete."
                         sec = 400
-    
-                        // Creating a new Input element to hold pdf path
-                        let pathHolder = document.createElement("input")
-                        downloadForm.children[1].before(pathHolder)
-    
-                        // Assigning the attributes and thier values
-                        pathHolder.classList.add("data-holder")
-                        pathHolder.value = data.message[1]
-                        Object.assign(pathHolder, { name: "dataholder", type: "text", hidden: true })
-    
-                        // Sending the converted pdf file path as new parameter
-                        downloadForm.submit()
-                        pathHolder.remove()
+
+                        // Getting the image src from the selected template
+                        let imgSrc = templateChoosen.querySelector("img").getAttribute("src")
+
+                        // Showing the Format-Selection Dialog
+                        popFormatSelection(imgSrc)
                     }
                     else {
                         // Changing the status message to show error
@@ -278,7 +445,7 @@ if (templateArticle != null) {
                         pageReload(true, sec)
                     }
                     setTimeout(() => {
-    
+
                         // Enabling the Submit button again
                         button.disabled = false
                         autoHidMsg.remove()
@@ -294,7 +461,7 @@ if (templateArticle != null) {
             autoHidMsg.innerHTML = errorMsg
             // Reloading the page
             pageReload(true, 3000)
-        }       
+        }
     }
     // -------------------------------------------- //
 
