@@ -147,6 +147,16 @@ def builder(request):
     return response
 
 
+# View to render the custom Error-Page with a nice status code
+def showError(userRequest, statuscode):
+
+    # Rendering the Error-Page as a response and also updating the status code of it
+    response = render(userRequest, ERROR_TEMPLATE, {"statuscode": statuscode})
+    response.status_code = statuscode
+
+    return response
+
+
 # View to render the PersonalDetails-Page
 def personalDetails(request):
 
@@ -231,11 +241,8 @@ def personalDetails(request):
     elif (valid_key and valid_key[0] and valid_key[0]["devicewidth"] < 678):
         statusCode = 400
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE, {"statuscode": statusCode})
-    response.status_code = statusCode
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, statusCode)
 
 
 # Views to render the YearOfExperience-Page
@@ -309,11 +316,8 @@ def yearsofexperience(request):
 
         return render(request, "yearsofexperience.html", tempDICT)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # View to render the HigherEducation Page
@@ -443,11 +447,8 @@ def higherEducation(request):
 
         return render(request, "higherEducation.html", tempDICT)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # View to render the Certifications Page
@@ -509,11 +510,8 @@ def certifications(request):
 
         return render(request, "certifications.html", tempDICT)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # View to render the AdditionalSkills Page
@@ -567,11 +565,8 @@ def additionalSkills(request):
 
         return render(request, "additionalSkills.html", tempDICT)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # View to render the CareerObjective Page
@@ -621,11 +616,8 @@ def careerObjective(request):
 
         return render(request, "careerObjective.html", tempDICT)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # View to render the Templates Page
@@ -691,13 +683,8 @@ def chooseTemplates(request):
                         path_to_resume = f"{request.session['active_form']['pathtodocx']}.{format}"
 
                     else:
-                        statusCode = 403
-
-                        # Rendering the Error-Page as a response and also updating the status code of it
-                        response = render(request, ERROR_TEMPLATE,
-                                          {"statuscode": statusCode})
-                        response.status_code = statusCode
-                        return response
+                        # Showing Error-Page as a response
+                        return showError(request, 403)
 
                     # Opening and reading data from the newly generated resume
                     file = open(path_to_resume, "rb")
@@ -709,13 +696,8 @@ def chooseTemplates(request):
 
             except MultiValueDictKeyError:
 
-                statusCode = 403
-
-                # Rendering the Error-Page as a response and also updating the status code of it
-                response = render(request, ERROR_TEMPLATE,
-                                  {"statuscode": statusCode})
-                response.status_code = statusCode
-                return response
+                # Showing Error-Page as a response
+                return showError(request, 403)
 
         # Updating the specific key's value in session object as current path
         request.session["active_form"]["fromPATH"] = request.path
@@ -759,11 +741,8 @@ def chooseTemplates(request):
 
         statusCode = 500
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE, {"statuscode": statusCode})
-    response.status_code = statusCode
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, statusCode)
 
 
 # View to validate and create new user using the credentials passed through request
@@ -885,11 +864,8 @@ def createUser(request):
 
         return redirect(previousURL)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE, {"statuscode": 403})
-    response.status_code = 403
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 403)
 
 
 # View to authenticate the user credentials passed through request
@@ -932,11 +908,8 @@ def authenticateUser(request):
         else:
             return redirect(previousURL)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE, {"statuscode": 403})
-    response.status_code = 403
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 403)
 
 
 # View to logout the logged-in user
@@ -956,11 +929,8 @@ def logoutUser(request):
 
         return redirect(previousURL)
 
-    # Rendering the Error-Page as a response and also updating the status code of it
-    response = render(request, ERROR_TEMPLATE)
-    response.status_code = 404
-
-    return response
+    # Showing Error-Page as a response
+    return showError(request, 404)
 
 
 # Function for converting the collected data into a python dict, so it can be passed to HTML template
