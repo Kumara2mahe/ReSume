@@ -561,6 +561,33 @@ header {
     border-radius: 100px;
 }
 
+.navigation-menu .navigation-menu-container .user-profile span {
+    position: absolute;
+    left: -35px;
+    font-size: 1rem;
+    font-style: italic;
+    display: inline-block;
+    color: transparent;
+}
+
+.navigation-menu .navigation-menu-container .user-profile:hover span {
+    color: var(--aliceblue);
+}
+
+.navigation-menu .navigation-menu-container .user-profile:hover span:hover {
+    color: var(--orangeweb);
+    cursor: pointer;
+}
+
+.navigation-menu .navigation-menu-container .user-profile:hover span:active {
+    color: var(--darkpurple);
+}
+
+.navigation-menu .navigation-menu-container .user-profile:hover span.disabled {
+    color: var(--darkbluegray);
+    cursor: not-allowed;
+}
+
 /* ------------- Hamburger - Navigation Menu (Page) Links | Styles
 ----------------------------------------------------------------------------- */
 

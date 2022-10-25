@@ -1,5 +1,8 @@
 from django.urls import path
 from resumeBuilder import views
+from ReSume.settings.base import DEBUG
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -23,4 +26,9 @@ urlpatterns = [
     path("create-account", views.createUser, name="create-account"),
     path("authenticate-user", views.authenticateUser, name="authenticate-user"),
     path("logout-user", views.logoutUser, name="logout-user"),
+    path("update-profile", views.profilePictureUpdater, name="update-profile"),
 ]
+
+if DEBUG:
+    urlpatterns += static(prefix=settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

@@ -20,8 +20,14 @@ from pathlib import Path
 from json import load, loads
 from calendar import month_name
 
-# Importing some constant variables from custom modules in this app
+# Importing some class and constant variables from custom modules in this app
 from ReSume.settings.base import SESSION_COOKIE_SECURE, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER
+from resumeBuilder.models import UserProfile
+
+# Importing some modules to update User-profile picture
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 # Importing some third party libraries to work with '.docx' & '.pdf' files
 from docxtpl import DocxTemplate
@@ -637,7 +643,6 @@ def chooseTemplates(request):
         if (request.method == "POST"):
 
             try:
-
                 # Getting the task passed through arguments as a JSON
                 taskToDo = loads(request.POST["tasktodo"])
 
@@ -843,6 +848,9 @@ def createUser(request):
                                                                     password=password)
                                     user.save()
 
+                                    # Creating new profile object for the new user
+                                    UserProfile.objects.create(user=user)
+
                                     successMessage = (
                                         "Success", "Thanks for signing up. Welcome to our community")
                                     return JsonResponse({"message": list(successMessage)})
@@ -933,8 +941,79 @@ def logoutUser(request):
     return showError(request, 404)
 
 
+# View to update the User's profile picture
+def profilePictureUpdater(request):
+
+    # Getting the value of a particular key from the session object
+    valid_key = [request.session[key]
+                 for key in request.session.keys() if (key == "active_form")]
+
+    statusCode = 404
+    if (valid_key):
+
+        if (request.method == "POST"):
+
+            # Allowed Image Formats
+            IMGFORMATS = ["jpg", "jpeg", "png"]
+
+            # Getting the user uploaded image and looking for the extension
+            uploadedImage = request.FILES["newprofile"]
+            imageExtension = uploadedImage.name.lower().split(".")[1]
+
+            if (imageExtension not in IMGFORMATS):
+
+                errorMessage = (
+                    "Error", "Warning!! InValid format for a image file.")
+                return JsonResponse({"message": list(errorMessage)})
+
+            elif (request.user.is_authenticated):
+
+                # Renaming the user uploaded image file
+                now = datetime.now()
+                uploadedImage.name = f"{request.user}-{now.year}_{now.month}_{now.day}_{now.strftime('%H%M%S')}.png"
+
+                # Querying the user's profile object
+                if (userData := UserProfile.objects.get(user=request.user)):
+
+                    # Assigning the latest resampling filter if available, else assigning the old filter
+                    resampling_filter = Image.Resampling.LANCZOS if (
+                        Image.Resampling.LANCZOS) else Image.LANCZOS
+
+                    # Resizing the user uploaded image to a perfect square
+                    profilePic = Image.open(uploadedImage).convert("RGBA")
+                    profilePic = profilePic.resize((200, 200),
+                                                   resampling_filter)
+
+                    # Updating the old user profile with the new profile
+                    buffer = BytesIO()
+                    profilePic.save(buffer, format="png")
+                    userData.profile.save(uploadedImage.name,
+                                          ContentFile(buffer.getvalue()))
+
+                    successMessage = ("Success", userData.profile.url)
+                    return JsonResponse({"message": list(successMessage)})
+
+            errorMessage = ("Error", "Request Forbidden : 403")
+            return JsonResponse({"message": list(errorMessage)})
+
+        else:
+            statusCode = 403
+
+    # Showing Error-Page as a response
+    return showError(request, statusCode)
+
+
 # Function for converting the collected data into a python dict, so it can be passed to HTML template
 def dataCollector(userRequest):
+
+    # Getting the logged-in user's profile path, if has one
+    user_profile = False
+    if (userRequest.user.is_authenticated):
+
+        # Filtering the User-Profiles by using the logged-in username
+        userdata = UserProfile.objects.get(user=userRequest.user)
+        if (userdata and userdata.profile):
+            user_profile = userdata.profile.url
 
     # Getting the current path
     cPath = userRequest.path
@@ -965,6 +1044,7 @@ def dataCollector(userRequest):
 
         # Creating a python dictionary from the collected data so it can be passed to HTML template
         dataDICT = {
+            "user_profile": user_profile,
             "display_footer": display_footer,
             "running_year": running_year
         }
@@ -977,6 +1057,7 @@ def dataCollector(userRequest):
 
         # Creating a python dictionary from the collected data so it can be passed to HTML template
         dataDICT = {
+            "user_profile": user_profile,
             "display_footer": display_footer,
             "activeLink": userRequest.session["active_form"]["link"],
             "countries": COUNTRIES_LIST,

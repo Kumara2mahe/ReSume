@@ -55,9 +55,13 @@ You can now run the development server:
 
 - Custom HTML templates for showing error message and also for receiving customer feedback as emails.
 
-- An authenticated user can download not only 'pdf' version of the resume, but also they can download the 'docx' format (Word document) as well.
+- To convert '.docx' to '.pdf' a third party API named [PSPDFKit API](https://pspdfkit.com/api/) is used.
 
-- To convert '.docx' to '.pdf' a third party API named [PSPDFKit API](https://pspdfkit.com/api/) is used
+- Special Features (for Authenticated Users):
+
+    - They can download not only 'pdf' version of the resume, but also they can download the 'docx' format (Word document) as well.
+
+    - As a fancy feature, they can see nice little profile picture once they login and it can also be changed according to their choice.
 
 <br>
 

@@ -380,11 +380,123 @@ const userDropdownMenu = (event, status = null) => {
     }
 }
 
+// ----- Script for prompting a image file upload dialog to authenticated users -------------------------- //
+const imageUploader = (event) => {
+
+    // ----- Script for enabling the change profile button ---- //
+    const enableChangeProfile = (sec = 500) => {
+
+        setTimeout(() => {
+
+            // Enabling the button back
+            button.classList.remove("disabled")
+            button.addEventListener("click", imageUploader)
+            imageChangeForm.remove()
+        }, sec)
+    }
+
+    // ----- Script for sending request to update profile picture ----- //
+    const changeProfile = (formData) => {
+
+        $.ajax({
+            type: "POST",
+            url: "/update-profile",
+            enctype: "multipart/form-data",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+
+                if (data.message[0] == "Success") {
+
+                    // Setting the returned new image as the User's profile
+                    if (button.classList[0] == "change") {
+                        userProfile.children[0].setAttribute("src", data.message[1])
+                    }
+                    else {
+                        userProfileChange.nextElementSibling.setAttribute("src", data.message[1])
+                    }
+                }
+                else {
+                    alert(data.message[1])
+                }
+                enableChangeProfile(1600)
+            },
+            error: () => {
+                window.location.reload()
+            }
+        })
+    }
+
+    // Getting the element of the clicked button
+    let button = event.target
+
+    // Disabling the button by removing the function assigned to it
+    button.classList.add("disabled")
+    button.removeEventListener("click", imageUploader)
+
+    // Creating a new form with input element to prompt file upload dialog and also hold the user uploaded image
+    let image, imageChangeForm = document.createElement("form")
+    imageChangeForm.innerHTML = `<input name='csrfmiddlewaretoken' value='${csrfToken}'>
+                                <input name='newprofile' type='file' accept='image/jpeg, image/png'>
+                                <input type='submit'>`
+
+    let imageInput = imageChangeForm.querySelector("input[type='file']")
+    imageInput.click()
+
+    // Monitoring the file dialog for a new image file
+    window.onfocus = () => {
+
+        setTimeout(() => {
+            if (image = imageInput.value) {
+
+                // Spliting the extension from the uploaded file 
+                const supportedFormats = ["jpg", "jpeg", "png"]
+                let extension = image.toLowerCase().split(".")[1]
+
+                if (supportedFormats.includes(extension)) {
+
+                    // Sending a request to update profile picture with the uploaded image
+                    changeProfile(new FormData(imageChangeForm))
+                }
+                else {
+                    alert("InValid file format!, try upload a valid image file.")
+                    enableChangeProfile()
+                }
+            }
+            else {
+                enableChangeProfile()
+            }
+
+        }, 250)
+        window.onfocus = null
+    }
+}
+// -------------------------------------------------------------- //
+
 // Getting the logged-in user's profile from the Menubar
 const userProfile = document.querySelector(".menubar.nav-links .user-profile")
 //
 if (userProfile != null) {
     userProfile.addEventListener("mouseenter", userDropdownMenu)
+
+    // Adding a script to send a request to change the current user profile by uploading a new one
+    userProfile.nextElementSibling.children[0].addEventListener("click", imageUploader)
+}
+
+// Getting the logged-in user's profile change element from the Navbar
+const userProfileChange = document.querySelector(".navigation-menu .navigation-menu-container .user-profile span")
+//
+if (userProfileChange != null) {
+    // Adding a script to send a request to change the current user profile by uploading a new one
+    userProfileChange.addEventListener("click", imageUploader)
+}
+
+// Getting and storing the value of CSRF token and deleting the input
+let csrfToken = document.querySelector("header~input[name='csrfmiddlewaretoken']")
+if (csrfToken != null) {
+    csrfToken.remove()
+    csrfToken = csrfToken.value
 }
 // ------------------------------------------------------------------------------------------------------------ //
 

@@ -120,6 +120,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "Static",
 ]
 
+MEDIA_URL = "Media/"
+MEDIA_ROOT = BASE_DIR / "Media"
+
+
 # Email Configuration (for Contact form)
 
 DEFAULT_FROM_EMAIL = toStr("DEFAULT_FROM_EMAIL")

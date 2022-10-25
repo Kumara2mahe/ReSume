@@ -71,10 +71,21 @@
 
                 {% if user.is_authenticated %}
                 <h3 class="user-profile">
+
+                    {% if user_profile and display_footer %}
+                    <img src="{{ user_profile }}" alt="user picked profile picture">&nbsp;<span>^</span>
+
+                    {% elif user_profile and display_footer is False %}
+                    <img src="{{ user_profile }}" alt="user picked profile picture">&nbsp;<span>^</span>
+
+                    {% else %}
                     <img src="{% static 'Assets/Images/profile.png' %}"
-                        alt="showing image of a default profile picture for larger screens representing a person">&nbsp;<span>^</span>
+                        alt="placeholder image for default profile picture">&nbsp;<span>^</span>
+                    {% endif %}
+
                 </h3>
                 <div class="profile-options hide">
+                    <a class="change">change profile</a>
                     <a href="{% url 'logout-user' %}">logout</a>
                 </div>
 
@@ -188,6 +199,10 @@
         </div>
     </section>
 
+    {% else %}
+
+    {% csrf_token %}
+
     {% endif %}
 
     <!-- Navigation Menu -->
@@ -197,11 +212,20 @@
             <!-- Close button & Profile -->
             <div class="top-container">
                 <a class="close-menu">&#88;</a>
-
                 {% if user.is_authenticated %}
                 <a class="user-profile">
-                    <img src="{% static 'Assets/Images/profile.png' %}"
-                        alt="showing image of a default profile picture for smaller screens representing a person">
+
+                    {% if user_profile and display_footer %}
+                    <span>change</span>&nbsp;<img src="{{ user_profile }}" alt="user picked profile picture">
+
+                    {% elif user_profile and display_footer is False %}
+                    <span>change</span>&nbsp;<img src="{{ user_profile }}" alt="user picked profile picture">
+
+                    {% else %}
+                    <span>change</span>&nbsp;<img src="{% static 'Assets/Images/profile.png' %}"
+                        alt="placeholder image for default profile picture">
+                    {% endif %}
+
                 </a>
                 {% endif %}
             </div>
