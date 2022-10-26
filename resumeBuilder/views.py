@@ -21,13 +21,8 @@ from json import load, loads
 from calendar import month_name
 
 # Importing some class and constant variables from custom modules in this app
-from ReSume.settings.base import SESSION_COOKIE_SECURE, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER
+from ReSume.settings.base import SESSION_COOKIE_SECURE, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER, DEBUG
 from resumeBuilder.models import UserProfile
-
-# Importing some modules to update User-profile picture
-from PIL import Image
-from io import BytesIO
-from django.core.files.base import ContentFile
 
 # Importing some third party libraries to work with '.docx' & '.pdf' files
 from docxtpl import DocxTemplate
@@ -975,20 +970,12 @@ def profilePictureUpdater(request):
                 # Querying the user's profile object
                 if (userData := UserProfile.objects.get(user=request.user)):
 
-                    # Assigning the latest resampling filter if available, else assigning the old filter
-                    resampling_filter = Image.Resampling.LANCZOS if (
-                        Image.Resampling.LANCZOS) else Image.LANCZOS
-
-                    # Resizing the user uploaded image to a perfect square
-                    profilePic = Image.open(uploadedImage).convert("RGBA")
-                    profilePic = profilePic.resize((200, 200),
-                                                   resampling_filter)
+                    # Removing the old image file if has one
+                    if (userData.profile != ""):
+                        userData.trashprofile(DEBUG)
 
                     # Updating the old user profile with the new profile
-                    buffer = BytesIO()
-                    profilePic.save(buffer, format="png")
-                    userData.profile.save(uploadedImage.name,
-                                          ContentFile(buffer.getvalue()))
+                    userData.uploadprofile(uploadedImage)
 
                     successMessage = ("Success", userData.profile.url)
                     return JsonResponse({"message": list(successMessage)})

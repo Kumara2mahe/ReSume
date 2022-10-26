@@ -377,6 +377,13 @@ header {
     cursor: not-allowed;
 }
 
+/* MenuBar (Profile-Upload) Progress bar | Styles */
+header nav .menubar-status {
+    height: auto;
+    grid-column: 1/3;
+    z-index: 10;
+}
+
 /* MenuBar (Hamburger) Menu link | Styles */
 
 .menubar.nav-links .ham-menu {

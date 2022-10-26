@@ -398,34 +398,60 @@ const imageUploader = (event) => {
     // ----- Script for sending request to update profile picture ----- //
     const changeProfile = (formData) => {
 
-        $.ajax({
-            type: "POST",
-            url: "/update-profile",
-            enctype: "multipart/form-data",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: (data) => {
+        // Creating a progress bar to show the status of image upload process through animation
+        let statusbar = document.createElement("div")
+        statusbar.classList.add("menubar-status")
+        statusbar.innerHTML = `<div class="progress" style="height: 0.2em; background-color: var(--mountbattenpink);">
+                                    <div class="progress-bar"
+                                        style="background: linear-gradient(to right, rgba(255, 22, 100), var(--orangeweb) 30%);width: 0%;height: 100%;transition: 1000ms">
+                                    </div>
+                                </div>`
+        document.querySelector("header nav").append(statusbar)
+        //
+        let msec = 1000
+        let status = statusbar.querySelector(".progress-bar")
 
-                if (data.message[0] == "Success") {
+        setTimeout(() => {
 
-                    // Setting the returned new image as the User's profile
-                    if (button.classList[0] == "change") {
-                        userProfile.children[0].setAttribute("src", data.message[1])
+            // Sending update request throught AJAX 
+            $.ajax({
+                type: "POST",
+                url: "/update-profile",
+                enctype: "multipart/form-data",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: () => {
+                    status.style.width = "40%"
+                },
+                success: (data) => {
+
+                    if (data.message[0] == "Success") {
+
+                        // Setting the returned new image as the User's profile
+                        if (button.classList[0] == "change") {
+                            userProfile.children[0].setAttribute("src", data.message[1])
+                        }
+                        else {
+                            userProfileChange.nextElementSibling.setAttribute("src", data.message[1])
+                        }
+                        // Completing the progress of status bar
+                        status.style.width = "100%"
                     }
                     else {
-                        userProfileChange.nextElementSibling.setAttribute("src", data.message[1])
+                        alert(data.message[1])
                     }
+                    enableChangeProfile(msec * 2)
+                    setTimeout(() => {
+                        statusbar.remove()
+                    }, msec)
+
+                },
+                error: () => {
+                    window.location.reload()
                 }
-                else {
-                    alert(data.message[1])
-                }
-                enableChangeProfile(1600)
-            },
-            error: () => {
-                window.location.reload()
-            }
-        })
+            })
+        }, msec * 0.75)
     }
 
     // Getting the element of the clicked button
