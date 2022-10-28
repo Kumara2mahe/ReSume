@@ -183,7 +183,7 @@ const popSignUp = (event, emailID = null, pathToGo = null) => {
                     else {
 
                         // Showing the error message
-                        autoHidMsg.innerHTML = `${data.message[0]}`
+                        autoHidMsg.innerHTML = `${data.message}`
                         autoHidMsg.style.color = "rgb(247, 90, 90)"
                         if (autoHidMsg.classList[1] != "show") {
                             autoHidMsg.classList.add("show")

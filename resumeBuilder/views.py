@@ -24,10 +24,13 @@ from calendar import month_name
 from ReSume.settings.base import SESSION_COOKIE_SECURE, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER, DEBUG
 from resumeBuilder.models import UserProfile
 
-# Importing some third party libraries to work with '.docx' & '.pdf' files
+# Importing a third party library to create a '.docx' from templates
 from docxtpl import DocxTemplate
+
+# Importing some custom built modules to work with '.pdf' files and also validate user password
 from pModules.datDump import userDatCleaner
 from pModules.convert2pdf import docxToPdf
+from pModules.validPassword import pwdvalidate
 
 
 # Main view to render the Home-Page
@@ -752,123 +755,39 @@ def createUser(request):
     valid_key = [request.session[key]
                  for key in request.session.keys() if (key == "active_form")]
 
-    if (valid_key):
+    if (valid_key and request.method == "POST"):
 
-        # Getting the previous URL stored on the Cookies or Session object according to the condition
-        previousURL = valid_key[0]["fromPATH"] if (
-            valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
+        username = request.POST["username"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        password2 = request.POST["password2"]
 
-        if (request.method == "POST"):
+        if (username == "" or email == "" or password == "" or password2 == ""):
+            return JsonResponse({"message": "Fields can't be empty"})
 
-            username = request.POST["username"]
-            email = request.POST["email"]
-            password = request.POST["password"]
-            password2 = request.POST["password2"]
+        else:
+            if (User.objects.filter(username=username).exists()):
+                return JsonResponse({"message": "UserName already exists"})
 
-            if (username == "" or email == "" or password == "" or password2 == ""):
+            elif (User.objects.filter(email=email).exists()):
+                return JsonResponse({"message": "Email Id already exists"})
 
-                emptyMessage = ("Fields can't be empty", 0)
-                return JsonResponse({"message": list(emptyMessage)})
+            elif (invalidpwd := pwdvalidate(password=password, minlength=8, password2=password2)):
+                return JsonResponse({"message": invalidpwd})
 
-            else:
-                if (User.objects.filter(username=username).exists()):
+            # Creating a new user with the credentials
+            user = User.objects.create_user(username=username,
+                                            email=email,
+                                            password=password)
+            user.save()
 
-                    userExists = ("UserName already exists", 0)
-                    return JsonResponse({"message": list(userExists)})
+            # Creating new profile object for the new user
+            UserProfile.objects.create(user=user)
 
-                elif (User.objects.filter(email=email).exists()):
-
-                    emailExists = ("Email Id already exists", 0)
-                    return JsonResponse({"message": list(emailExists)})
-
-                else:
-                    symbols = ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*",
-                               "(", ")", "_", "-", "+" "=", "{", "[", "}", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">", ".", "?", "/"]
-
-                    if (password.isdigit()):
-
-                        passwordError = (
-                            "Password shouldn't have only numbers", 0)
-                        return JsonResponse({"message": list(passwordError)})
-
-                    elif (password.isalpha()):
-
-                        passwordError = (
-                            "Password shouldn't have only alphabets", 0)
-                        return JsonResponse({"message": list(passwordError)})
-
-                    elif (password.isspace()):
-
-                        passwordError = ("Password shouldn't have spaces", 0)
-                        return JsonResponse({"message": list(passwordError)})
-
-                    uppercase = False
-                    for char in password:
-                        if (char.isupper()):
-                            uppercase = True
-                            break
-                        else:
-                            uppercase = False
-
-                    if (uppercase):
-
-                        hasSymbol = False
-                        for symbol in symbols:
-                            if (hasSymbol):
-                                break
-
-                            else:
-                                for char in password:
-
-                                    if (char == symbol):
-                                        hasSymbol = True
-                                        break
-                                    else:
-                                        hasSymbol = False
-
-                        if (hasSymbol):
-
-                            if (len(password) < 8):
-
-                                passwordError = (
-                                    "Password must contain minimum 8 characters", 0)
-                                return JsonResponse({"message": list(passwordError)})
-
-                            else:
-                                if password == password2:
-
-                                    # Creating a new user with the credentials
-                                    user = User.objects.create_user(username=username,
-                                                                    email=email,
-                                                                    password=password)
-                                    user.save()
-
-                                    # Creating new profile object for the new user
-                                    UserProfile.objects.create(user=user)
-
-                                    successMessage = (
-                                        "Success", "Thanks for signing up. Welcome to our community")
-                                    return JsonResponse({"message": list(successMessage)})
-
-                                else:
-                                    passwordError = (
-                                        "Passwords doesn't match", 0)
-                                    return JsonResponse({"message": list(passwordError)})
-
-                        else:
-                            passwordError = (
-                                "Password must atleast have one symbol", 0)
-                            return JsonResponse({"message": list(passwordError)})
-
-                    else:
-                        passwordError = (
-                            "Password must atleast contain one uppercase letter", 0)
-                        return JsonResponse({"message": list(passwordError)})
-
-        return redirect(previousURL)
+            return JsonResponse({"message": ["Success", "Thanks for signing up. Welcome to our community"]})
 
     # Showing Error-Page as a response
-    return showError(request, 403)
+    return showError(request, 404)
 
 
 # View to authenticate the user credentials passed through request
@@ -878,11 +797,12 @@ def authenticateUser(request):
     valid_key = [request.session[key]
                  for key in request.session.keys() if (key == "active_form")]
 
+    statusCode = 403
     if (valid_key):
 
         # Getting the previous URL stored on the Cookies or Session object according to the condition
         previousURL = valid_key[0]["fromPATH"] if (
-            valid_key[0] and valid_key[0]["fromPATH"] != "/builder") else request.COOKIES["previousurlpath"]
+            valid_key[0] and valid_key[0]["fromPATH"].startswith("/builder")) else request.COOKIES["previousurlpath"]
 
         if (request.method == "POST"):
 
@@ -908,11 +828,10 @@ def authenticateUser(request):
             invalidMessage = ("Credentials Invalid, please check", 0)
             return JsonResponse({"message": list(invalidMessage)})
 
-        else:
-            return redirect(previousURL)
+        statusCode = 404
 
     # Showing Error-Page as a response
-    return showError(request, 403)
+    return showError(request, statusCode)
 
 
 # View to logout the logged-in user
