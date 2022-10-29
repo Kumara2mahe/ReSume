@@ -63,6 +63,8 @@ You can now run the development server:
 
     - As a fancy feature, they can see nice little profile picture once they login and it can also be changed according to their choice.
 
+    - Resume template which has profile picture is replaced with the user's own profile picture when they download their own.
+
 <br>
 
 ### License

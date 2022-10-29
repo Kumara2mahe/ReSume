@@ -26,6 +26,7 @@ from resumeBuilder.models import UserProfile
 
 # Importing a third party library to create a '.docx' from templates
 from docxtpl import DocxTemplate
+from requests import request as readImage
 
 # Importing some custom built modules to work with '.pdf' files and also validate user password
 from pModules.datDump import userDatCleaner
@@ -634,9 +635,9 @@ def chooseTemplates(request):
     statusCode = 404
     if (valid_key and valid_key[0]):
 
-        # Assigning the variables to hold the path to all Templates & its previews
-        RESUME_TEMPLATES_DIR = "Static/Assets/Template"
-        TEMPLATES_PREVIEW = "Static/Assets/Images"
+        # Assigning the variables to hold the path to all resume Templates & its previews
+        RESUME_TEMPLATES_DIR = ASSETS_DIR / "../DocxTemplates"
+        TEMPLATES_PREVIEW = ASSETS_DIR / "Images"
 
         if (request.method == "POST"):
 
@@ -650,8 +651,7 @@ def chooseTemplates(request):
                     selected_template = taskToDo["selectedtemplate"]
 
                     # Joining the selected template name to a valid path
-                    template_path = Path(RESUME_TEMPLATES_DIR).joinpath(
-                        selected_template + ".docx")
+                    template_path = RESUME_TEMPLATES_DIR / f"{selected_template}.docx"
 
                     if (template_path.exists()):
 
@@ -710,14 +710,13 @@ def chooseTemplates(request):
         if (not request.session["chooseTemplates"]):
 
             all_templates = []
-            for doc in Path(RESUME_TEMPLATES_DIR).glob("*.docx"):
+            for doc in RESUME_TEMPLATES_DIR.glob("*.docx"):
 
                 # Removing the extension from template's name
                 image_name = doc.name.replace(".docx", "")
 
                 # Joining the template's preview image name to Images path
-                image_path = Path(TEMPLATES_PREVIEW).joinpath(
-                    image_name + ".jpg")
+                image_path = TEMPLATES_PREVIEW / f"{image_name}.jpg"
 
                 if (image_path.exists()):
 
@@ -1040,6 +1039,33 @@ def createResume(userRequest, templatePath):
     for file in USER_FILES.iterdir():
         file.unlink()
 
+    newImage = ASSETS_DIR / "Images/profile.png"
+    if (userRequest.user.is_authenticated):
+
+        # Filtering the User-Profiles by using the logged-in username
+        userdata = UserProfile.objects.get(user=userRequest.user)
+        if (userdata and userdata.profile):
+
+            # Getting the url of user profile and checking the location of file
+            profileurl = userdata.profile.url
+            if (profileurl.startswith("https")):
+
+                # Creating a temporary user profile
+                newImage = USER_FILES / "profile.png"
+                with open(newImage, "wb") as f:
+                    imgdata = readImage("GET", profileurl).content
+                    f.write(imgdata)
+            else:
+                newImage = (profileurl).removeprefix("/")
+
+    # Assigning a variable to hold the name of placeholder image in template
+    PROFILE = "logo.png"
+
+    if (PROFILE in doc.get_xml()):
+        doc.replace_pic(PROFILE, newImage)
+    else:
+        doc.replace_media(ASSETS_DIR / f"Images/{PROFILE}", newImage)
+
     # Creating the path for the rendered template and Saving it
     tempfile = USER_FILES.joinpath("resume.docx")
     doc.save(tempfile)
@@ -1058,8 +1084,11 @@ TODAY = datetime.now()
 # Assigning a variable to hold the path to temporary files directory
 TEMP_DIR = Path(".temp")
 
+# Assigning a variable to hold the path to Assets directory
+ASSETS_DIR = Path("Static/Assets")
+
 # Assigning a variable to hold the list of country names loaded from a JSON file
-COUNTRIES_LIST = load(open("Static/Assets/countries.json"))
+COUNTRIES_LIST = load(open(ASSETS_DIR / "countries.json"))
 
 # Assigning a list to hold the placeholder text for dropdowns
 PLACEHOLDER_TEXT = ["Country",
