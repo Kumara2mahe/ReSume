@@ -74,15 +74,6 @@ WSGI_APPLICATION = "ReSume.wsgi.application"
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Database
-
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),
-        "NAME": os.getenv("DB_NAME"),
-    }
-}
-
 
 # Password validation
 

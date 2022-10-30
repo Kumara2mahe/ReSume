@@ -13,5 +13,14 @@ elif not DEBUG:
         f"!! INFO: DEBUG Mode is set to {DEBUG}, so Django can't serve static files")
 
 
+# Database
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3",
+    }
+}
+
+
 # Email Configuration
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

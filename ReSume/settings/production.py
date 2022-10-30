@@ -1,4 +1,5 @@
 from .base import *
+import dj_database_url
 
 
 if DEBUG:
@@ -13,6 +14,15 @@ CSRF_COOKIE_SECURE = toBool("CSRF_COOKIE_SECURE")
 SECURE_HSTS_SECONDS = toInt("SECURE_HSTS_SECONDS")
 SECURE_SSL_REDIRECT = toBool("SECURE_SSL_REDIRECT")
 SECURE_PROXY_SSL_HEADER = toTuple("SECURE_PROXY_SSL_HEADER")
+
+
+# Database
+DATABASES = {
+    "default": dj_database_url.config(
+        env="DATABASE_URL",
+        conn_max_age=600
+    )
+}
 
 
 # Adding Whitenoise
