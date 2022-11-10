@@ -29,7 +29,7 @@ Install project dependencies using the 'requirements/local' file in the project 
 Rename the '.env.example' to '.env' and change the environment values with your own like below
 
     SECRET_KEY="your-secret-key-here-and-must-be-greater-than-50character"
-    DEBUG="True"
+    DEBUG=True
     ..
     
     
@@ -42,6 +42,23 @@ You can now run the development server:
 
     $ python manage.py runserver
 
+<br>
+
+## Screenshots
+
+<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build.png" alt="preview of resume builder page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Builder Page</span>
+
+<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_personal-details.png" alt="Preview of resume builder's personal details page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Personal-Details Page</span>
+
+<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_choose-templates2+signup.png" alt="Preview of resume builder's choose template page with a window showing download options for not-authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (not-authenticated)</span>
+
+<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_create-account.png" alt="Preview of Create Account Window" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Create Account Window</span>
+
+<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_choose-templates2+logged.png" alt="Preview of resume builder's choose template page with a window showing download options for authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (authenticated)</span>
+
+[...to see more screenshots](https://github.com/Kumara2mahe/Kumara2mahe/tree/main/Screenshots/ReSume)
+
+<br>
 
 ## Features
 
