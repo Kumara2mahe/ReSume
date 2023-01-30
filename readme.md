@@ -46,17 +46,17 @@ You can now run the development server:
 
 ## Screenshots
 
-<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build.png" alt="preview of resume builder page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Builder Page</span>
+<kbd><img src="https://drive.google.com/uc?export=view&id=1sPUSYRAwwUzx2OEdYJbVLC6DtQni3Rnq" alt="preview of resume builder page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Builder Page</span>
 
-<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_personal-details.png" alt="Preview of resume builder's personal details page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Personal-Details Page</span>
+<kbd><img src="https://drive.google.com/uc?export=view&id=1dEjCUkCbbei0I5B_E0L_XmwbmlMhfI6G" alt="Preview of resume builder's personal details page" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Personal-Details Page</span>
 
-<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_choose-templates2+signup.png" alt="Preview of resume builder's choose template page with a window showing download options for not-authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (not-authenticated)</span>
+<kbd><img src="https://drive.google.com/uc?export=view&id=1lZhPm_-xE-K3-zAbCWHsfHBEXrb1Flzt" alt="Preview of resume builder's choose template page with a window showing download options for not-authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (not-authenticated)</span>
 
-<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_create-account.png" alt="Preview of Create Account Window" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Create Account Window</span>
+<kbd><img src="https://drive.google.com/uc?export=view&id=12qOyv2WLCnU8_Df7YxXgrTSIFoOdpkn_" alt="Preview of Create Account Window" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Create Account Window</span>
 
-<kbd><img src="https://raw.githubusercontent.com/Kumara2mahe/Kumara2mahe/main/Screenshots/ReSume/_build_choose-templates2+logged.png" alt="Preview of resume builder's choose template page with a window showing download options for authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (authenticated)</span>
+<kbd><img src="https://drive.google.com/uc?export=view&id=1AQ6o5b848kPA58UZ-zWNbC98_BbsEOkO" alt="Preview of resume builder's choose template page with a window showing download options for authenticated users" width=400 height=225></kbd> <span>&gt;&gt;&gt;&nbsp;Choose-Template Page (authenticated)</span>
 
-[...to see more screenshots](https://github.com/Kumara2mahe/Kumara2mahe/tree/main/Screenshots/ReSume)
+[...to see more screenshots](https://drive.google.com/drive/folders/1z9153KVpxWEdq_jj-2erJcj36pnZuiG0?usp=share_link)
 
 <br>
 
